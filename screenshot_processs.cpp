@@ -1,8 +1,4 @@
-﻿#include <atlimage.h>
-#include <iostream>
-#include <Gdiplus.h>
-#include <fstream>
-#include "libwebp-1.3.0-windows-x64/include/webp/encode.h"
+﻿#include "libwebp-1.3.0-windows-x64/include/webp/encode.h"
 #include "libwebp-1.3.0-windows-x64/include/webp/decode.h"
 #include "screenshot_process.h"
 

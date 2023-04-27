@@ -1,6 +1,10 @@
 #pragma once
 #include <vector>
 #include <stdint.h>
+#include <atlimage.h>
+#include <iostream>
+#include <Gdiplus.h>
+#include <fstream>
 
 using std::vector;
 
