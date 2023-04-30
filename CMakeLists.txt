@@ -14,6 +14,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
+        audio_record.cpp
+        project.pro
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
@@ -59,7 +61,8 @@ target_link_libraries(PC_Remote_Control_Server PRIVATE Qt6::Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Network)
 target_link_libraries(PC_Remote_Control_Server PRIVATE Qt6::Core)
 
-
+find_package(Qt6 REQUIRED COMPONENTS Multimedia)
+target_link_libraries(PC_Remote_Control_Server PRIVATE Qt6::Multimedia)
 
 set_target_properties(PC_Remote_Control_Server PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
