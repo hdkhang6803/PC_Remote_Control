@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <vector>
+#include "exit_button.h"
 using std::vector;
 
 #include <QVBoxLayout>
@@ -46,9 +47,10 @@ private slots:
     void updateServerMsg(const QString &msg);
 
 private:
-    QString featureNames[2] = {
+    QString featureNames[3] = {
         tr("Feature 1"),
-        tr("Feature 2")
+        tr("Feature 2"),
+        tr("Recording")
     };
 
     Client *client = nullptr;
@@ -76,9 +78,12 @@ private:
 
     QWidget *centralWidget = nullptr;
 
+    exit_button* button = nullptr;
+
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
+    void on_pushButton_6_clicked();
 };
 
 #endif // CLIENTWINDOW_H

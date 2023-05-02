@@ -2,6 +2,8 @@
 #include "server.h"
 
 #include <QDebug>
+#include "audiorecorder.h"
+
 
 Server::Server(QObject *parent)
     : QObject{parent}
@@ -49,24 +51,38 @@ void Server::sendMessage(const QString &msg)
 }
 
 
+
 void Server::readMessage() {
     qDebug() << "A message just got to server!";
 
     in.startTransaction();
 
-    QString message;
-    in >> message;
+    QByteArray message_bytes;
+    in >> message_bytes;
+    QString message = QString(message_bytes);
+    qDebug() << message_bytes.data() << " == " << message;
 
     if (!in.commitTransaction())
         return;
 
-//    statusLabel->setText(message);
+//  statusLabel->setText(message);
 
     if (message == tr("list applications")) {
         sendMessage("here are the applications: ");
     }
     else if (message == tr("list processes")) {
         sendMessage("here are the processes: ");
+    }
+    else if (message == tr("recording")){
+        if (recorder == nullptr)
+            recorder = new AudioRecorder;
+        recorder->show();
+
+        recorder->auto_start();
+    }
+    else if (message == tr("stop_recording")){
+        recorder->stop_by_msg();
+        delete recorder;
     }
 
     emit(readyRead(message));

@@ -68,6 +68,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="text">
+         <string>Recording</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
     <widget class="QGroupBox" name="groupBox">
@@ -167,7 +174,7 @@
      <x>0</x>
      <y>0</y>
      <width>893</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

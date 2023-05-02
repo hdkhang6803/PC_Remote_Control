@@ -22,12 +22,13 @@ void Client::connectToServer(const QString &serverIp, int port) {
 }
 
 void Client::sendMessage(const QString &cmdNumber) {
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_6_5);
+//    QByteArray block;
+//    QDataStream out(&block, QIODevice::WriteOnly);
+//    out.setVersion(QDataStream::Qt_6_5);
 
-    out << cmdNumber;
-
+//    out << cmdNumber;
+    QByteArray block = cmdNumber.toUtf8();
+    qDebug() << cmdNumber << " == " <<block.data();
     tcpSocket->write(block);
 }
 

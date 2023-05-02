@@ -1,7 +1,11 @@
 #include "clientWindow.h"
 #include "ui_clientWindow.h"
 
+#include "exit_button.h"
+
 #include <QDebug>
+#include <QApplication>
+#include "exit_button.h"
 
 ClientWindow::ClientWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -11,8 +15,10 @@ ClientWindow::ClientWindow(QWidget *parent) :
 
     client = new Client;
     connectDialog = new ConnectDialog;
+    button = new exit_button;
 
     connect(connectDialog, &ConnectDialog::connectToServer, this, &ClientWindow::receivedServerInfo);
+    connect(connectDialog, &ConnectDialog::connectToServer, button, &exit_button::connectServer);
     connect(connectDialog, &ConnectDialog::exit, this, &ClientWindow::close);
     connect(client, &Client::readyRead, this, &ClientWindow::updateServerMsg);
 
@@ -47,7 +53,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     featureLayout = new QVBoxLayout;
     featureButtons = new vector<QPushButton*>;
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         QPushButton *button = new QPushButton(featureNames[i]);
 //        button->setFixedSize(featureButtonSize);
         //connect(button, SIGNAL(clicked()), this, featureFuncs[i]);
@@ -56,6 +62,9 @@ ClientWindow::ClientWindow(QWidget *parent) :
         }
         else if (i == 1) {
             connect(button, SIGNAL(clicked()), this, SLOT(on_pushButton_2_clicked()));
+        }
+        else if (i==2){
+            connect(button, SIGNAL(clicked()), this, SLOT(on_pushButton_6_clicked()));
         }
         featureButtons->push_back(button);
         featureLayout->addWidget(button);
@@ -114,4 +123,11 @@ void ClientWindow::on_pushButton_2_clicked()
 {
     qDebug() << "message sent";
     client->sendMessage(tr("list processes"));
+}
+
+void ClientWindow::on_pushButton_6_clicked()
+{
+    qDebug() << "message sent";
+    client->sendMessage(tr("recording"));
+    button->show();
 }

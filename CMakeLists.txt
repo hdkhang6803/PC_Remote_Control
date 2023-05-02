@@ -17,6 +17,9 @@ set(PROJECT_SOURCES
         mainWindow.cpp
         mainWindow.h
         mainWindow.ui
+        audiorecorder.cpp   audiorecorder.h
+        audiorecorder.ui
+        exit_button.cpp exit_button.h exit_button.ui
         server.h server.cpp
         client.h client.cpp
         clientWindow.h clientWindow.cpp clientWindow.ui
@@ -57,6 +60,11 @@ target_link_libraries(PC_Remote_Control PRIVATE Qt6::Widgets)
 
 find_package(Qt6 REQUIRED COMPONENTS Network)
 target_link_libraries(PC_Remote_Control PRIVATE Qt6::Core)
+
+find_package(Qt6 REQUIRED COMPONENTS Multimedia)
+target_link_libraries(PC_Remote_Control PRIVATE Qt6::Multimedia)
+
+find_package(Qt6 COMPONENTS Core QUIET)
 
 
 set_target_properties(PC_Remote_Control PROPERTIES

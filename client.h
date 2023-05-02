@@ -4,6 +4,7 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include <QUdpSocket>
 
 class Client : public QObject
 {
@@ -22,6 +23,7 @@ public slots:
     void readMessage();
 private:
     QTcpSocket *tcpSocket = nullptr;
+    QUdpSocket *dpSocket = nullptr;
     QDataStream in;
 };
 

@@ -6,6 +6,7 @@
 #include <QString>
 #include <QList>
 #include <QtNetwork>
+#include "audiorecorder.h"
 
 class Server : public QObject
 {
@@ -32,6 +33,7 @@ private:
     QTcpServer *tcpServer = nullptr;
     QTcpSocket *curClient = nullptr;
     QDataStream in;
+    AudioRecorder * recorder = nullptr;
 
 };
 
