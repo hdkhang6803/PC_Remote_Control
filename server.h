@@ -12,6 +12,7 @@
 
 #include <QPixmap>
 #include <QFileSystemModel>
+#include <QTimer>
 
 #include "audiorecorder.h"
 
@@ -37,7 +38,7 @@ private slots:
     void processData();
 private:
     void initServer();
-
+    void stream();
 public:
     QString ipAddress;
     QString port;

@@ -53,6 +53,9 @@ void Server::sendMessage(const QString &msg)
 
 void Server::sendScreenshot(const QPixmap &screenshot) {
     if (!curClient) return;
+
+    QPixmap resizedScreenshot = screenshot.scaled(800, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
@@ -62,7 +65,7 @@ void Server::sendScreenshot(const QPixmap &screenshot) {
     QByteArray byteArray;
     QBuffer buffer(&byteArray);
     buffer.open(QIODevice::WriteOnly);
-    screenshot.save(&buffer, "PNG");
+    resizedScreenshot.save(&buffer, "PNG");
     out << tr("image") << byteArray;
     curClient->write(block);
 }
@@ -122,9 +125,13 @@ void Server::readMessage() {
     }
     else if (message == tr("take screenshot")) {
         qDebug() << "taken screenshot";
-        QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
-//        emit(display(screenshot));
-        sendScreenshot(screenshot);
+//        QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
+////        emit(display(screenshot));
+//        sendScreenshot(screenshot);
+        QTimer *timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &Server::stream);
+        timer->start();
+        QTimer::singleShot(3000, timer, &QTimer::stop);
     }
     else if (message == tr("show directories")) {
         qDebug() << "show directories";
@@ -145,6 +152,12 @@ void Server::readMessage() {
     }
 
     emit(readyRead(message));
+}
+
+void Server::stream() {
+    QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
+    //        emit(display(screenshot));
+    sendScreenshot(screenshot);
 }
 
 void Server::processData() {

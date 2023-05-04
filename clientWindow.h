@@ -80,7 +80,7 @@ private:
 
     QVBoxLayout *rightPanelLayout = nullptr;
     QLineEdit *serverMsgBox = nullptr;
-
+    QLabel *screenshotLabel = nullptr;
 
     QWidget *centralWidget = nullptr;
 

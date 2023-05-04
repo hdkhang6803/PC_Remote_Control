@@ -106,9 +106,14 @@ void ClientWindow::updateServerMsg(const QString &msg) {
 
 void ClientWindow::updateImage(const QPixmap &image) {
     qDebug() << "display picture?";
-    QLabel *screenshotLabel = new QLabel();
-    screenshotLabel->setPixmap(image);
-    rightPanelLayout->addWidget(screenshotLabel);
+    if (screenshotLabel == nullptr) {
+        screenshotLabel = new QLabel();
+        screenshotLabel->setPixmap(image);
+        rightPanelLayout->addWidget(screenshotLabel);
+    }
+    else {
+        screenshotLabel->setPixmap(image);
+    }
 }
 
 void ClientWindow::updateFileStruct(QFileSystemModel &model) {
