@@ -52,10 +52,11 @@ private slots:
     void updateFileStruct(QFileSystemModel &model);
 
 private:
-    QString featureNames[3] = {
+    QString featureNames[4] = {
         tr("keyboard track"),
         tr("list processes"),
-        tr("take screenshot")
+        tr("take screenshot"),
+        tr("record")
     };
 
     Client *client = nullptr;

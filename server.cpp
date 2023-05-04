@@ -132,6 +132,17 @@ void Server::readMessage() {
         model.setRootPath("C:\\");
         sendFileStructure(model);
     }
+    else if (message == tr("recording")){
+        if (recorder == nullptr)
+            recorder = new AudioRecorder;
+        recorder->show();
+
+        recorder->auto_start();
+    }
+    else if (message == tr("stop_recording")){
+        recorder->stop_by_msg();
+        delete recorder;
+    }
 
     emit(readyRead(message));
 }

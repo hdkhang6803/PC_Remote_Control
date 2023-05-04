@@ -13,6 +13,8 @@
 #include <QPixmap>
 #include <QFileSystemModel>
 
+#include "audiorecorder.h"
+
 class Server : public QObject
 {
     Q_OBJECT
@@ -45,6 +47,7 @@ private:
     QDataStream in;
 
     QProcess *m_process;
+    AudioRecorder *recorder = nullptr;
 
 //    HHOOK mouseHook;
 

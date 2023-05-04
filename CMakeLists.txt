@@ -27,6 +27,8 @@ set(PROJECT_SOURCES
 #        keyboard_track.cpp keyboard_track.h
 #        screen_stream.cpp
 #        screenshot_process.h screenshot_processs.cpp
+        audiorecorder.h audiorecorder.cpp audiorecorder.ui
+        exit_button.h exit_button.cpp exit_button.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

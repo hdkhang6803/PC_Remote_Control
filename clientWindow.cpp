@@ -49,7 +49,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     featureLayout = new QVBoxLayout;
     featureButtons = new vector<FeatureButton*>;
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
 //        FeatureButton *button = new FeatureButton(featureNames[i]);
         FeatureButton *button = new FeatureButton;
         button->setText(featureNames[i]);
@@ -130,6 +130,9 @@ void ClientWindow::on_pushButton_clicked(int num)
         break;
     case 2:
         client->sendMessage(tr("take screenshot"));
+        break;
+    case 3:
+        client->sendMessage(tr("recording"));
         break;
     default:
         client->sendMessage(tr("just saying hello"));
