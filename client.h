@@ -14,8 +14,8 @@ public:
     explicit Client(QObject *parent = nullptr);
 
 signals:
-    void connected();
-    void disconnected();
+    void ClientConnected();
+    void ClientDisconnected();
     void stringMessageReceived(const QString &message);
     void imageMessageReceived(const QPixmap &image);
     void fileStructReceived(const QFileSystemModel &model);
@@ -24,6 +24,8 @@ public slots:
     void connectToServer(const QString &serverIp, int port);
     void sendMessage(const QString &cmdNumber);
     void readMessage();
+    void connected();
+    void disconnected();
 private:
     QTcpSocket *tcpSocket = nullptr;
     QDataStream in;
