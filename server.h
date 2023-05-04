@@ -6,6 +6,12 @@
 #include <QString>
 #include <QList>
 #include <QtNetwork>
+#include <Windows.h>
+#include <iostream>
+#include <sstream>
+
+#include <QPixmap>
+#include <QFileSystemModel>
 
 class Server : public QObject
 {
@@ -17,11 +23,16 @@ signals:
     void connected();
     void disconnected();
     void readyRead(const QString &cmdNumber);
+    void display(const QPixmap &pic);
     void error(QAbstractSocket::SocketError socketError);
 private slots:
     void sendMessage(const QString &cmdNumber);
+    void sendScreenshot(const QPixmap &screenshot);
+    void sendFileStructure(const QFileSystemModel &model);
     void readMessage();
     void newConnection();
+
+    void processData();
 private:
     void initServer();
 
@@ -33,6 +44,13 @@ private:
     QTcpSocket *curClient = nullptr;
     QDataStream in;
 
+    QProcess *m_process;
+
+//    HHOOK mouseHook;
+
+//static    LRESULT CALLBACK MouseHookProc(int nCode, WPARAM wParam, LPARAM lParam);
+//    void startHook();
+//    void stopHook();
 };
 
 #endif // SERVER_H

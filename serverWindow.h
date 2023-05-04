@@ -8,6 +8,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 
+#include <QPixmap>
+
 #include "server.h"
 
 //namespace Ui {
@@ -24,6 +26,7 @@ public:
 
 private slots:
     void updateServerMsg(const QString &msg);
+    void updatePic(const QPixmap &pic);
 
 private:
 //    Ui::ServerWindow *ui;

@@ -10,6 +10,7 @@ ServerWindow::ServerWindow(QWidget *parent) :
     server = new Server;
 
     connect(server, &Server::readyRead, this, &ServerWindow::updateServerMsg);
+    connect(server, &Server::display, this, &ServerWindow::updatePic);
 
     // ------------SETTING UP GUI ----------------------
     overallLayout = new QVBoxLayout;
@@ -54,4 +55,11 @@ ServerWindow::ServerWindow(QWidget *parent) :
 
 void ServerWindow::updateServerMsg(const QString &msg) {
     statusBox->setText(msg);
+}
+
+void ServerWindow::updatePic(const QPixmap &screenshot) {
+    qDebug() << "display picture?";
+    QLabel *screenshotLabel = new QLabel();
+    screenshotLabel->setPixmap(screenshot);
+    buttonsLayout->addWidget(screenshotLabel);
 }

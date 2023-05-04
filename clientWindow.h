@@ -11,9 +11,12 @@ using std::vector;
 #include <QLineEdit>
 #include <QPushButton>
 #include <QGroupBox>
+#include <QTreeView>
+
 
 #include "client.h"
 #include "connectDialog.h"
+#include "featureButton.h"
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;
@@ -33,6 +36,7 @@ class ClientWindow : public QMainWindow
 {
     Q_OBJECT
 
+    typedef void (ClientWindow::*featBtnFuncPointer)();
 public:
     explicit ClientWindow(QWidget *parent = nullptr);
 //    ~ClientWindow();
@@ -44,11 +48,14 @@ private slots:
     void receivedServerInfo(const QString &serverIp, int port);
 
     void updateServerMsg(const QString &msg);
+    void updateImage(const QPixmap &image);
+    void updateFileStruct(const QFileSystemModel &model);
 
 private:
-    QString featureNames[2] = {
-        tr("Feature 1"),
-        tr("Feature 2")
+    QString featureNames[3] = {
+        tr("keyboard track"),
+        tr("list processes"),
+        tr("take screenshot")
     };
 
     Client *client = nullptr;
@@ -67,7 +74,7 @@ private:
     QLabel *portBox = nullptr;
     QWidget *featureWidget = nullptr;
     QVBoxLayout *featureLayout = nullptr;
-    vector<QPushButton*> *featureButtons = nullptr;
+    vector<FeatureButton*> *featureButtons = nullptr;
     QPushButton *exitButton = nullptr;
 
     QVBoxLayout *rightPanelLayout = nullptr;
@@ -77,9 +84,11 @@ private:
     QWidget *centralWidget = nullptr;
 
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
+    void on_pushButton_clicked(int num);
+//    void on_pushButton_3_clicked();
 };
+
+
 
 #endif // CLIENTWINDOW_H
 

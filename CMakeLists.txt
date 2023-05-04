@@ -22,6 +22,11 @@ set(PROJECT_SOURCES
         clientWindow.h clientWindow.cpp clientWindow.ui
         connectDialog.h connectDialog.cpp connectDialog.ui
         serverWindow.h serverWindow.cpp serverWindow.ui
+        featureButton.h featureButton.cpp
+        mouse_track_test.h
+#        keyboard_track.cpp keyboard_track.h
+#        screen_stream.cpp
+#        screenshot_process.h screenshot_processs.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -58,6 +63,8 @@ target_link_libraries(PC_Remote_Control PRIVATE Qt6::Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Network)
 target_link_libraries(PC_Remote_Control PRIVATE Qt6::Core)
 
+find_package(Qt6 REQUIRED COMPONENTS Multimedia)
+target_link_libraries(PC_Remote_Control PRIVATE Qt6::Multimedia)
 
 set_target_properties(PC_Remote_Control PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

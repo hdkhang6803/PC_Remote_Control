@@ -4,6 +4,8 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include <QPixmap>
+#include <QFileSystemModel>
 
 class Client : public QObject
 {
@@ -14,7 +16,9 @@ public:
 signals:
     void connected();
     void disconnected();
-    void readyRead(const QString &cmdNumber);
+    void stringMessageReceived(const QString &message);
+    void imageMessageReceived(const QPixmap &image);
+    void fileStructReceived(const QFileSystemModel &model);
     void error(QAbstractSocket::SocketError socketError);
 public slots:
     void connectToServer(const QString &serverIp, int port);
@@ -23,6 +27,7 @@ public slots:
 private:
     QTcpSocket *tcpSocket = nullptr;
     QDataStream in;
+    QByteArray buffer;
 };
 
 #endif // CLIENT_H

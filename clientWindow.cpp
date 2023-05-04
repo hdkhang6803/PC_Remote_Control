@@ -14,23 +14,25 @@ ClientWindow::ClientWindow(QWidget *parent) :
 
     connect(connectDialog, &ConnectDialog::connectToServer, this, &ClientWindow::receivedServerInfo);
     connect(connectDialog, &ConnectDialog::exit, this, &ClientWindow::close);
-    connect(client, &Client::readyRead, this, &ClientWindow::updateServerMsg);
+    connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
+    connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
+    connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
 
 
     // ------------SETTING UP GUI --------------------
-    const QSize windowSize = QSize(900, 600);
-    const QSize rightPanelSize = QSize (600, 600);
+//    const QSize windowSize = QSize(900, 600);
+//    const QSize rightPanelSize = QSize (600, 600);
 
-    this->resize(windowSize);
+//    this->resize(windowSize);
     overallLayout = new QHBoxLayout;
     leftPanelWidget = new QWidget;
     rightPanelWidget = new QWidget;
-    rightPanelWidget->setFixedSize(rightPanelSize);
+//    rightPanelWidget->setFixedSize(rightPanelSize);
 
     // leftPanelWidget
     leftPanelLayout = new QVBoxLayout;
 
-    const QSize serverInfoBoxSize = QSize (100, 100);
+    const QSize serverInfoBoxSize = QSize (100, 200);
     serverInfoBox = new QGroupBox("Server info");
     serverInfoLayout = new QFormLayout;
     ipLabel = new QLabel("IP:");
@@ -45,18 +47,17 @@ ClientWindow::ClientWindow(QWidget *parent) :
     const QSize featureButtonSize = QSize(90, 60);
     featureWidget = new QWidget;
     featureLayout = new QVBoxLayout;
-    featureButtons = new vector<QPushButton*>;
+    featureButtons = new vector<FeatureButton*>;
 
-    for (int i = 0; i < 2; i++) {
-        QPushButton *button = new QPushButton(featureNames[i]);
+    for (int i = 0; i < 3; i++) {
+//        FeatureButton *button = new FeatureButton(featureNames[i]);
+        FeatureButton *button = new FeatureButton;
+        button->setText(featureNames[i]);
+        button->setNumber(i);
 //        button->setFixedSize(featureButtonSize);
         //connect(button, SIGNAL(clicked()), this, featureFuncs[i]);
-        if (i == 0) {
-            connect(button, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-        }
-        else if (i == 1) {
-            connect(button, SIGNAL(clicked()), this, SLOT(on_pushButton_2_clicked()));
-        }
+        connect(button, &FeatureButton::clickedNumber, this, &ClientWindow::on_pushButton_clicked);
+
         featureButtons->push_back(button);
         featureLayout->addWidget(button);
     }
@@ -103,15 +104,36 @@ void ClientWindow::updateServerMsg(const QString &msg) {
     serverMsgBox->setText(msg);
 }
 
-void ClientWindow::on_pushButton_clicked()
-{
-    qDebug() << "message sent";
-    client->sendMessage(tr("list applications"));
+void ClientWindow::updateImage(const QPixmap &image) {
+    qDebug() << "display picture?";
+    QLabel *screenshotLabel = new QLabel();
+    screenshotLabel->setPixmap(image);
+    rightPanelLayout->addWidget(screenshotLabel);
 }
 
+void ClientWindow::updateFileStruct(QFileSystemModel &model) {
+    qDebug() << "display file struct";
+    QTreeView *treeView = new QTreeView;
+    treeView->setModel(model);
+    rightPanelLayout->addWidget(treeView);
+}
 
-void ClientWindow::on_pushButton_2_clicked()
+void ClientWindow::on_pushButton_clicked(int num)
 {
     qDebug() << "message sent";
-    client->sendMessage(tr("list processes"));
+    switch (num) {
+    case 0:
+        client->sendMessage(tr("keyboard track"));
+        break;
+    case 1:
+        client->sendMessage(tr("list processes"));
+        break;
+    case 2:
+        client->sendMessage(tr("take screenshot"));
+        break;
+    default:
+        client->sendMessage(tr("just saying hello"));
+    }
+
+
 }
