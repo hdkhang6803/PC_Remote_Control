@@ -74,19 +74,19 @@ void Server::sendFileStructure(const QFileSystemModel &model) {
     out.setVersion(QDataStream::Qt_6_5);
 
     QVariantList modelData;
-    modelData.append(model.rootPath());
-    for (int row = 0; row < model.rowCount(); ++row) {
-        QVariantMap rowData;
-        QModelIndex index = model.index(row, 0);
-        rowData["fileName"] = model.fileName(index);
-        rowData["filePath"] = model.filePath(index);
-        rowData["fileSize"] = model.size(index);
-        rowData["fileType"] = model.type(index);
-        rowData["fileDateTime"] = model.fileTime(index);
-        modelData.append(rowData);
-    }
+//    modelData.append(model.rootPath());
+//    for (int row = 0; row < model.rowCount(); ++row) {
+//        QVariantMap rowData;
+//        QModelIndex index = model.index(row, 0);
+//        rowData["fileName"] = model.fileName(index);
+//        rowData["filePath"] = model.filePath(index);
+//        rowData["fileSize"] = model.size(index);
+//        rowData["fileType"] = model.type(index);
+//        rowData["fileDateTime"] = model.fileTime(index);
+//        modelData.append(rowData);
+//    }
 
-    out << tr("file model") << model;
+//    out << tr("file model") << model;
     // Send the QByteArray over the network, e.g. via a QTcpSocket
     curClient->write(block);
 }

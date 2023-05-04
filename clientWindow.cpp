@@ -16,7 +16,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     connect(connectDialog, &ConnectDialog::exit, this, &ClientWindow::close);
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
     connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
-    connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
+//    connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
 
 
     // ------------SETTING UP GUI --------------------
@@ -114,7 +114,7 @@ void ClientWindow::updateImage(const QPixmap &image) {
 void ClientWindow::updateFileStruct(QFileSystemModel &model) {
     qDebug() << "display file struct";
     QTreeView *treeView = new QTreeView;
-    treeView->setModel(model);
+//    treeView->setModel(model);
     rightPanelLayout->addWidget(treeView);
 }
 

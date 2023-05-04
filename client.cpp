@@ -66,39 +66,39 @@ void Client::readMessage() {
             emit (imageMessageReceived(pixmap));
         }
     }
-    else if (code == tr("file model")) {
-        qDebug("file structure incoming");
-//        QFileSystemModel model;
+//    else if (code == tr("file model")) {
+//        qDebug("file structure incoming");
+////        QFileSystemModel model;
+////        QDataStream dataStream(&byteArray, QIODevice::ReadOnly);
+////        dataStream >> model;
+
+//        // Deserialize the QVariantList from the QByteArray
+//        QVariantList modelData;
 //        QDataStream dataStream(&byteArray, QIODevice::ReadOnly);
-//        dataStream >> model;
+//        dataStream >> modelData;
 
-        // Deserialize the QVariantList from the QByteArray
-        QVariantList modelData;
-        QDataStream dataStream(&byteArray, QIODevice::ReadOnly);
-        dataStream >> modelData;
+//        QFileSystemModel model;
+//        QString rootPath = modelData.takeFirst().toString(); // Get the root path from the first item
+//        model.setRootPath(rootPath);
+//        for (const QVariant &rowData : modelData) {
+//            QVariantMap map = rowData.toMap();
+//            QString fileName = map["fileName"].toString();
+//            QString filePath = map["filePath"].toString();
+//            qint64 fileSize = map["fileSize"].toLongLong();
+//            QFileSystemModel::FileInfo::Type fileType = static_cast<QFileSystemModel::Type>(map["fileType"].toInt());
+//            QDateTime fileDateTime = map["fileDateTime"].toDateTime();
+//            QModelIndex parentIndex = model.index(map["parentRow"].toInt(), 0);
+//            model.insertRow(model.rowCount(parentIndex), parentIndex);
+//            QModelIndex index = model.index(model.rowCount(parentIndex) - 1, 0, parentIndex);
+//            model.setData(index, fileName, Qt::DisplayRole);
+//            model.setData(index, filePath, Qt::UserRole);
+//            model.setData(index, fileSize, Qt::SizeHintRole);
+//            model.setData(index, fileType, QFileSystemModel::FileTypeRole);
+//            model.setData(index, fileDateTime, Qt::UserRole + 1);
+//        }
 
-        QFileSystemModel model;
-        QString rootPath = modelData.takeFirst().toString(); // Get the root path from the first item
-        model.setRootPath(rootPath);
-        for (const QVariant &rowData : modelData) {
-            QVariantMap map = rowData.toMap();
-            QString fileName = map["fileName"].toString();
-            QString filePath = map["filePath"].toString();
-            qint64 fileSize = map["fileSize"].toLongLong();
-            QFileSystemModel::FileInfo::Type fileType = static_cast<QFileSystemModel::Type>(map["fileType"].toInt());
-            QDateTime fileDateTime = map["fileDateTime"].toDateTime();
-            QModelIndex parentIndex = model.index(map["parentRow"].toInt(), 0);
-            model.insertRow(model.rowCount(parentIndex), parentIndex);
-            QModelIndex index = model.index(model.rowCount(parentIndex) - 1, 0, parentIndex);
-            model.setData(index, fileName, Qt::DisplayRole);
-            model.setData(index, filePath, Qt::UserRole);
-            model.setData(index, fileSize, Qt::SizeHintRole);
-            model.setData(index, fileType, QFileSystemModel::FileTypeRole);
-            model.setData(index, fileDateTime, Qt::UserRole + 1);
-        }
-
-        emit (fileStructReceived(model));
-    }
+//        emit (fileStructReceived(model));
+//    }
 }
 
 //void Client::readMessage() {

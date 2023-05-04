@@ -49,7 +49,7 @@ private slots:
 
     void updateServerMsg(const QString &msg);
     void updateImage(const QPixmap &image);
-    void updateFileStruct(const QFileSystemModel &model);
+    void updateFileStruct(QFileSystemModel &model);
 
 private:
     QString featureNames[3] = {
