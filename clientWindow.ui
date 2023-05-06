@@ -159,6 +159,19 @@
       <height>511</height>
      </rect>
     </property>
+    <widget class="QPushButton" name="stop_button">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>50</y>
+       <width>151</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stop recording</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -167,7 +180,7 @@
      <x>0</x>
      <y>0</y>
      <width>893</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

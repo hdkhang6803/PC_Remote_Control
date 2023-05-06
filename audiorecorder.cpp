@@ -15,6 +15,7 @@
 #include <QMediaRecorder>
 #include <QMimeType>
 #include <QStandardPaths>
+#include <QBuffer>
 
 static QList<qreal> getBufferLevels(const QAudioBuffer &buffer);
 
@@ -93,7 +94,7 @@ void AudioRecorder::auto_start(){
         qDebug() << "No audio input device";
         return;
     }
-    qDebug() << "I ran";
+
     m_captureSession.audioInput()->setDevice(dev);
 
     m_audioRecorder->setMediaFormat(selectedMediaFormat());
@@ -103,7 +104,7 @@ void AudioRecorder::auto_start(){
     m_audioRecorder->setQuality(QMediaRecorder::Quality(QImageCapture::NormalQuality));
     m_audioRecorder->setEncodingMode(QMediaRecorder::ConstantBitRateEncoding);
 
-    // Set the output location for the recorded audio
+//    // Set the output location for the recorded audio
     QString fileName = "D:\\University\\Year_2\\HK2\\MMT\\Project_3\\recorded_data.m4a"; // Provide the desired file name and extension
     m_audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
 
@@ -118,10 +119,10 @@ void AudioRecorder::stop_by_msg(){
 }
 void AudioRecorder::setOutputLocation()
 {
-    QString fileName = "D:\\University\\Year_2\\HK2\\MMT\\Project_3\\recorded_data.m4a";
-    m_audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
-    m_outputLocationSet = true;
-    qDebug() << "The output path is set";
+//    QString fileName = "D:\\University\\Year_2\\HK2\\MMT\\Project_3\\recorded_data.m4a";
+//    m_audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
+//    m_outputLocationSet = true;
+//    qDebug() << "The output path is set";
 }
 
 void AudioRecorder::togglePause()
@@ -147,36 +148,6 @@ QMediaFormat AudioRecorder::selectedMediaFormat() const
     format.setFileFormat(QMediaFormat::MP3);
     format.setAudioCodec(QMediaFormat::AudioCodec::MP3);
     return format;
-}
-
-
-// returns the audio level for each channel
-QList<qreal> getBufferLevels(const QAudioBuffer &buffer)
-{
-//    QList<qreal> values;
-
-//    auto format = buffer.format();
-//    if (!format.isValid())
-//        return values;
-
-//    int channels = buffer.format().channelCount();
-//    values.fill(0, channels);
-
-//    int bytesPerSample = format.bytesPerSample();
-//    QList<qreal> max_values;
-//    max_values.fill(0, channels);
-
-//    const char *data = buffer.constData<char>();
-//    for (int i = 0; i < buffer.frameCount(); ++i) {
-//        for (int j = 0; j < channels; ++j) {
-//            qreal value = qAbs(format.normalizedSampleValue(data));
-//            if (value > max_values.at(j))
-//                max_values[j] = value;
-//            data += bytesPerSample;
-//        }
-//    }
-
-//    return max_values;
 }
 
 

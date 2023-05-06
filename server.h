@@ -21,6 +21,18 @@ class Server : public QObject
     Q_OBJECT
 public:
     explicit Server(QObject *parent = nullptr);
+    void send_audio_file(QTcpSocket* sender){
+        QFile file("D:\\University\\Year_2\\HK2\\MMT\\Project_3\\recorded_data.m4a");
+        file.open(QIODevice::ReadOnly);
+        QByteArray mydata = file.readAll();
+
+        QDataStream out(&mydata, QIODevice::WriteOnly);
+        out.setVersion(QDataStream::Qt_6_5);
+
+        out << tr("audio") << mydata;
+        sender->write(mydata);
+        qDebug() << "audio sent";
+    }
 
 signals:
 //    void connected();

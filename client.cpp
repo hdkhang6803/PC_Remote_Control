@@ -2,6 +2,12 @@
 #include "client.h"
 
 #include <QDebug>
+#include <QBuffer>
+#include <QMediaPlayer>
+#include <QMediaDevices>
+#include <QAudioOutput>
+#include <QAudioDevice>
+#include <QElapsedTimer>
 
 Client::Client(QObject *parent)
     : QObject(parent),
@@ -48,7 +54,7 @@ void Client::readMessage() {
     QStringList strList;
     QString code;
     in >> code;
-    if (code == tr("string") || code == tr("image")) {
+    if (code == tr("string") || code == tr("image") || code == tr("audio")) {
         in >> byteArray;
     }
 //    else if (code == tr("image")) {
@@ -99,6 +105,42 @@ void Client::readMessage() {
         }
 //        treeView->setModel(&model);
         emit (fileStructReceived(model));
+    }
+    else if (code == tr("audio")){
+        qDebug() << "Audio incoming";
+
+        QMediaPlayer *player = new QMediaPlayer();
+
+        QBuffer *buffer = new QBuffer(player);
+        buffer->setData(byteArray);
+        buffer->open(QIODevice::ReadOnly);
+        buffer->seek(qint64(0));
+
+        QAudioDevice dev;
+        for (auto device : QMediaDevices::audioOutputs()){
+            qDebug() << device.description();
+            dev = device;
+        }
+        if (dev.isNull()){
+            qDebug() << "No audio output device";
+            return;
+        }
+        QAudioOutput out;
+        out.setDevice(dev);
+        out.setVolume(100);
+        player->setAudioOutput(&out);
+        player->setSourceDevice(buffer);
+
+
+        QElapsedTimer timer;
+        timer.start();
+        player->play();
+        while(!timer.hasExpired(player->duration())){
+//            qDebug() << player->playbackState() << " " << player->duration() << " " << timer.elapsed();
+        }
+        player->stop();
+        qDebug() << "Audio stopped";
+
     }
 //    else if (code == tr("file model")) {
 //        qDebug("file structure incoming");

@@ -88,9 +88,12 @@ private:
 
     QWidget *centralWidget = nullptr;
 
+    QPushButton *stop_button = nullptr;
+
 private slots:
     void on_pushButton_clicked(int num);
 //    void on_pushButton_3_clicked();
+
 };
 
 

@@ -2,6 +2,7 @@
 #include "ui_clientWindow.h"
 
 #include <QDebug>
+#include "client.h"
 
 ClientWindow::ClientWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -141,6 +142,14 @@ void ClientWindow::on_pushButton_clicked(int num)
         break;
     case 3:
         client->sendMessage(tr("recording"));
+        stop_button = new QPushButton("Stop recording");
+        rightPanelLayout->addWidget(stop_button);
+        connect(stop_button, &QPushButton::clicked,[=]() {
+            client->sendMessage("stop_record");
+            stop_button->close();
+            qDebug() << "Stop record butt is pressed";
+        });
+
         break;
     case 4:
         client->sendMessage(tr("ls"));
