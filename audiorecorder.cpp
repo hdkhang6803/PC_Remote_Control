@@ -21,7 +21,6 @@ static QList<qreal> getBufferLevels(const QAudioBuffer &buffer);
 AudioRecorder::AudioRecorder() : ui(new Ui::AudioRecorder)
 {
     ui->setupUi(this);
-
     m_audioRecorder = new QMediaRecorder(this);
     m_captureSession.setRecorder(m_audioRecorder);
     m_captureSession.setAudioInput(new QAudioInput(this));

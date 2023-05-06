@@ -25,10 +25,9 @@ set(PROJECT_SOURCES
         featureButton.h featureButton.cpp
         mouse_track_test.h
 #        keyboard_track.cpp keyboard_track.h
-#        screen_stream.cpp
-#        screenshot_process.h screenshot_processs.cpp
         audiorecorder.h audiorecorder.cpp audiorecorder.ui
         exit_button.h exit_button.cpp exit_button.ui
+        fileExplorer.h fileExplorer.cpp fileExplorer.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

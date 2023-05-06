@@ -32,6 +32,8 @@ using std::vector;
 //class ClientWindow;
 //}
 
+const int numberOfFeat = 5;
+
 class ClientWindow : public QMainWindow
 {
     Q_OBJECT
@@ -49,14 +51,16 @@ private slots:
 
     void updateServerMsg(const QString &msg);
     void updateImage(const QPixmap &image);
-    void updateFileStruct(QFileSystemModel &model);
+    void updateFileStruct(QStandardItemModel* &model);
 
 private:
-    QString featureNames[4] = {
+
+    QString featureNames[numberOfFeat] = {
         tr("keyboard track"),
         tr("list processes"),
         tr("take screenshot"),
-        tr("record")
+        tr("record"),
+        tr("file explorer"),
     };
 
     Client *client = nullptr;

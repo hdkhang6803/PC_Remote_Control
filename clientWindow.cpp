@@ -16,7 +16,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     connect(connectDialog, &ConnectDialog::exit, this, &ClientWindow::close);
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
     connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
-//    connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
+    connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
 
 
     // ------------SETTING UP GUI --------------------
@@ -49,7 +49,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     featureLayout = new QVBoxLayout;
     featureButtons = new vector<FeatureButton*>;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < numberOfFeat; i++) {
 //        FeatureButton *button = new FeatureButton(featureNames[i]);
         FeatureButton *button = new FeatureButton;
         button->setText(featureNames[i]);
@@ -116,11 +116,14 @@ void ClientWindow::updateImage(const QPixmap &image) {
     }
 }
 
-void ClientWindow::updateFileStruct(QFileSystemModel &model) {
+void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
     qDebug() << "display file struct";
     QTreeView *treeView = new QTreeView;
-//    treeView->setModel(model);
-    rightPanelLayout->addWidget(treeView);
+//    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    treeView->setModel(model);
+    treeView->show();
+//    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
+//    rightPanelLayout->addWidget(treeView);
 }
 
 void ClientWindow::on_pushButton_clicked(int num)
@@ -138,6 +141,9 @@ void ClientWindow::on_pushButton_clicked(int num)
         break;
     case 3:
         client->sendMessage(tr("recording"));
+        break;
+    case 4:
+        client->sendMessage(tr("ls"));
         break;
     default:
         client->sendMessage(tr("just saying hello"));

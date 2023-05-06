@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QPixmap>
-#include <QFileSystemModel>
+#include <QStandardItemModel>
 
 class Client : public QObject
 {
@@ -18,7 +18,7 @@ signals:
     void ClientDisconnected();
     void stringMessageReceived(const QString &message);
     void imageMessageReceived(const QPixmap &image);
-    void fileStructReceived(const QFileSystemModel &model);
+    void fileStructReceived(QStandardItemModel* &model);
     void error(QAbstractSocket::SocketError socketError);
 public slots:
     void connectToServer(const QString &serverIp, int port);

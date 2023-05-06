@@ -8,6 +8,7 @@ ServerWindow::ServerWindow(QWidget *parent) :
 //    ui->setupUi(this);
 
     server = new Server;
+    myFileExplorer = new fileExplorer;
 
     connect(server, &Server::readyRead, this, &ServerWindow::updateServerMsg);
     connect(server, &Server::display, this, &ServerWindow::updatePic);

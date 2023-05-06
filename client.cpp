@@ -45,9 +45,19 @@ void Client::readMessage() {
 
 //    QString message = "";
     QByteArray byteArray;
+    QStringList strList;
     QString code;
     in >> code;
-    in >> byteArray;
+    if (code == tr("string") || code == tr("image")) {
+        in >> byteArray;
+    }
+//    else if (code == tr("image")) {
+//        in >>;
+//    }
+    else if (code == tr("file")) {
+        in >> strList;
+    }
+//    in >> byteArray;
 //    while (!in.atEnd()) {
 //        QString tmp;
 //        in >> tmp;
@@ -73,6 +83,22 @@ void Client::readMessage() {
             // do something with pixmap
             emit (imageMessageReceived(pixmap));
         }
+    }
+    else if (code == tr("file")) {
+        qDebug() << "file struct incoming";
+//        QString response = QString(byteArray);
+//        qDebug() << response;
+//        QStringList lines = response.split("\n");
+        QStringList lines = strList;
+        QStandardItemModel *model = new QStandardItemModel;
+        QStandardItem *rootItem = model->invisibleRootItem();
+        for (QString line : lines) {
+            qDebug() << line;
+            QStandardItem *item = new QStandardItem(line);
+            rootItem->appendRow(item);
+        }
+//        treeView->setModel(&model);
+        emit (fileStructReceived(model));
     }
 //    else if (code == tr("file model")) {
 //        qDebug("file structure incoming");

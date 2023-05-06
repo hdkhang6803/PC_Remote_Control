@@ -165,6 +165,9 @@ void Server::readMessage() {
         recorder->stop_by_msg();
         delete recorder;
     }
+    else if (message == tr("file explorer")) {
+
+    }
 
     emit(readyRead(message));
 }
