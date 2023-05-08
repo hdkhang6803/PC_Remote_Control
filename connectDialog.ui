@@ -13,14 +13,23 @@
   <property name="windowTitle">
    <string>Connect to a server</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <property name="styleSheet">
+   <string notr="true">background: rgb(252, 255, 194);
+border-radius: 5;</string>
+  </property>
+  <widget class="QDialogButtonBox" name="confirmButton">
    <property name="geometry">
     <rect>
      <x>30</x>
      <y>240</y>
-     <width>341</width>
-     <height>32</height>
+     <width>311</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 500 10pt &quot;UTM Avo&quot;;
+font-color: rgb(255, 255, 255);
+background-color: rgb(255, 255, 127);</string>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -34,48 +43,23 @@
     <rect>
      <x>60</x>
      <y>60</y>
-     <width>63</width>
-     <height>31</height>
+     <width>41</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>11</pointsize>
+     <family>UTM Avo</family>
+     <pointsize>12</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
-   <property name="text">
-    <string>IP:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="serverPort">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>110</y>
-     <width>63</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
+   <property name="styleSheet">
+    <string notr="true">font: 500 12pt &quot;UTM Avo&quot;;</string>
    </property>
    <property name="text">
-    <string>Port:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="serverIpBox">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>60</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="editable">
-    <bool>true</bool>
+    <string>IP</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="serverPortBox">
@@ -84,28 +68,35 @@
      <x>130</x>
      <y>110</y>
      <width>221</width>
-     <height>31</height>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid rgb(126, 126, 126);
+background-color: rgb(255, 255, 127);
+border-radius: 5px;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="status">
+  <widget class="QLineEdit" name="IPinput">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>180</y>
-     <width>63</width>
-     <height>20</height>
+     <x>130</x>
+     <y>60</y>
+     <width>221</width>
+     <height>41</height>
     </rect>
    </property>
-   <property name="text">
-    <string>TextLabel</string>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid rgb(126, 126, 126);
+background-color: rgb(255, 255, 127);
+border-radius: 5px;</string>
    </property>
   </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>confirmButton</sender>
    <signal>accepted()</signal>
    <receiver>ConnectDialog</receiver>
    <slot>accept()</slot>
@@ -121,7 +112,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>confirmButton</sender>
    <signal>rejected()</signal>
    <receiver>ConnectDialog</receiver>
    <slot>reject()</slot>

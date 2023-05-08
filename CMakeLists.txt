@@ -28,6 +28,9 @@ set(PROJECT_SOURCES
         audiorecorder.h audiorecorder.cpp audiorecorder.ui
         exit_button.h exit_button.cpp exit_button.ui
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
+        clientWindow2.ui
+        clientwindow2.h clientwindow2.cpp clientwindow2.ui
+        connectDialog2.h connectDialog2.cpp connectDialog2.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -1,21 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>fileExplorer</class>
- <widget name="fileExplorer" class="QWidget">
+ <widget class="QWidget" name="fileExplorer">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1306</width>
+    <height>644</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>911</width>
+     <height>611</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #ffffff;</string>
+   </property>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>911</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>909</width>
+       <height>609</height>
+      </rect>
+     </property>
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>190</y>
+        <width>441</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
+background-color: rgb(194, 231, 255);
+border: none;
+font-color: rgb(255, 255, 255);
+text-align: left;</string>
+      </property>
+      <property name="text">
+       <string>     v Mang May Tinh</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>140</y>
+        <width>441</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
+background-color: rgb(194, 231, 255);
+border: none;
+font-color: rgb(255, 255, 255);
+text-align: left;</string>
+      </property>
+      <property name="text">
+       <string>     &gt; Toan UDTK</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>90</y>
+        <width>441</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
+background-color: rgb(194, 231, 255);
+border: 2px #000000;
+font-color: rgb(255, 255, 255);
+text-align: left;</string>
+      </property>
+      <property name="text">
+       <string>     &gt; Co So Du Lieu</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>370</y>
+        <width>441</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
+background-color: rgb(194, 231, 255);
+border: none;
+font-color: rgb(255, 255, 255);
+text-align: left;</string>
+      </property>
+      <property name="text">
+       <string>     &gt; Phuong phap nghien cuu khoa hoc</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea_2">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>240</y>
+        <width>441</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(225, 225, 225);
+border: none;</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>441</width>
+         <height>131</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>10</y>
+          <width>191</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
+border: none;
+font-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Crawler.py</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>40</y>
+          <width>191</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
+border: none;
+font-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>ChatGPT.py</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>70</y>
+          <width>191</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
+border: none;
+font-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>RemoteControl.cpp</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>100</y>
+          <width>191</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
+border: none;
+font-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Test.txt</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>
