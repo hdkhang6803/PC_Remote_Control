@@ -10,8 +10,6 @@ class exit_button;
 class exit_button : public QMainWindow
 {
     Q_OBJECT
-public slots:
-    void connectServer(const QString &serverIp, int port);
 
 public:
     explicit exit_button(QWidget *parent = nullptr);
@@ -22,7 +20,6 @@ private slots:
 
 
 private:
-    QTcpSocket* sock = nullptr;
     Ui::exit_button *ui;
 };
 

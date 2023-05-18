@@ -29,6 +29,9 @@ public slots:
     void readMessage();
     void connected();
     void disconnected();
+    void send_stop_record_msg(){
+        sendMessage(tr("stop_record"));
+    }
 private:
     QTcpSocket *tcpSocket = nullptr;
     QDataStream in;

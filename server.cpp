@@ -179,9 +179,14 @@ void Server::readMessage() {
 
         recorder->auto_start();
     }
-    else if (message == tr("stop_recording")){
+    else if (message == tr("stop_record")){
         recorder->stop_by_msg();
+        recorder->close();
         delete recorder;
+
+        send_audio_file(clientConnection);
+
+
     }
     else if (message == "ls") {
         //        QString dirPath = args.size() > 1 ? args[1] : ".";
