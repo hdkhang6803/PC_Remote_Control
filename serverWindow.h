@@ -11,7 +11,7 @@
 #include <QPixmap>
 
 #include "server.h"
-#include "fileExplorer.h"
+//#include "fileExplorer.h"
 
 //namespace Ui {
 //class ServerWindow;
@@ -33,7 +33,7 @@ private:
 //    Ui::ServerWindow *ui;
 
     Server *server = nullptr;
-    fileExplorer *myFileExplorer = nullptr;
+//    fileExplorer *myFileExplorer = nullptr;
 
     // GUI ele
     QVBoxLayout *overallLayout = nullptr;

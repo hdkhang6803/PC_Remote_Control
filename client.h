@@ -6,6 +6,9 @@
 #include <QTcpSocket>
 #include <QPixmap>
 #include <QStandardItemModel>
+#include <QFileInfo>
+#include <QSettings>
+#include <QFileIconProvider>
 
 class Client : public QObject
 {

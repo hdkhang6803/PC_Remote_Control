@@ -1,14 +1,14 @@
 #include "fileExplorer.h"
 #include "ui_fileExplorer.h"
 
-fileExplorer::fileExplorer(QWidget *parent) :
+fileExplorer::fileExplorer(QTcpServer *parServer, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::fileExplorer)
 {
     ui->setupUi(this);
 
-    server = new QTcpServer;
-    server->listen(QHostAddress::Any, 8888);
+    server = parServer;
+//    server->listen(QHostAddress::Any, 8888);
     qDebug() << server->serverAddress() << " " << server->serverPort();
     clients = QList<QTcpSocket*>();
     connect(server, &QTcpServer::newConnection, this, &fileExplorer::handleNewConnection);
@@ -21,7 +21,7 @@ fileExplorer::~fileExplorer()
 
 void fileExplorer::handleNewConnection()
 {
-    qDebug() << "Incoming connection.";
+    qDebug() << "File explorer: Incoming connection.";
     QTcpSocket *clientSocket = server->nextPendingConnection();
     connect(clientSocket, &QTcpSocket::readyRead, this, &fileExplorer::handleReadyRead);
     connect(clientSocket, &QTcpSocket::disconnected, this, &fileExplorer::handleClientDisconnected);
@@ -64,6 +64,7 @@ void fileExplorer::handleReadyRead()
         QStringList entries = dir.entryList();
         QString response = entries.join("\n");
         sendMessage(clientSocket, entries);
+        qDebug() << entries << "\n";
 //        clientSocket->flush();
     }
 }

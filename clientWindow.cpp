@@ -121,9 +121,27 @@ void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
     QTreeView *treeView = new QTreeView;
 //    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     treeView->setModel(model);
-    treeView->show();
+    treeView->setHeaderHidden(true);
+    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    treeView->setAnimated(true);
+    treeView->setIndentation(20);
+    treeView->setSortingEnabled(true);
+    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    treeView->setExpandsOnDoubleClick(true);
+    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
+    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
+//    treeView->show();
 //    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
-//    rightPanelLayout->addWidget(treeView);
+    rightPanelLayout->addWidget(treeView);
+}
+
+void ClientWindow::onTreeViewDoubleClicked(const QModelIndex &index)
+{
+    // get the file path from the user role of the clicked item
+    QString filePath = index.data(Qt::UserRole).toString();
+
+    // open the file using QDesktopServices::openUrl()
+    QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
 }
 
 void ClientWindow::on_pushButton_clicked(int num)
@@ -144,6 +162,9 @@ void ClientWindow::on_pushButton_clicked(int num)
         break;
     case 4:
         client->sendMessage(tr("ls"));
+        break;
+    case 5:
+        client->sendMessage(tr("list applications"));
         break;
     default:
         client->sendMessage(tr("just saying hello"));

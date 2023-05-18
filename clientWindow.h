@@ -12,7 +12,7 @@ using std::vector;
 #include <QPushButton>
 #include <QGroupBox>
 #include <QTreeView>
-
+#include <QDesktopServices>
 
 #include "client.h"
 #include "connectDialog.h"
@@ -32,7 +32,7 @@ using std::vector;
 //class ClientWindow;
 //}
 
-const int numberOfFeat = 5;
+const int numberOfFeat = 6;
 
 class ClientWindow : public QMainWindow
 {
@@ -53,6 +53,7 @@ private slots:
     void updateImage(const QPixmap &image);
     void updateFileStruct(QStandardItemModel* &model);
 
+    void onTreeViewDoubleClicked(const QModelIndex &index);
 private:
 
     QString featureNames[numberOfFeat] = {
@@ -61,6 +62,7 @@ private:
         tr("take screenshot"),
         tr("record"),
         tr("file explorer"),
+        tr("list applications")
     };
 
     Client *client = nullptr;

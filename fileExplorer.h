@@ -15,15 +15,17 @@ class fileExplorer : public QWidget
     Q_OBJECT
 
 public:
-    explicit fileExplorer(QWidget *parent = nullptr);
+    explicit fileExplorer(QTcpServer *parServer, QWidget *parent = nullptr);
     ~fileExplorer();
 
 private:
     Ui::fileExplorer *ui;
 
+public slots:
+    void handleReadyRead();
 private slots:
     void handleNewConnection();
-    void handleReadyRead();
+
     void handleClientDisconnected();
 private:
     void sendMessage(QTcpSocket* sender, const QStringList &msg);
