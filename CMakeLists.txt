@@ -23,12 +23,11 @@ set(PROJECT_SOURCES
         clientinfo.ui
         clientWindow.ui
         serverWindow.ui
-        connectDialog.ui
 
         server.h server.cpp
         client.h client.cpp
         clientWindow.h clientWindow.cpp
-        connectDialog.h connectDialog.cpp connectDialog.ui
+        clientInfo.cpp clientInfo.h
         serverWindow.h serverWindow.cpp serverWindow.ui
         featureButton.h featureButton.cpp
         mouse_track_test.h

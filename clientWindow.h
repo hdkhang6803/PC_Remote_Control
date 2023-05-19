@@ -15,7 +15,7 @@ using std::vector;
 #include <QDesktopServices>
 
 #include "client.h"
-#include "connectDialog.h"
+#include "clientInfo.h"
 #include "featureButton.h"
 
 //QT_BEGIN_NAMESPACE
@@ -59,20 +59,12 @@ private:
     Client *client = nullptr;
     clientInfo *connectDialog = nullptr;
 
-//    QHBoxLayout *overallLayout = nullptr;
-//    QWidget *leftPanelWidget = nullptr;
-//    QWidget *rightPanelWidget = nullptr;
 
-//    QVBoxLayout *leftPanelLayout = nullptr;
-//    QGroupBox *serverInfoBox = nullptr;
-//    QFormLayout *serverInfoLayout = nullptr;
     QLabel *_ipLabel = nullptr;
     QLabel *_portLabel = nullptr;
     QLabel *_ipBox = nullptr;
     QLabel *_portBox = nullptr;
-//    QWidget *featureWidget = nullptr;
-//    QVBoxLayout *featureLayout = nullptr;
-//    vector<FeatureButton*> *featureButtons = nullptr;
+
     QPushButton *processButton = nullptr;
     QPushButton *appButton = nullptr;
     QPushButton *keystrButton = nullptr;
@@ -83,11 +75,7 @@ private:
     QPushButton *contrButton = nullptr;
     QPushButton *exitButton = nullptr;
 
-//    QVBoxLayout *rightPanelLayout = nullptr;
-//    QLineEdit *serverMsgBox = nullptr;
-//    QLabel *screenshotLabel = nullptr;
 
-//    QWidget *centralWidget = nullptr;
 
 private slots:
     void on_pushButton_clicked_1();

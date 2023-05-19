@@ -6,6 +6,8 @@
 
 #include <QVBoxLayout>
 #include <QPushButton>
+#include "clientWindow.h"
+#include "serverWindow.h"
 
 //QT_BEGIN_NAMESPACE
 namespace Ui { class initialWindow; }
@@ -37,6 +39,10 @@ private:
     QWidget *logoWidget = nullptr;
 
     QWidget *centralWidget = nullptr;
+
+private:
+    ClientWindow* client_window = nullptr;
+    serverInfo * server_info = nullptr;
 };
 
 #endif // MAINWINDOW_H

@@ -41,20 +41,13 @@ private slots:
 
 private:
     Ui::clientInfo *ui;
-//    QVBoxLayout *overallLayout = nullptr;
-//    QWidget *serverInfoWidget = nullptr;
-//    QWidget *buttonsWidget = nullptr;
-
-//    QFormLayout *serverInfoLayout = nullptr;
     QLabel *ipLabel = nullptr;
     QLabel *portLabel = nullptr;
     QLineEdit *ipBox = nullptr;
     QLineEdit *portBox = nullptr;
-    QLabel *statusLabel = nullptr;/*
-    QLineEdit *statusBox = nullptr;*/
+    QLabel *statusLabel = nullptr;
+    QLineEdit *statusBox = nullptr;
 
-//    QHBoxLayout *buttonsLayout = nullptr;
-//    QDialogButtonBox *dialogButtonBox = nullptr;
     QPushButton *connectButton = nullptr;
     QPushButton *exitButton = nullptr;
 };

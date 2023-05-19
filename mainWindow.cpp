@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::on_CreateServerButton_clicked()
 {
 //    serverWindow->show();
-    serverInfo *server_info = new serverInfo(this);
+    server_info = new serverInfo(this);
     server_info->show();
 //    QWidget *serverWidget = serverWindow->findChild<QWidget*>("centralwidget");
 //    ui->widgetContainer->setLayout(new QVBoxLayout);
@@ -53,8 +53,10 @@ void MainWindow::on_CreateServerButton_clicked()
 
 void MainWindow::on_ConnectServerButton_clicked()
 {
-    ClientWindow *clientWindow = new ClientWindow(this);
-    clientWindow->show();
+//    ClientWindow *clientWindow = new ClientWindow(this);
+//    clientWindow->show();
+    clientInfo * client_info = new clientInfo(this);
+    client_info->show();
 //    QWidget *clientWidget = clientWindow->findChild<QWidget*>("centralwidget");
 //    ui->widgetContainer->setLayout(new QVBoxLayout);
 //    ui->widgetContainer->layout()->addWidget(clientWidget);

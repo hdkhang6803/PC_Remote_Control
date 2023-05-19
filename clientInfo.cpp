@@ -2,7 +2,8 @@
 #include <QtNetwork>
 #include <QDebug>
 
-#include "connectDialog.h"
+#include "clientInfo.h"
+#include "clientWindow.h"
 #include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_clientInfo.h"
 
 clientInfo::clientInfo(QWidget *parent) :
@@ -15,17 +16,11 @@ clientInfo::clientInfo(QWidget *parent) :
 //    ui->serverPortBox->setValidator(new QIntValidator(1, 65535, this));
 
     // ------------SETTING UP GUI ----------------------
-//    this->setModal(true);
-//    overallLayout = new QVBoxLayout;
-//    serverInfoWidget = new QWidget;
-//    buttonsWidget = new QWidget;
 
-//    // serverInfoWidget
-//    serverInfoLayout = new QFormLayout;
-//    ipLabel = new QLabel("IP:");
-//    portLabel = new QLabel("Port:");
-//    ipBox = new QLineEdit;
-//    portBox = new QLineEdit;
+    ipLabel = ui->IDlabel;
+    ipBox = ui->IDinput;
+    portLabel = ui->portLabel;
+    portBox = ui->portInput;
 ////    statusLabel = new QLabel("Status: ");
 ////    statusBox = new QLineEdit;
 //    serverInfoLayout->addRow(ipLabel, ipBox);
@@ -37,9 +32,9 @@ clientInfo::clientInfo(QWidget *parent) :
 //    // buttonsWidget
 //    buttonsLayout = new QHBoxLayout;
 //    dialogButtonBox = new QDialogButtonBox;
-//    okButton = new QPushButton("OK");
+    connectButton = ui->pushButton;
 //    dialogButtonBox->addButton(okButton, QDialogButtonBox::AcceptRole);
-//    cancelButton = new QPushButton("Cancel");
+    exitButton = ui->pushButton_2;
 //    dialogButtonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
 //    buttonsLayout->addWidget(dialogButtonBox);
 //    buttonsWidget->setLayout(buttonsLayout);
@@ -50,15 +45,16 @@ clientInfo::clientInfo(QWidget *parent) :
     // -----------------------------------------------
 
 
-//    connect(dialogButtonBox, SIGNAL(accepted()), this, SLOT(on_buttonBox_accepted()));
-//    connect(dialogButtonBox, SIGNAL(rejected()), this, SLOT(on_buttonBox_rejected()));
+    connect(connectButton, &QPushButton::clicked, this, &clientInfo::on_buttonBox_accepted);
+    connect(exitButton, &QPushButton::clicked, this, &clientInfo::on_buttonBox_rejected);
 }
 
 
 void clientInfo::on_buttonBox_accepted()
 {
     emit (connectToServer(ipBox->text(), portBox->text().toInt()));
-    close();
+    close(); //Can phai close clientinfo truoc khi tao client window
+
 }
 
 void clientInfo::on_buttonBox_rejected()
