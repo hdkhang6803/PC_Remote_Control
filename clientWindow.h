@@ -2,99 +2,21 @@
 #define CLIENTWINDOW_H
 
 #include <QMainWindow>
-#include <vector>
-using std::vector;
 
-#include <QVBoxLayout>
-#include <QFormLayout>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QGroupBox>
-#include <QTreeView>
+namespace Ui {
+class clientWindow;
+}
 
-
-#include "client.h"
-#include "connectDialog.h"
-#include "featureButton.h"
-
-//QT_BEGIN_NAMESPACE
-//class QLabel;
-//class QLineEdit;
-//class QPushButton;
-//class QHBoxLayout;
-//class QFormLayout;
-//class QVBoxLayout;
-//class QGroupBox;
-//QT_END_NAMESPACE
-
-//namespace Ui {
-//class ClientWindow;
-//}
-
-const int numberOfFeat = 5;
-
-class ClientWindow : public QMainWindow
+class clientWindow : public QMainWindow
 {
     Q_OBJECT
 
-    typedef void (ClientWindow::*featBtnFuncPointer)();
 public:
-    explicit ClientWindow(QWidget *parent = nullptr);
-//    ~ClientWindow();
+    explicit clientWindow(QWidget *parent = nullptr);
+    ~clientWindow();
 
 private:
-//    Ui::ClientWindow *ui;
-
-private slots:
-    void receivedServerInfo(const QString &serverIp, int port);
-
-    void updateServerMsg(const QString &msg);
-    void updateImage(const QPixmap &image);
-    void updateFileStruct(QStandardItemModel* &model);
-
-private:
-
-    QString featureNames[numberOfFeat] = {
-        tr("keyboard track"),
-        tr("list processes"),
-        tr("take screenshot"),
-        tr("record"),
-        tr("file explorer"),
-    };
-
-    Client *client = nullptr;
-    ConnectDialog *connectDialog = nullptr;
-
-    QHBoxLayout *overallLayout = nullptr;
-    QWidget *leftPanelWidget = nullptr;
-    QWidget *rightPanelWidget = nullptr;
-
-    QVBoxLayout *leftPanelLayout = nullptr;
-    QGroupBox *serverInfoBox = nullptr;
-    QFormLayout *serverInfoLayout = nullptr;
-    QLabel *ipLabel = nullptr;
-    QLabel *portLabel = nullptr;
-    QLabel *ipBox = nullptr;
-    QLabel *portBox = nullptr;
-    QWidget *featureWidget = nullptr;
-    QVBoxLayout *featureLayout = nullptr;
-    vector<FeatureButton*> *featureButtons = nullptr;
-    QPushButton *exitButton = nullptr;
-
-    QVBoxLayout *rightPanelLayout = nullptr;
-    QLineEdit *serverMsgBox = nullptr;
-    QLabel *screenshotLabel = nullptr;
-
-    QWidget *centralWidget = nullptr;
-
-private slots:
-    void on_pushButton_clicked(int num);
-//    void on_pushButton_3_clicked();
+    Ui::clientWindow *ui;
 };
 
-
-
 #endif // CLIENTWINDOW_H
-
-

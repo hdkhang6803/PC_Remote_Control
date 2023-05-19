@@ -2,9 +2,6 @@
 #define FILEEXPLORER_H
 
 #include <QWidget>
-#include <QtNetwork>
-#include <QDebug>
-#include <QDir>
 
 namespace Ui {
 class fileExplorer;
@@ -20,17 +17,6 @@ public:
 
 private:
     Ui::fileExplorer *ui;
-
-private slots:
-    void handleNewConnection();
-    void handleReadyRead();
-    void handleClientDisconnected();
-private:
-    void sendMessage(QTcpSocket* sender, const QStringList &msg);
-
-private:
-    QTcpServer *server;
-    QList<QTcpSocket*> clients;
 };
 
 #endif // FILEEXPLORER_H

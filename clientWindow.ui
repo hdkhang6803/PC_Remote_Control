@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ClientWindow</class>
- <widget class="QMainWindow" name="ClientWindow">
+ <class>clientWindow</class>
+ <widget class="QMainWindow" name="clientWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1296</width>
-    <height>711</height>
+    <width>1351</width>
+    <height>686</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #ffffff;</string>
+   <string notr="true">background-color: #ffffff;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
+      <x>20</x>
+      <y>10</y>
       <width>301</width>
       <height>571</height>
      </rect>
@@ -34,7 +34,7 @@ border-radius: 7px;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>40</y>
        <width>261</width>
        <height>91</height>
       </rect>
@@ -121,7 +121,7 @@ border: none;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>160</y>
+       <y>170</y>
        <width>121</width>
        <height>30</height>
       </rect>
@@ -130,7 +130,8 @@ border: none;</string>
       <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
 background: #C2E7FF;
 border:  1px solid rgb(154, 154, 154);
-border-radius: 5px;</string>
+border-radius: 5px;
+padding: 100px;</string>
      </property>
      <property name="text">
       <string>Processes</string>
@@ -140,7 +141,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>160</y>
+       <y>170</y>
        <width>121</width>
        <height>30</height>
       </rect>
@@ -159,7 +160,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>200</y>
+       <y>220</y>
        <width>121</width>
        <height>30</height>
       </rect>
@@ -178,7 +179,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>200</y>
+       <y>220</y>
        <width>121</width>
        <height>30</height>
       </rect>
@@ -197,7 +198,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>240</y>
+       <y>270</y>
        <width>251</width>
        <height>30</height>
       </rect>
@@ -216,7 +217,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>280</y>
+       <y>320</y>
        <width>251</width>
        <height>30</height>
       </rect>
@@ -235,7 +236,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>320</y>
+       <y>370</y>
        <width>251</width>
        <height>30</height>
       </rect>
@@ -254,7 +255,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>360</y>
+       <y>420</y>
        <width>251</width>
        <height>30</height>
       </rect>
@@ -266,32 +267,54 @@ border:  1px solid rgb(154, 154, 154);
 border-radius: 5px;</string>
      </property>
      <property name="text">
-      <string>Keyboard + mouse control</string>
+      <string>Keyboard + Mouse control</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="exitButton">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>500</y>
+       <width>83</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
+background-color: rgb(0, 132, 255);
+border-radius: 5px;
+color: #ffffff;</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="exitButton">
+   <widget class="QWidget" name="widget_2" native="true">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>610</y>
-      <width>83</width>
-      <height>29</height>
+      <x>360</x>
+      <y>10</y>
+      <width>901</width>
+      <height>571</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
-background-color: rgb(0, 132, 255);</string>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
-    <property name="text">
-     <string>Exit</string>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 5px;
+background-color: #F2F6FC;</string>
     </property>
    </widget>
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>20</y>
+      <y>10</y>
       <width>20</width>
       <height>571</height>
      </rect>
@@ -300,23 +323,13 @@ background-color: rgb(0, 132, 255);</string>
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_2" native="true">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>20</y>
-      <width>911</width>
-      <height>611</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1296</width>
+     <width>1351</width>
      <height>26</height>
     </rect>
    </property>

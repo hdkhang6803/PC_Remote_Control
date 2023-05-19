@@ -14,23 +14,19 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainWindow.cpp
-        mainWindow.h
-        mainWindow.ui
         server.h server.cpp
         client.h client.cpp
-        clientWindow.h clientWindow.cpp clientWindow.ui
-        connectDialog.h connectDialog.cpp connectDialog.ui
-        serverWindow.h serverWindow.cpp serverWindow.ui
+        clientwindow.h clientwindow.cpp clientwindow.ui
         featureButton.h featureButton.cpp
         mouse_track_test.h
 #        keyboard_track.cpp keyboard_track.h
         audiorecorder.h audiorecorder.cpp audiorecorder.ui
-        exit_button.h exit_button.cpp exit_button.ui
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
-        clientWindow2.ui
-        clientwindow2.h clientwindow2.cpp clientwindow2.ui
-        connectDialog2.h connectDialog2.cpp connectDialog2.ui
+        clientinfo.h clientinfo.cpp clientinfo.ui
+        serverinfo.h serverinfo.cpp serverinfo.ui
+        initialwindow.h initialwindow.cpp initialwindow.ui
+        fileexplorer.h fileexplorer.cpp fileexplorer.ui
+        screendisplayer.h screendisplayer.cpp screendisplayer.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
