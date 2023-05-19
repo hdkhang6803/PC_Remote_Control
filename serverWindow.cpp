@@ -1,66 +1,67 @@
 #include "serverWindow.h"
-#include "ui_serverWindow.h"
+#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_serverinfo.h"
 
-ServerWindow::ServerWindow(QWidget *parent) :
+serverInfo::serverInfo(QWidget *parent) :
     QMainWindow(parent)
-//    , ui(new Ui::ServerWindow)
+    , ui(new Ui::serverInfo)
 {
-//    ui->setupUi(this);
+    ui->setupUi(this);
 
     server = new Server;
 //    myFileExplorer = new fileExplorer(server->getServer());
 
-    connect(server, &Server::readyRead, this, &ServerWindow::updateServerMsg);
-    connect(server, &Server::display, this, &ServerWindow::updatePic);
+    connect(server, &Server::readyRead, this, &serverInfo::updateServerMsg);
+    connect(server, &Server::display, this, &serverInfo::updatePic);
 
-    // ------------SETTING UP GUI ----------------------
-    overallLayout = new QVBoxLayout;
-    serverInfoWidget = new QWidget;
-    buttonsWidget = new QWidget;
+//    // ------------SETTING UP GUI ----------------------
+    exitButton = ui->pushButton;
+//    overallLayout = new QVBoxLayout;
+//    serverInfoWidget = new QWidget;
+//    buttonsWidget = new QWidget;
 
-    // serverInfoWidget
-    serverInfoLayout = new QFormLayout;
-    ipLabel = new QLabel("IP:");
-    portLabel = new QLabel("Port:");
-    ipBox = new QLineEdit;
-    portBox = new QLineEdit;
-    statusLabel = new QLabel("Status: ");
-    statusBox = new QLineEdit;
-    serverInfoLayout->addRow(ipLabel, ipBox);
-    serverInfoLayout->addRow(portLabel, portBox);
-    serverInfoLayout->addRow(statusLabel, statusBox);
-    serverInfoWidget->setLayout(serverInfoLayout);
-    overallLayout->addWidget(serverInfoWidget);
+//    // serverInfoWidget
+//    serverInfoLayout = new QFormLayout;
+    _ipLabel = ui->IDlabel;
+    _portLabel = ui->portLabel;
+    _ipBox = ui->IDinput;
+    _portBox = ui->portInput;
+    statusLabel = ui->portLabel_2;
+    statusBox = ui->portInput_2;
+//    serverInfoLayout->addRow(ipLabel, ipBox);
+//    serverInfoLayout->addRow(portLabel, portBox);
+//    serverInfoLayout->addRow(statusLabel, statusBox);
+//    serverInfoWidget->setLayout(serverInfoLayout);
+//    overallLayout->addWidget(serverInfoWidget);
 
-    // buttonsWidget
-    buttonsLayout = new QHBoxLayout;
-    restartButton = new QPushButton("Restart");
-    exitButton = new QPushButton("Exit");
-    buttonsLayout->addWidget(restartButton);
-    buttonsLayout->addWidget(exitButton);
-    buttonsWidget->setLayout(buttonsLayout);
-    overallLayout->addWidget(buttonsWidget);
+//    // buttonsWidget
+//    buttonsLayout = new QHBoxLayout;
+//    restartButton = new QPushButton("Restart");
+//    exitButton = new QPushButton("Exit");
+//    buttonsLayout->addWidget(restartButton);
+//    buttonsLayout->addWidget(exitButton);
+//    buttonsWidget->setLayout(buttonsLayout);
+//    overallLayout->addWidget(buttonsWidget);
 
-    // set central widget
-    centralWidget = new QWidget;
-    centralWidget->setLayout(overallLayout);
-    setCentralWidget(centralWidget);
+//    // set central widget
+//    centralWidget = new QWidget;
+//    centralWidget->setLayout(overallLayout);
+//    setCentralWidget(centralWidget);
 
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
     statusBox->setText(tr("The server is running now."));
 
-    ipBox->setText(server->ipAddress);
-    portBox->setText(server->port);
+    _ipBox->setText(server->ipAddress);
+    _portBox->setText(server->port);
 }
 
-void ServerWindow::updateServerMsg(const QString &msg) {
+void serverInfo::updateServerMsg(const QString &msg) {
     statusBox->setText(msg);
 }
 
-void ServerWindow::updatePic(const QPixmap &screenshot) {
+void serverInfo::updatePic(const QPixmap &screenshot) {
     qDebug() << "display picture?";
     QLabel *screenshotLabel = new QLabel();
     screenshotLabel->setPixmap(screenshot);
-    buttonsLayout->addWidget(screenshotLabel);
+//    buttonsLayout->addWidget(screenshotLabel);
 }

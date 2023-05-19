@@ -8,7 +8,7 @@
 #include <QPushButton>
 
 //QT_BEGIN_NAMESPACE
-//namespace Ui { class MainWindow; }
+namespace Ui { class initialWindow; }
 //QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -26,7 +26,7 @@ private slots:
     void on_ConnectServerButton_clicked();
 
 private:
-//    Ui::MainWindow *ui;
+    Ui::initialWindow *ui;
     QHBoxLayout *buttonLayout = nullptr;
     QPushButton *createServerButton = nullptr;
     QPushButton *connectServerButton = nullptr;

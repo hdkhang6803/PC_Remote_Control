@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>serverInfo</class>
+ <widget class="QMainWindow" name="serverInfo">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1303</width>
+    <height>634</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #ffffff;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="connectWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>80</y>
+      <width>841</width>
+      <height>461</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 5px;
+background-color: #F2F6FC;</string>
+    </property>
+    <widget class="QLineEdit" name="IDinput">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>90</y>
+       <width>561</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #ffffff;
+border: 1px #000000;
+border-radius: 5px;
+padding-left: 10px;</string>
+     </property>
+     <property name="text">
+      <string>172.80.2.17</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="IDlabel">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>50</y>
+       <width>251</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: italic 600 10pt &quot;UTM Avo&quot;;
+border: none;</string>
+     </property>
+     <property name="text">
+      <string>Server's ID</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="portLabel">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>160</y>
+       <width>251</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: italic 600 10pt &quot;UTM Avo&quot;;
+border: none;</string>
+     </property>
+     <property name="text">
+      <string>Server's Port</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="portInput">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>200</y>
+       <width>561</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #ffffff;
+border: 1px #000000;
+border-radius: 5px;
+padding-left: 10px;</string>
+     </property>
+     <property name="text">
+      <string>14326</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>390</y>
+       <width>93</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: none;
+background-color: rgb(0, 132, 255);
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="portInput_2">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>310</y>
+       <width>561</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #ffffff;
+border: 1px #000000;
+border-radius: 5px;
+font: 500 10pt &quot;UTM Avo&quot;;
+padding-left: 9.5px;</string>
+     </property>
+     <property name="text">
+      <string>Server has been created successfully!</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="portLabel_2">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>270</y>
+       <width>251</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: italic 600 10pt &quot;UTM Avo&quot;;
+border: none;</string>
+     </property>
+     <property name="text">
+      <string>Server's Status</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1303</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

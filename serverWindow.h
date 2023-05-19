@@ -13,16 +13,16 @@
 #include "server.h"
 //#include "fileExplorer.h"
 
-//namespace Ui {
-//class ServerWindow;
-//}
+namespace Ui {
+class serverInfo;
+}
 
-class ServerWindow : public QMainWindow
+class serverInfo : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit ServerWindow(QWidget *parent = nullptr);
+    explicit serverInfo(QWidget *parent = nullptr);
 //    ~ServerWindow();
 
 private slots:
@@ -30,29 +30,29 @@ private slots:
     void updatePic(const QPixmap &pic);
 
 private:
-//    Ui::ServerWindow *ui;
+    Ui::serverInfo *ui;
 
     Server *server = nullptr;
 //    fileExplorer *myFileExplorer = nullptr;
 
-    // GUI ele
-    QVBoxLayout *overallLayout = nullptr;
-    QWidget *serverInfoWidget = nullptr;
-    QWidget *buttonsWidget = nullptr;
+//    // GUI ele
+//    QVBoxLayout *overallLayout = nullptr;
+//    QWidget *serverInfoWidget = nullptr;
+//    QWidget *buttonsWidget = nullptr;
 
-    QFormLayout *serverInfoLayout = nullptr;
-    QLabel *ipLabel = nullptr;
-    QLabel *portLabel = nullptr;
-    QLineEdit *ipBox = nullptr;
-    QLineEdit *portBox = nullptr;
+//    QFormLayout *serverInfoLayout = nullptr;
+    QLabel *_ipLabel = nullptr;
+    QLabel *_portLabel = nullptr;
+    QLineEdit *_ipBox = nullptr;
+    QLineEdit *_portBox = nullptr;
     QLabel *statusLabel = nullptr;
     QLineEdit *statusBox = nullptr;
 
-    QHBoxLayout *buttonsLayout = nullptr;
-    QPushButton *restartButton = nullptr;
+//    QHBoxLayout *buttonsLayout = nullptr;
+//    QPushButton *restartButton = nullptr;
     QPushButton *exitButton = nullptr;
 
-    QWidget *centralWidget = nullptr;
+//    QWidget *centralWidget = nullptr;
 
 
 };

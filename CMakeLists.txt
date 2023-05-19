@@ -16,17 +16,24 @@ set(PROJECT_SOURCES
         main.cpp
         mainWindow.cpp
         mainWindow.h
-        mainWindow.ui
+
+        initialwindow.ui
+        serverinfo.ui
+        fileExplorer.ui
+        clientinfo.ui
+        clientWindow.ui
+        serverWindow.ui
+        connectDialog.ui
+
         server.h server.cpp
         client.h client.cpp
-        clientWindow.h clientWindow.cpp clientWindow.ui
+        clientWindow.h clientWindow.cpp
         connectDialog.h connectDialog.cpp connectDialog.ui
         serverWindow.h serverWindow.cpp serverWindow.ui
         featureButton.h featureButton.cpp
         mouse_track_test.h
 #        keyboard_track.cpp keyboard_track.h
         audiorecorder.h audiorecorder.cpp audiorecorder.ui
-        exit_button.h exit_button.cpp exit_button.ui
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
 )
 

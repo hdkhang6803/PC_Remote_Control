@@ -6,6 +6,7 @@
 //#include <QTcpSocket>
 
 #include "client.h"
+#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -18,16 +19,16 @@ class QFormLayout;
 class QVBoxLayout;
 QT_END_NAMESPACE
 
-//namespace Ui {
-//class ConnectDialog;
-//}
+namespace Ui {
+class clientInfo;
+}
 
-class ConnectDialog : public QDialog
+class clientInfo : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit ConnectDialog(QWidget *parent = nullptr);
+    explicit clientInfo(QWidget *parent = nullptr);
 //    ~ConnectDialog();
 
 signals:
@@ -39,12 +40,12 @@ private slots:
     void on_buttonBox_rejected();
 
 private:
-//    Ui::ConnectDialog *ui;
-    QVBoxLayout *overallLayout = nullptr;
-    QWidget *serverInfoWidget = nullptr;
-    QWidget *buttonsWidget = nullptr;
+    Ui::clientInfo *ui;
+//    QVBoxLayout *overallLayout = nullptr;
+//    QWidget *serverInfoWidget = nullptr;
+//    QWidget *buttonsWidget = nullptr;
 
-    QFormLayout *serverInfoLayout = nullptr;
+//    QFormLayout *serverInfoLayout = nullptr;
     QLabel *ipLabel = nullptr;
     QLabel *portLabel = nullptr;
     QLineEdit *ipBox = nullptr;
@@ -52,10 +53,10 @@ private:
     QLabel *statusLabel = nullptr;/*
     QLineEdit *statusBox = nullptr;*/
 
-    QHBoxLayout *buttonsLayout = nullptr;
-    QDialogButtonBox *dialogButtonBox = nullptr;
-    QPushButton *okButton = nullptr;
-    QPushButton *cancelButton = nullptr;
+//    QHBoxLayout *buttonsLayout = nullptr;
+//    QDialogButtonBox *dialogButtonBox = nullptr;
+    QPushButton *connectButton = nullptr;
+    QPushButton *exitButton = nullptr;
 };
 
 #endif // CONNECTDIALOG_H

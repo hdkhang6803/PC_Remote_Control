@@ -28,11 +28,11 @@ using std::vector;
 //class QGroupBox;
 //QT_END_NAMESPACE
 
-//namespace Ui {
-//class ClientWindow;
-//}
+namespace Ui {
+class clientWindow;
+}
 
-const int numberOfFeat = 6;
+const int numberOfFeat = 8;
 
 class ClientWindow : public QMainWindow
 {
@@ -44,7 +44,7 @@ public:
 //    ~ClientWindow();
 
 private:
-//    Ui::ClientWindow *ui;
+    Ui::clientWindow *ui;
 
 private slots:
     void receivedServerInfo(const QString &serverIp, int port);
@@ -56,43 +56,49 @@ private slots:
     void onTreeViewDoubleClicked(const QModelIndex &index);
 private:
 
-    QString featureNames[numberOfFeat] = {
-        tr("keyboard track"),
-        tr("list processes"),
-        tr("take screenshot"),
-        tr("record"),
-        tr("file explorer"),
-        tr("list applications")
-    };
-
     Client *client = nullptr;
-    ConnectDialog *connectDialog = nullptr;
+    clientInfo *connectDialog = nullptr;
 
-    QHBoxLayout *overallLayout = nullptr;
-    QWidget *leftPanelWidget = nullptr;
-    QWidget *rightPanelWidget = nullptr;
+//    QHBoxLayout *overallLayout = nullptr;
+//    QWidget *leftPanelWidget = nullptr;
+//    QWidget *rightPanelWidget = nullptr;
 
-    QVBoxLayout *leftPanelLayout = nullptr;
-    QGroupBox *serverInfoBox = nullptr;
-    QFormLayout *serverInfoLayout = nullptr;
-    QLabel *ipLabel = nullptr;
-    QLabel *portLabel = nullptr;
-    QLabel *ipBox = nullptr;
-    QLabel *portBox = nullptr;
-    QWidget *featureWidget = nullptr;
-    QVBoxLayout *featureLayout = nullptr;
-    vector<FeatureButton*> *featureButtons = nullptr;
+//    QVBoxLayout *leftPanelLayout = nullptr;
+//    QGroupBox *serverInfoBox = nullptr;
+//    QFormLayout *serverInfoLayout = nullptr;
+    QLabel *_ipLabel = nullptr;
+    QLabel *_portLabel = nullptr;
+    QLabel *_ipBox = nullptr;
+    QLabel *_portBox = nullptr;
+//    QWidget *featureWidget = nullptr;
+//    QVBoxLayout *featureLayout = nullptr;
+//    vector<FeatureButton*> *featureButtons = nullptr;
+    QPushButton *processButton = nullptr;
+    QPushButton *appButton = nullptr;
+    QPushButton *keystrButton = nullptr;
+    QPushButton *screenButton = nullptr;
+    QPushButton *fileButton = nullptr;
+    QPushButton *streamButton = nullptr;
+    QPushButton *audioButton = nullptr;
+    QPushButton *contrButton = nullptr;
     QPushButton *exitButton = nullptr;
 
-    QVBoxLayout *rightPanelLayout = nullptr;
-    QLineEdit *serverMsgBox = nullptr;
-    QLabel *screenshotLabel = nullptr;
+//    QVBoxLayout *rightPanelLayout = nullptr;
+//    QLineEdit *serverMsgBox = nullptr;
+//    QLabel *screenshotLabel = nullptr;
 
-    QWidget *centralWidget = nullptr;
+//    QWidget *centralWidget = nullptr;
 
 private slots:
-    void on_pushButton_clicked(int num);
-//    void on_pushButton_3_clicked();
+    void on_pushButton_clicked_1();
+    void on_pushButton_clicked_2();
+    void on_pushButton_clicked_3();
+    void on_pushButton_clicked_4();
+    void on_pushButton_clicked_5();
+    void on_pushButton_clicked_6();
+    void on_pushButton_clicked_7();
+    void on_pushButton_clicked_8();
+
 };
 
 

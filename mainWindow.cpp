@@ -1,37 +1,39 @@
 
 #include "mainWindow.h"
-#include "./ui_mainWindow.h"
+#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_initialwindow.h"
 
 #include "serverWindow.h"
 #include "clientWindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-//    , ui(new Ui::MainWindow)
+    , ui(new Ui::initialWindow)
 {
-//    ui->setupUi(this);
-    // ------------SETTING UP GUI ----------------------
-    const QSize btnSize = QSize(150, 100);
-    const QSize logoSize = QSize(300, 300);
-    buttonLayout = new QHBoxLayout;
-    createServerButton = new QPushButton("Create a server");
-    connectServerButton = new QPushButton("Connect to a server");
-    createServerButton->setFixedSize(btnSize);
-    connectServerButton->setFixedSize(btnSize);
-    buttonLayout->addWidget(createServerButton);
-    buttonLayout->addWidget(connectServerButton);
-    buttonWidget = new QWidget;
-    buttonWidget->setLayout(buttonLayout);
+    ui->setupUi(this);
+    createServerButton = ui->pushButton_2;
+    connectServerButton = ui->pushButton_3;
+//    // ------------SETTING UP GUI ----------------------
+//    const QSize btnSize = QSize(150, 100);
+//    const QSize logoSize = QSize(300, 300);
+//    buttonLayout = new QHBoxLayout;
+//    createServerButton = new QPushButton("Create a server");
+//    connectServerButton = new QPushButton("Connect to a server");
+//    createServerButton->setFixedSize(btnSize);
+//    connectServerButton->setFixedSize(btnSize);
+//    buttonLayout->addWidget(createServerButton);
+//    buttonLayout->addWidget(connectServerButton);
+//    buttonWidget = new QWidget;
+//    buttonWidget->setLayout(buttonLayout);
 
-    overallLayout = new QVBoxLayout;
-    logoWidget = new QWidget;
-    logoWidget->setFixedSize(logoSize);
-    overallLayout->addWidget(logoWidget);
-    overallLayout->addWidget(buttonWidget);
+//    overallLayout = new QVBoxLayout;
+//    logoWidget = new QWidget;
+//    logoWidget->setFixedSize(logoSize);
+//    overallLayout->addWidget(logoWidget);
+//    overallLayout->addWidget(buttonWidget);
 
-    centralWidget = new QWidget;
-    centralWidget->setLayout(overallLayout);
-    setCentralWidget(centralWidget);
+//    centralWidget = new QWidget;
+//    centralWidget->setLayout(overallLayout);
+//    setCentralWidget(centralWidget);
 
     connect(createServerButton, SIGNAL(clicked()), this, SLOT(on_CreateServerButton_clicked()));
     connect(connectServerButton, SIGNAL(clicked()), this, SLOT(on_ConnectServerButton_clicked()));
@@ -41,8 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::on_CreateServerButton_clicked()
 {
 //    serverWindow->show();
-    ServerWindow *serverWindow = new ServerWindow(this);
-    serverWindow->show();
+    serverInfo *server_info = new serverInfo(this);
+    server_info->show();
 //    QWidget *serverWidget = serverWindow->findChild<QWidget*>("centralwidget");
 //    ui->widgetContainer->setLayout(new QVBoxLayout);
 //    ui->widgetContainer->layout()->addWidget(serverWidget);

@@ -1,93 +1,53 @@
 #include "clientWindow.h"
-#include "ui_clientWindow.h"
+#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_clientWindow.h"
 
 #include <QDebug>
 
 ClientWindow::ClientWindow(QWidget *parent) :
     QMainWindow(parent)
-//    , ui(new Ui::ClientWindow)
+    , ui(new Ui::clientWindow)
 {
-//    ui->setupUi(this);
+    ui->setupUi(this);
 
     client = new Client;
-    connectDialog = new ConnectDialog;
+    connectDialog = new clientInfo;
 
-    connect(connectDialog, &ConnectDialog::connectToServer, this, &ClientWindow::receivedServerInfo);
-    connect(connectDialog, &ConnectDialog::exit, this, &ClientWindow::close);
+    connect(connectDialog, &clientInfo::connectToServer, this, &ClientWindow::receivedServerInfo);
+    connect(connectDialog, &clientInfo::exit, this, &ClientWindow::close);
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
     connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
     connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
 
 
-    // ------------SETTING UP GUI --------------------
-//    const QSize windowSize = QSize(900, 600);
-//    const QSize rightPanelSize = QSize (600, 600);
+//    // ------------SETTING UP GUI --------------------
 
-//    this->resize(windowSize);
-    overallLayout = new QHBoxLayout;
-    leftPanelWidget = new QWidget;
-    rightPanelWidget = new QWidget;
-//    rightPanelWidget->setFixedSize(rightPanelSize);
+    _ipLabel = ui->ipLabel;
+    _portLabel = ui->portLabel;
+    _ipBox = ui->ipBox;
+    _portBox = ui->portBox;
 
-    // leftPanelWidget
-    leftPanelLayout = new QVBoxLayout;
 
-    const QSize serverInfoBoxSize = QSize (100, 200);
-    serverInfoBox = new QGroupBox("Server info");
-    serverInfoLayout = new QFormLayout;
-    ipLabel = new QLabel("IP:");
-    portLabel = new QLabel("Port:");
-    ipBox = new QLabel;
-    portBox = new QLabel;
-    serverInfoLayout->addRow(ipLabel, ipBox);
-    serverInfoLayout->addRow(portLabel, portBox);
-    serverInfoBox->setLayout(serverInfoLayout);
-    serverInfoBox->setFixedSize(serverInfoBoxSize);
 
-    const QSize featureButtonSize = QSize(90, 60);
-    featureWidget = new QWidget;
-    featureLayout = new QVBoxLayout;
-    featureButtons = new vector<FeatureButton*>;
+    processButton = ui->processButton;
+    appButton = ui->processButton_2;
+    keystrButton =  ui->processButton_3;
+    screenButton = ui->processButton_4;
+    fileButton = ui->processButton_5;
+    streamButton = ui->processButton_6;
+    audioButton = ui->processButton_7;
+    contrButton = ui->processButton_8;
+    exitButton = ui->exitButton;
+    connect(processButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_1);
+    connect(appButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_2);
+    connect(keystrButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_3);
+    connect(screenButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_4);
+    connect(fileButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_5);
+    connect(streamButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_6);
+    connect(audioButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_7);
+    connect(contrButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_8);
 
-    for (int i = 0; i < numberOfFeat; i++) {
-//        FeatureButton *button = new FeatureButton(featureNames[i]);
-        FeatureButton *button = new FeatureButton;
-        button->setText(featureNames[i]);
-        button->setNumber(i);
-//        button->setFixedSize(featureButtonSize);
-        //connect(button, SIGNAL(clicked()), this, featureFuncs[i]);
-        connect(button, &FeatureButton::clickedNumber, this, &ClientWindow::on_pushButton_clicked);
-
-        featureButtons->push_back(button);
-        featureLayout->addWidget(button);
-    }
-//    featureLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
-
-    featureWidget->setLayout(featureLayout);
-
-    const QSize exitButtonSize = QSize(90, 60);
-    exitButton = new QPushButton("Exit");
-//    exitButton->setFixedSize(exitButtonSize);
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
-    leftPanelLayout->addWidget(serverInfoBox);
-    leftPanelLayout->addWidget(featureWidget);
-    leftPanelLayout->addWidget(exitButton);
-
-    // rightPanelWidget
-    rightPanelLayout = new QVBoxLayout;
-    serverMsgBox = new QLineEdit;
-    rightPanelLayout->addWidget(serverMsgBox);
-
-    // central
-    leftPanelWidget->setLayout(leftPanelLayout);
-    rightPanelWidget->setLayout(rightPanelLayout);
-    overallLayout->addWidget(leftPanelWidget);
-    overallLayout->addWidget(rightPanelWidget);
-
-    centralWidget = new QWidget;
-    centralWidget->setLayout(overallLayout);
-    setCentralWidget(centralWidget);
     // -----------------------------------------------
     connectDialog->show();
 
@@ -96,79 +56,78 @@ ClientWindow::ClientWindow(QWidget *parent) :
 
 void ClientWindow::receivedServerInfo(const QString &serverIp, int port) {
     client->connectToServer(serverIp, port);
-    ipBox->setText(serverIp);
-    portBox->setText(QString::number(port));
+    _ipBox->setText(serverIp);
+    _portBox->setText(QString::number(port));
 }
 
 void ClientWindow::updateServerMsg(const QString &msg) {
-    serverMsgBox->setText(msg);
+//    serverMsgBox->setText(msg);
 }
 
 void ClientWindow::updateImage(const QPixmap &image) {
-    qDebug() << "display picture?";
-    if (screenshotLabel == nullptr) {
-        screenshotLabel = new QLabel();
-        screenshotLabel->setPixmap(image);
-        rightPanelLayout->addWidget(screenshotLabel);
-    }
-    else {
-        screenshotLabel->setPixmap(image);
-    }
+//    qDebug() << "display picture?";
+//    if (screenshotLabel == nullptr) {
+//        screenshotLabel = new QLabel();
+//        screenshotLabel->setPixmap(image);
+//        rightPanelLayout->addWidget(screenshotLabel);
+//    }
+//    else {
+//        screenshotLabel->setPixmap(image);
+//    }
 }
 
 void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
-    qDebug() << "display file struct";
-    QTreeView *treeView = new QTreeView;
-//    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    treeView->setModel(model);
-    treeView->setHeaderHidden(true);
-    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    treeView->setAnimated(true);
-    treeView->setIndentation(20);
-    treeView->setSortingEnabled(true);
-    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
-    treeView->setExpandsOnDoubleClick(true);
-    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
-    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
-//    treeView->show();
-//    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
-    rightPanelLayout->addWidget(treeView);
+//    qDebug() << "display file struct";
+//    QTreeView *treeView = new QTreeView;
+////    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    treeView->setModel(model);
+//    treeView->setHeaderHidden(true);
+//    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+//    treeView->setAnimated(true);
+//    treeView->setIndentation(20);
+//    treeView->setSortingEnabled(true);
+//    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+//    treeView->setExpandsOnDoubleClick(true);
+//    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
+//    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
+////    treeView->show();
+////    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
+//    rightPanelLayout->addWidget(treeView);
 }
 
 void ClientWindow::onTreeViewDoubleClicked(const QModelIndex &index)
 {
-    // get the file path from the user role of the clicked item
-    QString filePath = index.data(Qt::UserRole).toString();
+//    // get the file path from the user role of the clicked item
+//    QString filePath = index.data(Qt::UserRole).toString();
 
-    // open the file using QDesktopServices::openUrl()
-    QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
+//    // open the file using QDesktopServices::openUrl()
+//    QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
 }
 
-void ClientWindow::on_pushButton_clicked(int num)
-{
-    qDebug() << "message sent";
-    switch (num) {
-    case 0:
-        client->sendMessage(tr("keyboard track"));
-        break;
-    case 1:
-        client->sendMessage(tr("list processes"));
-        break;
-    case 2:
-        client->sendMessage(tr("take screenshot"));
-        break;
-    case 3:
-        client->sendMessage(tr("recording"));
-        break;
-    case 4:
-        client->sendMessage(tr("ls"));
-        break;
-    case 5:
-        client->sendMessage(tr("list applications"));
-        break;
-    default:
-        client->sendMessage(tr("just saying hello"));
-    }
+void ClientWindow::on_pushButton_clicked_1(){
+    client->sendMessage(tr("list processes"));
 
+}
+void ClientWindow::on_pushButton_clicked_2(){
+    client->sendMessage(tr("list applications"));
+}
+void ClientWindow::on_pushButton_clicked_3(){
+    client->sendMessage(tr("keyboard track"));
+
+}
+void ClientWindow::on_pushButton_clicked_4(){
+    client->sendMessage(tr("take screenshot"));
+
+}
+void ClientWindow::on_pushButton_clicked_5(){
+    client->sendMessage(tr("ls"));
+}
+void ClientWindow::on_pushButton_clicked_6(){
+
+}
+void ClientWindow::on_pushButton_clicked_7(){
+    client->sendMessage(tr("recording"));
+}
+void ClientWindow::on_pushButton_clicked_8(){
 
 }
