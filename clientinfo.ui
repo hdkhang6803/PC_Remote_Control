@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1343</width>
-    <height>623</height>
+    <width>333</width>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,10 @@
    <widget class="QWidget" name="connectWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>70</y>
-      <width>841</width>
-      <height>461</height>
+      <x>0</x>
+      <y>0</y>
+      <width>331</width>
+      <height>301</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -33,23 +33,24 @@ background-color: #F2F6FC;</string>
     <widget class="QLineEdit" name="IDinput">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>140</y>
-       <width>561</width>
-       <height>51</height>
+       <x>40</x>
+       <y>60</y>
+       <width>251</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #ffffff;
 border: 1px #000000;
-border-radius: 5px;</string>
+border-radius: 5px;
+padding: 10px;</string>
      </property>
     </widget>
     <widget class="QLabel" name="IDlabel">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>90</y>
+       <x>40</x>
+       <y>30</y>
        <width>251</width>
        <height>20</height>
       </rect>
@@ -65,8 +66,8 @@ border: none;</string>
     <widget class="QLabel" name="portLabel">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>220</y>
+       <x>40</x>
+       <y>110</y>
        <width>251</width>
        <height>20</height>
       </rect>
@@ -82,25 +83,26 @@ border: none;</string>
     <widget class="QLineEdit" name="portInput">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>270</y>
-       <width>561</width>
-       <height>51</height>
+       <x>40</x>
+       <y>140</y>
+       <width>251</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #ffffff;
 border: 1px #000000;
-border-radius: 5px;</string>
+border-radius: 5px;
+padding: 10px;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>370</y>
+       <x>40</x>
+       <y>240</y>
        <width>111</width>
-       <height>41</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -117,10 +119,10 @@ color: #ffffff;</string>
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>370</y>
+       <x>180</x>
+       <y>240</y>
        <width>111</width>
-       <height>41</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -134,6 +136,26 @@ border-radius: 5px;
       <string>Exit</string>
      </property>
     </widget>
+    <widget class="QLabel" name="failLabel">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>190</y>
+       <width>361</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: italic 600 9pt &quot;UTM Avo&quot;;
+border: none;
+text-align: justify;
+color: rgb(170, 0, 0);
+</string>
+     </property>
+     <property name="text">
+      <string>Connect unsuccessfully. Try again!</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -141,7 +163,7 @@ border-radius: 5px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1343</width>
+     <width>333</width>
      <height>26</height>
     </rect>
    </property>

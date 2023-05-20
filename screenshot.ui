@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>screendisplayer</class>
- <widget class="QWidget" name="screendisplayer">
+ <class>screenshot</class>
+ <widget class="QWidget" name="screenshot">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>903</width>
-    <height>573</height>
+    <width>904</width>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,16 +35,16 @@ font: 500 9pt &quot;UTM Avo&quot;;
 </string>
    </property>
    <property name="text">
-    <string>No screenstream</string>
+    <string>No screenshot</string>
    </property>
    <property name="textFormat">
     <enum>Qt::RichText</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="startButton">
+  <widget class="QPushButton" name="captureButton">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>290</x>
      <y>520</y>
      <width>131</width>
      <height>31</height>
@@ -60,7 +60,29 @@ border:  1px solid rgb(154, 154, 154);
 </string>
    </property>
    <property name="text">
-    <string>Start</string>
+    <string>Capture</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="saveButton">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>520</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 10px;
+font: 600 9pt &quot;UTM Avo&quot;;
+box-shadow:  10px 5px 5px rgb(0, 0, 0);
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+
+</string>
+   </property>
+   <property name="text">
+    <string>Save</string>
    </property>
   </widget>
  </widget>

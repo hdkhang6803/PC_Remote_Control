@@ -47,7 +47,7 @@ private:
     QDataStream in;
 
     QProcess *m_process;
-    AudioRecorder *recorder = nullptr;
+    audiorecorder *recorder = nullptr;
     QList<QTcpSocket*> clients;
 
 //    HHOOK mouseHook;

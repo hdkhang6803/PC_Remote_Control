@@ -21,12 +21,17 @@ set(PROJECT_SOURCES
         mouse_track_test.h
 #        keyboard_track.cpp keyboard_track.h
         audiorecorder.h audiorecorder.cpp audiorecorder.ui
+        recoder.h recoder.cpp recoder.ui
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
         clientinfo.h clientinfo.cpp clientinfo.ui
         serverinfo.h serverinfo.cpp serverinfo.ui
         initialwindow.h initialwindow.cpp initialwindow.ui
         fileexplorer.h fileexplorer.cpp fileexplorer.ui
         screendisplayer.h screendisplayer.cpp screendisplayer.ui
+        screenshot.h screenshot.cpp screenshot.ui
+        keystroke.h keystroke.cpp keystroke.ui
+        apps.h apps.cpp apps.ui
+        processes.h processes.cpp processes.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
