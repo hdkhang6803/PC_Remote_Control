@@ -46,18 +46,24 @@ public:
 private:
     Ui::clientWindow *ui;
 
+signals:
+    void appear();
+
 private slots:
     void receivedServerInfo(const QString &serverIp, int port);
+    void connect_success();
+    void connect_fail();
 
     void updateServerMsg(const QString &msg);
     void updateImage(const QPixmap &image);
     void updateFileStruct(QStandardItemModel* &model);
 
     void onTreeViewDoubleClicked(const QModelIndex &index);
+
 private:
 
     Client *client = nullptr;
-    clientInfo *connectDialog = nullptr;
+    clientInfo *client_info = nullptr;
 
 
     QLabel *_ipLabel = nullptr;

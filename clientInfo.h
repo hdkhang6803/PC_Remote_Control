@@ -4,11 +4,11 @@
 #include <QDataStream>
 #include <QDialog>
 //#include <QTcpSocket>
-
+#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_clientinfo.h"
 #include "client.h"
 #include <QMainWindow>
 
-QT_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE/*
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -16,7 +16,7 @@ class QTcpSocket;
 class QHBoxLayout;
 class QDialogButtonBox;
 class QFormLayout;
-class QVBoxLayout;
+class QVBoxLayout;*/
 QT_END_NAMESPACE
 
 namespace Ui {
@@ -29,6 +29,7 @@ class clientInfo : public QMainWindow
 
 public:
     explicit clientInfo(QWidget *parent = nullptr);
+    void fail_mess_display();
 //    ~ConnectDialog();
 
 signals:
@@ -47,6 +48,7 @@ private:
     QLineEdit *portBox = nullptr;
     QLabel *statusLabel = nullptr;
     QLineEdit *statusBox = nullptr;
+    QLabel *fail_message = nullptr;
 
     QPushButton *connectButton = nullptr;
     QPushButton *exitButton = nullptr;

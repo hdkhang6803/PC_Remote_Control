@@ -10,13 +10,15 @@ ClientWindow::ClientWindow(QWidget *parent) :
     ui->setupUi(this);
 
     client = new Client;
-    connectDialog = new clientInfo;
+    client_info = new clientInfo;
 
-    connect(connectDialog, &clientInfo::connectToServer, this, &ClientWindow::receivedServerInfo);
-    connect(connectDialog, &clientInfo::exit, this, &ClientWindow::close);
+
+    connect(client_info, &clientInfo::connectToServer, this, &ClientWindow::receivedServerInfo);
+//    connect(client_info, &clientInfo::exit, this, &ClientWindow::close);
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
     connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
     connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
+
 
 
 //    // ------------SETTING UP GUI --------------------
@@ -49,15 +51,26 @@ ClientWindow::ClientWindow(QWidget *parent) :
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
     // -----------------------------------------------
-    connectDialog->show();
 
 
+    client_info->show();
 }
 
 void ClientWindow::receivedServerInfo(const QString &serverIp, int port) {
+    connect(client, &Client::m_connected, this, &ClientWindow::connect_success);
+    connect(client, &Client::m_unconnected, this, &ClientWindow::connect_fail);
     client->connectToServer(serverIp, port);
     _ipBox->setText(serverIp);
     _portBox->setText(QString::number(port));
+}
+void ClientWindow::connect_success(){
+    this->show();
+    client_info->close();
+    qDebug() << "success";
+}
+void ClientWindow::connect_fail(){
+    client_info->fail_mess_display();
+    qDebug() << "fail";
 }
 
 void ClientWindow::updateServerMsg(const QString &msg) {

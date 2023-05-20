@@ -34,7 +34,7 @@ background-color: #F2F6FC;</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>140</y>
+       <y>100</y>
        <width>561</width>
        <height>51</height>
       </rect>
@@ -49,7 +49,7 @@ border-radius: 5px;</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>90</y>
+       <y>50</y>
        <width>251</width>
        <height>20</height>
       </rect>
@@ -66,7 +66,7 @@ border: none;</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>220</y>
+       <y>180</y>
        <width>251</width>
        <height>20</height>
       </rect>
@@ -83,7 +83,7 @@ border: none;</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>270</y>
+       <y>230</y>
        <width>561</width>
        <height>51</height>
       </rect>
@@ -132,6 +132,25 @@ border-radius: 5px;
      </property>
      <property name="text">
       <string>Exit</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="failLabel">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>310</y>
+       <width>321</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 600 10pt &quot;UTM Avo&quot;;
+color: rgb(170, 0, 0);
+border: none;
+text-align: justify;</string>
+     </property>
+     <property name="text">
+      <string>Connect unsuccessfully. Try again!</string>
      </property>
     </widget>
    </widget>

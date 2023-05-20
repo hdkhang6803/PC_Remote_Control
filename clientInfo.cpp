@@ -21,6 +21,7 @@ clientInfo::clientInfo(QWidget *parent) :
     ipBox = ui->IDinput;
     portLabel = ui->portLabel;
     portBox = ui->portInput;
+    ui->failLabel->setVisible(false);
 ////    statusLabel = new QLabel("Status: ");
 ////    statusBox = new QLineEdit;
 //    serverInfoLayout->addRow(ipLabel, ipBox);
@@ -53,10 +54,11 @@ clientInfo::clientInfo(QWidget *parent) :
 void clientInfo::on_buttonBox_accepted()
 {
     emit (connectToServer(ipBox->text(), portBox->text().toInt()));
-    close(); //Can phai close clientinfo truoc khi tao client window
 
 }
-
+void clientInfo::fail_mess_display(){
+    ui->failLabel->setVisible(true);
+}
 void clientInfo::on_buttonBox_rejected()
 {
     emit (exit());

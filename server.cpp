@@ -236,7 +236,8 @@ void Server::newConnection() {
     connect(clientConnection, &QTcpSocket::readyRead, this, &Server::readMessage);
     connect(clientConnection, &QTcpSocket::disconnected, this, &Server::disconnected);
     clients.append(clientConnection);
-
+    qDebug() << "incoming connection.";
+    sendMessage(clientConnection, "ayooo");
 }
 
 void Server::disconnected() {

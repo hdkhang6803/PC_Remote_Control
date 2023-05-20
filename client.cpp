@@ -1,5 +1,6 @@
 
 #include "client.h"
+#include "clientWindow.h"
 
 #include <QDebug>
 
@@ -7,8 +8,8 @@ Client::Client(QObject *parent)
     : QObject(parent),
     tcpSocket(new QTcpSocket(this))
 {
-    connect(tcpSocket, &QTcpSocket::connected, this, &Client::connected);
-    connect(tcpSocket, &QTcpSocket::disconnected, this, &Client::disconnected);
+//    connect(tcpSocket, &QTcpSocket::connected, this, &Client::_connected);
+    connect(tcpSocket, &QTcpSocket::disconnected, this, &Client::m_disconnected);
     connect(tcpSocket, &QAbstractSocket::errorOccurred, this, &Client::error);
 
     connect(tcpSocket, &QTcpSocket::readyRead, this, &Client::readMessage);
@@ -16,16 +17,19 @@ Client::Client(QObject *parent)
     in.setVersion(QDataStream::Qt_6_5);
 }
 
-void Client::connected() {
-    qDebug() << "Client: Client connected";
-}
-
-void Client::disconnected() {
+void Client::m_disconnected() {
     qDebug() << "Client: Client disconnected";
 }
 
+
 void Client::connectToServer(const QString &serverIp, int port) {
     tcpSocket->connectToHost(serverIp, port);
+    tcpSocket->waitForConnected(2000);
+    qDebug() << tcpSocket->state();
+    if(tcpSocket->state() == QTcpSocket::ConnectedState)
+        emit(m_connected());
+    else if(tcpSocket->state() == QTcpSocket::UnconnectedState || tcpSocket->state() == QTcpSocket::ConnectingState)
+        emit(m_unconnected());
 }
 
 void Client::sendMessage(const QString &cmdNumber) {
