@@ -21,7 +21,6 @@ set(PROJECT_SOURCES
         mouse_track_test.h
 #        keyboard_track.cpp keyboard_track.h
         audiorecorder.h audiorecorder.cpp audiorecorder.ui
-        recoder.h recoder.cpp recoder.ui
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
         clientinfo.h clientinfo.cpp clientinfo.ui
         serverinfo.h serverinfo.cpp serverinfo.ui
