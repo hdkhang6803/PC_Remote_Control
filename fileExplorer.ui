@@ -6,230 +6,1005 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1306</width>
-    <height>644</height>
+    <width>901</width>
+    <height>573</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
-  <widget class="QWidget" name="widget_2" native="true">
+  <widget class="QWidget" name="MainWidget" native="true">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>911</width>
-     <height>611</height>
+     <x>0</x>
+     <y>0</y>
+     <width>901</width>
+     <height>571</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #ffffff;</string>
+    <string notr="true">border-radius: 5px;
+background-color: #F2F6FC;</string>
    </property>
+   <widget class="QLabel" name="TreeView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(194, 231, 255);
+border: 1px #000000;
+border-radius: 5px;
+padding-left: 10px;
+font: 600 11pt &quot;UTM Avo&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Tree View</string>
+    </property>
+   </widget>
+   <widget class="QTreeWidget" name="treeWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>221</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #ffffff;
+border: 1px #000000;
+border-radius: 5px;
+padding-left: 10px;
+font: 500 10pt &quot;UTM Avo&quot;;</string>
+    </property>
+    <column>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="font">
+      <font>
+       <family>UTM Avo</family>
+       <pointsize>14</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="background">
+      <color>
+       <red>194</red>
+       <green>231</green>
+       <blue>255</blue>
+      </color>
+     </property>
+     <property name="foreground">
+      <brush brushstyle="NoBrush">
+       <color alpha="255">
+        <red>0</red>
+        <green>132</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </property>
+    </column>
+    <item>
+     <property name="text">
+      <string>Folder1</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>UTM Avo</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset theme="folder">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+     <item>
+      <property name="text">
+       <string>File1.1</string>
+      </property>
+      <property name="icon">
+       <iconset theme="document-open">
+        <normaloff>.</normaloff>.</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>File1.2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Folder1.1</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>UTM Avo</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>File1.3</string>
+       </property>
+      </item>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Folder2</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>UTM Avo</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>Folder2.1</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>UTM Avo</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>File2.1</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Folder3</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>UTM Avo</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>File1</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="Path">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>631</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(194, 231, 255);
+border: 1px #000000;
+border-radius: 5px;
+padding-left: 10px;
+font: 600 11pt &quot;UTM Avo&quot;;</string>
+    </property>
+    <property name="text">
+     <string>D:\Folder2</string>
+    </property>
+   </widget>
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>911</width>
-      <height>611</height>
+      <x>240</x>
+      <y>60</y>
+      <width>631</width>
+      <height>500</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>500</width>
+      <height>100</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #ffffff;
+border: 1px #000000;
+border-radius: 5px;
+padding-left: 10px;
+font: 500 10pt &quot;UTM Avo&quot;;</string>
     </property>
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents">
+    <widget class="QWidget" name="Contents">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>909</width>
-       <height>609</height>
+       <width>604</width>
+       <height>1222</height>
       </rect>
      </property>
-     <widget class="QPushButton" name="pushButton_9">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>190</y>
-        <width>441</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
-background-color: rgb(194, 231, 255);
-border: none;
-font-color: rgb(255, 255, 255);
-text-align: left;</string>
-      </property>
-      <property name="text">
-       <string>     v Mang May Tinh</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>140</y>
-        <width>441</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
-background-color: rgb(194, 231, 255);
-border: none;
-font-color: rgb(255, 255, 255);
-text-align: left;</string>
-      </property>
-      <property name="text">
-       <string>     &gt; Toan UDTK</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>90</y>
-        <width>441</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
-background-color: rgb(194, 231, 255);
-border: 2px #000000;
-font-color: rgb(255, 255, 255);
-text-align: left;</string>
-      </property>
-      <property name="text">
-       <string>     &gt; Co So Du Lieu</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_7">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>370</y>
-        <width>441</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 500 11pt &quot;UTM Avo&quot; ;
-background-color: rgb(194, 231, 255);
-border: none;
-font-color: rgb(255, 255, 255);
-text-align: left;</string>
-      </property>
-      <property name="text">
-       <string>     &gt; Phuong phap nghien cuu khoa hoc</string>
-      </property>
-     </widget>
-     <widget class="QScrollArea" name="scrollArea_2">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>240</y>
-        <width>441</width>
-        <height>131</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(225, 225, 225);
-border: none;</string>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>441</width>
-         <height>131</height>
-        </rect>
-       </property>
-       <widget class="QLabel" name="label">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>10</y>
-          <width>191</width>
-          <height>31</height>
-         </rect>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QFrame" name="GirdFrame">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>500</width>
+          <height>1200</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1500</width>
+          <height>15004</height>
+         </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
-border: none;
-font-color: rgb(255, 255, 255);</string>
+         <string notr="true"/>
         </property>
-        <property name="text">
-         <string>Crawler.py</string>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QGridLayout" name="DirectoryGrid">
+           <item row="4" column="0">
+            <layout class="QVBoxLayout" name="File1_25">
+             <item>
+              <widget class="QLabel" name="IconFile1_20">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_20">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="0">
+            <layout class="QVBoxLayout" name="File1_9">
+             <item>
+              <widget class="QLabel" name="IconFile1_4">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_4">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="1">
+            <layout class="QVBoxLayout" name="File1_10">
+             <item>
+              <widget class="QLabel" name="IconFile1_5">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_5">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="3">
+            <layout class="QVBoxLayout" name="File1_12">
+             <item>
+              <widget class="QLabel" name="IconFile1_7">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="4">
+            <layout class="QVBoxLayout" name="File1_7">
+             <item>
+              <widget class="QLabel" name="IconFile1_2">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_2">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="Folder1">
+             <item>
+              <widget class="QLabel" name="Folder1_icon">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/folder (1).png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+               <property name="margin">
+                <number>10</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Folder1_label">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Folder1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0">
+            <layout class="QVBoxLayout" name="File1_27">
+             <item>
+              <widget class="QLabel" name="IconFile1_22">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_22">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="4">
+            <layout class="QVBoxLayout" name="File1_13">
+             <item>
+              <widget class="QLabel" name="IconFile1_8">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_8">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="2">
+            <layout class="QVBoxLayout" name="Folder3">
+             <item>
+              <widget class="QLabel" name="Folder3_icon">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/folder (1).png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>10</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Folder3_label">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Folder3</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="1">
+            <layout class="QVBoxLayout" name="Folder2">
+             <item>
+              <widget class="QLabel" name="Folder2_icon">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/folder (1).png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>10</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Folder2_label">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Folder2</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="6">
+            <layout class="QVBoxLayout" name="File1_24">
+             <item>
+              <widget class="QLabel" name="IconFile1_19">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_19">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="6" column="0">
+            <spacer name="VSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="2">
+            <layout class="QVBoxLayout" name="File1_11">
+             <item>
+              <widget class="QLabel" name="IconFile1_6">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_6">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="5" column="0">
+            <layout class="QVBoxLayout" name="File1_26">
+             <item>
+              <widget class="QLabel" name="IconFile1_21">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_21">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="5">
+            <spacer name="HSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="3">
+            <layout class="QVBoxLayout" name="File1">
+             <item>
+              <widget class="QLabel" name="File1_icon">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="File1_label">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <layout class="QVBoxLayout" name="File1_28">
+             <item>
+              <widget class="QLabel" name="IconFile1_23">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="pixmap">
+                <pixmap>C:/Users/LENOVO/Downloads/document.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="margin">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="Label_23">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>File1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>40</y>
-          <width>191</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
-border: none;
-font-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string>ChatGPT.py</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_3">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>70</y>
-          <width>191</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
-border: none;
-font-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string>RemoteControl.cpp</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_4">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>100</y>
-          <width>191</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
-border: none;
-font-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string>Test.txt</string>
-        </property>
-       </widget>
-      </widget>
-     </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
+   <zorder>treeWidget</zorder>
+   <zorder>TreeView</zorder>
+   <zorder>scrollArea</zorder>
+   <zorder>Path</zorder>
   </widget>
  </widget>
  <resources/>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1308</width>
-    <height>641</height>
+    <width>332</width>
+    <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,10 @@
    <widget class="QWidget" name="connectWidget_2" native="true">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>80</y>
-      <width>841</width>
-      <height>461</height>
+      <x>0</x>
+      <y>0</y>
+      <width>331</width>
+      <height>301</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -33,16 +33,18 @@ background-color: #F2F6FC;</string>
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>120</y>
-       <width>281</width>
-       <height>211</height>
+       <x>50</x>
+       <y>50</y>
+       <width>231</width>
+       <height>91</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(194, 231, 255);
 font:  600 10pt &quot;UTM Avo&quot;;
-border-radius: 5px;</string>
+border-radius: 5px;
+border: 2px solid;
+box-shadow: 5px 5px;</string>
      </property>
      <property name="text">
       <string>Create a Server</string>
@@ -51,16 +53,18 @@ border-radius: 5px;</string>
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>120</y>
-       <width>281</width>
-       <height>211</height>
+       <x>50</x>
+       <y>170</y>
+       <width>231</width>
+       <height>91</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(194, 231, 255);
 font:  600 10pt &quot;UTM Avo&quot;;
-border-radius: 5px;</string>
+border-radius: 5px;
+border: 2px solid;
+</string>
      </property>
      <property name="text">
       <string>Connect to a Server</string>
@@ -73,7 +77,7 @@ border-radius: 5px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1308</width>
+     <width>332</width>
      <height>26</height>
     </rect>
    </property>
