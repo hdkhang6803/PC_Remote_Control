@@ -14,7 +14,7 @@ serverInfo::serverInfo(QWidget *parent) :
     connect(server, &Server::display, this, &serverInfo::updatePic);
 
 //    // ------------SETTING UP GUI ----------------------
-    exitButton = ui->pushButton;
+    exitButton = ui->exitButton;
 //    overallLayout = new QVBoxLayout;
 //    serverInfoWidget = new QWidget;
 //    buttonsWidget = new QWidget;
@@ -25,8 +25,8 @@ serverInfo::serverInfo(QWidget *parent) :
     _portLabel = ui->portLabel;
     _ipBox = ui->IDinput;
     _portBox = ui->portInput;
-    statusLabel = ui->portLabel_2;
-    statusBox = ui->portInput_2;
+    statusLabel = ui->statusLabel;
+    statusBox = ui->statusText;
 //    serverInfoLayout->addRow(ipLabel, ipBox);
 //    serverInfoLayout->addRow(portLabel, portBox);
 //    serverInfoLayout->addRow(statusLabel, statusBox);

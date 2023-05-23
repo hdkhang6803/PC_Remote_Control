@@ -47,7 +47,7 @@ private:
     QLineEdit *_ipBox = nullptr;
     QLineEdit *_portBox = nullptr;
     QLabel *statusLabel = nullptr;
-    QLineEdit *statusBox = nullptr;
+    QTextEdit *statusBox = nullptr;
 
 //    QHBoxLayout *buttonsLayout = nullptr;
 //    QPushButton *restartButton = nullptr;
