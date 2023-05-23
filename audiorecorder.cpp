@@ -27,51 +27,6 @@ AudioRecorder::AudioRecorder() : ui(new Ui::AudioRecorder)
     m_captureSession.setAudioInput(new QAudioInput(this));
 }
 
-void AudioRecorder::updateProgress(qint64 duration)
-{
-    if (m_audioRecorder->error() != QMediaRecorder::NoError || duration < 2000)
-        return;
-
-    ui->statusbar->showMessage(tr("Recorded %1 sec").arg(duration / 1000));
-}
-
-void AudioRecorder::onStateChanged(QMediaRecorder::RecorderState state)
-{
-    QString statusMessage;
-
-    switch (state) {
-    case QMediaRecorder::RecordingState:
-        statusMessage = tr("Recording to %1").arg(m_audioRecorder->actualLocation().toString());
-        ui->recordButton->setText(tr("Stop"));
-        ui->pauseButton->setText(tr("Pause"));
-        break;
-    case QMediaRecorder::PausedState:
-        statusMessage = tr("Paused");
-        ui->recordButton->setText(tr("Stop"));
-        ui->pauseButton->setText(tr("Resume"));
-        break;
-    case QMediaRecorder::StoppedState:
-        statusMessage = tr("Stopped");
-        ui->recordButton->setText(tr("Record"));
-        ui->pauseButton->setText(tr("Pause"));
-        break;
-    }
-
-    ui->pauseButton->setEnabled(m_audioRecorder->recorderState() != QMediaRecorder::StoppedState);
-    if (m_audioRecorder->error() == QMediaRecorder::NoError)
-        ui->statusbar->showMessage(statusMessage);
-}
-
-
-void AudioRecorder::toggleRecord()
-{
-    if (m_audioRecorder->recorderState() == QMediaRecorder::StoppedState) {
-
-        qDebug() << "record press";
-    } else {
-        qDebug() << "stop press";
-    }
-}
 
 void delay()
 {
@@ -125,22 +80,6 @@ void AudioRecorder::setOutputLocation()
 //    qDebug() << "The output path is set";
 }
 
-void AudioRecorder::togglePause()
-{
-    if (m_audioRecorder->recorderState() != QMediaRecorder::PausedState){
-        m_audioRecorder->pause();
-        qDebug() << "tggle pause: pause";
-    }
-    else{
-        m_audioRecorder->record();
-        qDebug() << "toggle pause: record";
-    }
-}
-
-void AudioRecorder::displayErrorMessage()
-{
-    ui->statusbar->showMessage(m_audioRecorder->errorString());
-}
 
 QMediaFormat AudioRecorder::selectedMediaFormat() const
 {

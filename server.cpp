@@ -175,14 +175,15 @@ void Server::readMessage() {
     else if (message == tr("recording")){
         if (recorder == nullptr)
             recorder = new AudioRecorder;
-        recorder->show();
+//        recorder->show();
 
         recorder->auto_start();
     }
     else if (message == tr("stop_record")){
         recorder->stop_by_msg();
-        recorder->close();
+//        recorder->close();
         delete recorder;
+        recorder = nullptr;
 
         send_audio_file(clientConnection);
 

@@ -30,12 +30,7 @@ public slots:
     void stop_by_msg();
 
 private slots:
-    void togglePause();
-    void toggleRecord();
 
-    void onStateChanged(QMediaRecorder::RecorderState);
-    void updateProgress(qint64 pos);
-    void displayErrorMessage();
 
 private:
     QMediaFormat selectedMediaFormat() const;
@@ -45,7 +40,6 @@ private:
 
     QMediaCaptureSession m_captureSession;
     QMediaRecorder *m_audioRecorder = nullptr;
-    QList<AudioLevel *> m_audioLevels;
     bool m_outputLocationSet = false;
     bool m_updatingFormats = false;
 };
