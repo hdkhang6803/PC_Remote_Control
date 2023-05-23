@@ -11,6 +11,7 @@
 #include <QPixmap>
 
 #include "server.h"
+#include "include\ui_serverinfo.h"
 //#include "fileExplorer.h"
 
 namespace Ui {

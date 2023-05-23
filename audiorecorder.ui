@@ -1,79 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AudioRecorder</class>
- <widget class="QMainWindow" name="AudioRecorder">
+ <class>audiorecorder</class>
+ <widget class="QWidget" name="audiorecorder">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>315</width>
-    <height>76</height>
+    <width>900</width>
+    <height>571</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Form</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
-     <widget class="QPushButton" name="recordButton">
-      <property name="text">
-       <string>Record</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="pauseButton">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string>Pause</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+  <property name="styleSheet">
+   <string notr="true">border-radius: 5px;
+background-color: #F2F6FC;</string>
+  </property>
+  <widget class="QPushButton" name="stopButton">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>270</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 20px;
+font: 600 9pt &quot;UTM Avo&quot;;
+box-shadow:  10px 5px 5px rgb(0, 0, 0);
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+
+</string>
+   </property>
+   <property name="text">
+    <string>Stop</string>
+   </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QLabel" name="timer">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>270</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>01:00</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>recordButton</sender>
-   <signal>clicked()</signal>
-   <receiver>AudioRecorder</receiver>
-   <slot>toggleRecord()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>191</x>
-     <y>340</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>113</x>
-     <y>317</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pauseButton</sender>
-   <signal>clicked()</signal>
-   <receiver>AudioRecorder</receiver>
-   <slot>togglePause()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>252</x>
-     <y>334</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>258</x>
-     <y>346</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
- <slots>
-  <slot>setOutputLocation()</slot>
-  <slot>toggleRecord()</slot>
-  <slot>togglePause()</slot>
- </slots>
+ <connections/>
 </ui>

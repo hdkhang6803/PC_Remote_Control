@@ -1,7 +1,10 @@
 #include "clientWindow.h"
-#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_clientWindow.h"
-
+#include "include/ui_clientWindow.h"
+#include "audiowindow.h"
+#include "client.h"
 #include <QDebug>
+#include <QTimer>
+#include <QDateTime>
 
 ClientWindow::ClientWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -140,6 +143,17 @@ void ClientWindow::on_pushButton_clicked_6(){
 }
 void ClientWindow::on_pushButton_clicked_7(){
     client->sendMessage(tr("recording"));
+
+//    QWidget* previous_widg = ui->widget_2;
+    audioWindow* audio_w = new audioWindow(ui->widget_2);
+    audio_w->set_time();
+    audio_w->show();
+    connect(audio_w, &audioWindow::click_stop, [=](){
+        client->sendMessage(tr("stop_recording"));
+        delete audio_w;
+    });
+
+
 }
 void ClientWindow::on_pushButton_clicked_8(){
 

@@ -25,6 +25,7 @@ class Server : public QObject
     Q_OBJECT
 public:
     explicit Server(QObject *parent = nullptr);
+    void send_audio_file(QTcpSocket* sender);
 //    ~Server();
 signals:
 //    void connected();

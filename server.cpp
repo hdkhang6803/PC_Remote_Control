@@ -5,6 +5,12 @@
 #include <QDebug>
 #include <QApplication>
 #include <QScreen>
+#include "windows.h"
+
+
+#define NETCARD_ROOT    L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards"
+#define TCPIP_ROOT  L"SYSTEM\\CurrentControlSet\\services\\Tcpip\\Parameters\\Interfaces"
+
 
 Server::Server(QObject *parent)
     : QObject{parent}
@@ -32,14 +38,147 @@ void Server::initServer()
         return;
     }
 
-    const QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-    // use the first non-localhost IPv4 address
-    for (const QHostAddress &entry : ipAddressesList) {
-        if (entry != QHostAddress::LocalHost && entry.toIPv4Address()) {
-            ipAddress = entry.toString();
-            break;
+    QList<QHostAddress> ipAddressesList2 = QNetworkInterface::allAddresses();
+    for (const QHostAddress& address : ipAddressesList2) {
+        if (address != QHostAddress::LocalHost && address.protocol() == QAbstractSocket::IPv4Protocol) {
+            qDebug() << "Local LAN IP Address:" << address.toString();
         }
     }
+    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+
+    HKEY hNetCardsKey;
+    LSTATUS lStatus = ERROR_SUCCESS;
+
+    lStatus = RegOpenKey(HKEY_LOCAL_MACHINE,
+                         NETCARD_ROOT,
+                         &hNetCardsKey);
+
+    if(ERROR_SUCCESS == lStatus)
+    {
+        DWORD dwCards = 0L;
+        DWORD dwMaxSubkeyNameLen = 0L;
+        lStatus = RegQueryInfoKey(hNetCardsKey, NULL, NULL, NULL, &dwCards,
+                                  &dwMaxSubkeyNameLen, NULL, NULL, NULL, NULL, NULL, NULL);
+
+        if(ERROR_SUCCESS == lStatus && dwCards)
+        {
+            for(DWORD i = 0; i < dwCards; i++)
+            {
+                TCHAR wszCurrentCardIdxName[MAX_PATH];
+                wszCurrentCardIdxName[0] = '\0';
+                lStatus = RegEnumKey(hNetCardsKey, i,
+                                     wszCurrentCardIdxName, MAX_PATH);
+
+                if(ERROR_SUCCESS == lStatus)
+                {
+                    TCHAR wszAdapterKeyName[MAX_PATH];
+                    wszAdapterKeyName[0] = '\0';
+
+                    wsprintf(wszAdapterKeyName, L"%s\\%s", NETCARD_ROOT,
+                             wszCurrentCardIdxName);
+
+                    HKEY hCardNameKey;
+
+                    lStatus = RegOpenKey(
+                        HKEY_LOCAL_MACHINE,
+                        wszAdapterKeyName,
+                        &hCardNameKey);
+
+                    if(ERROR_SUCCESS == lStatus)
+                    {
+                        TCHAR wszServiceNameGuid[MAX_PATH];
+                        TCHAR wszAdapterName[MAX_PATH];
+
+                        DWORD dwSize = sizeof(wszServiceNameGuid);
+                        wszServiceNameGuid[0] = '\0';
+                        RegQueryValueEx(
+                            hCardNameKey,
+                            L"ServiceName",
+                            NULL,
+                            NULL,
+                            (LPBYTE)wszServiceNameGuid,
+                            &dwSize);
+
+                        dwSize = sizeof(wszAdapterName);
+                        RegQueryValueEx(
+                            hCardNameKey,
+                            L"Description",
+                            NULL,
+                            NULL,
+                            (LPBYTE)wszAdapterName,
+                            &dwSize);
+
+                        OutputDebugStringW(wszServiceNameGuid);
+                        OutputDebugStringW(L"\n");
+
+                        RegCloseKey(hCardNameKey);
+
+                        //Get parameters
+                        TCHAR wszCardParamKey[MAX_PATH];
+                        wszCardParamKey[0] = '\0';
+                        wsprintf(wszCardParamKey,L"%s\\%s", TCPIP_ROOT, wszServiceNameGuid);
+
+                        HKEY hParamKey = NULL;
+
+                        lStatus = RegOpenKey(
+                            HKEY_LOCAL_MACHINE,
+                            wszCardParamKey,
+                            &hParamKey);
+
+                        if(ERROR_SUCCESS == lStatus)
+                        {
+                            DWORD dwEnabledDHCP = 0L;
+                            DWORD dwDWSize = sizeof(DWORD);
+                            TCHAR wszStaticIP[32];
+                            TCHAR wszDHCPIP[32];
+                            DWORD dwIPSize = sizeof(wszDHCPIP);
+
+                            ZeroMemory(wszDHCPIP, dwIPSize);
+                            ZeroMemory(wszStaticIP, dwIPSize);
+
+                            lStatus = RegQueryValueEx(
+                                hParamKey,
+                                L"EnableDHCP",
+                                NULL, NULL,
+                                (LPBYTE)&dwEnabledDHCP,
+                                &dwDWSize);
+
+                            if(SUCCEEDED(lStatus))
+                            {
+                               qDebug() << "Adapter : " << wszServiceNameGuid << " [" << wszAdapterName <<
+                                    "] \n\tDHCP : " << (dwEnabledDHCP  ? "Yes" : "No") <<"\n";
+
+                            }
+
+                            lStatus = RegQueryValueEx(
+                                hParamKey,
+                                L"IPAddress",
+                                NULL,
+                                NULL,
+                                (LPBYTE)&wszStaticIP,
+                                &dwIPSize);
+
+                            if(SUCCEEDED(lStatus))
+                            {
+                               qDebug() << "\tConfigured IP Address : " << wszStaticIP << "\n";
+                            }
+
+
+                           qDebug() << ("\n");
+
+                            RegCloseKey(hParamKey);
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+        RegCloseKey(hNetCardsKey);
+    }
+
+
     // if we did not find one, use IPv4 localhost
     if (ipAddress.isEmpty())
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
@@ -94,7 +233,22 @@ void Server::sendApplications(QTcpSocket* sender, const QStringList &appList)
     out << tr("list applications") << appList;
     sender->write(block);
 }
+void Server::send_audio_file(QTcpSocket* sender){
+    QString fileName = "D:\\recorded_data.m4a";
+    QFile file(fileName);
+    file.open(QIODevice::ReadOnly);
+    QByteArray mydata = file.readAll();
 
+    QDataStream out(&mydata, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_6_5);
+
+    out << tr("audio") << mydata;
+    sender->write(mydata);
+    qDebug() << "audio sent";
+    file.close();
+//    QFile::remove(fileName);
+    qDebug() << "audio file delete in server";
+}
 void Server::readMessage() {
     QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
     if (clientConnection != nullptr) {
@@ -175,13 +329,17 @@ void Server::readMessage() {
     else if (message == tr("recording")){
         if (recorder == nullptr)
             recorder = new AudioRecorder;
-        recorder->show();
 
         recorder->auto_start();
     }
     else if (message == tr("stop_recording")){
         recorder->stop_by_msg();
+        send_audio_file(clientConnection);
+        recorder->close();
         delete recorder;
+        recorder = nullptr;
+
+
     }
     else if (message == "ls") {
         //        QString dirPath = args.size() > 1 ? args[1] : ".";
@@ -245,93 +403,5 @@ void Server::disconnected() {
     clients.removeOne(clientSocket);
 }
 
-
-
-
-//QTcpServer * Server::getServer() {
-//    return tcpServer;
-//}
-
-//LRESULT CALLBACK Server::MouseHookProc(int nCode, WPARAM wParam, LPARAM lParam) {
-//    // Check if the message is a mouse click event
-//    if (nCode < HC_ACTION)
-//        return CallNextHookEx(NULL, nCode, wParam, lParam);
-
-//    std::string eventType = "";
-
-//    if (wParam == WM_MOUSEMOVE || wParam == WM_LBUTTONDOWN ||
-//        wParam == WM_RBUTTONDOWN || wParam == WM_MBUTTONDOWN) {
-//        // Extract the mouse coordinates from the LPARAM
-//        POINT cursorPos;
-//        GetCursorPos(&cursorPos);
-
-//        // Print the mouse coordinates to the console
-//        switch (wParam)
-//        {
-//        case WM_MOUSEMOVE:
-//            eventType = "move";
-//            break;
-//        case WM_LBUTTONDOWN:
-//            eventType = "lclick";
-//            break;
-//        case WM_RBUTTONDOWN:
-//            eventType = "rclick";
-//            break;
-//        case WM_MBUTTONDOWN:
-//            eventType = "mclick";
-//            break;
-//        }
-
-//        std::stringstream ss;
-//        ss << eventType << " at ("
-//                  << cursorPos.x << ", "
-//                  << cursorPos.y << ")\n";
-//        QString data = QString::fromStdString(ss.str());
-//        sendMessage(data);
-//    }
-//    else if (wParam == WM_MOUSEWHEEL || wParam == WM_MOUSEHWHEEL) {
-//        eventType = "wheel";
-
-//        switch (wParam)
-//        {
-//        case WM_MOUSEWHEEL:
-//            eventType = "vwheel";
-//            break;
-//        case WM_MOUSEHWHEEL:
-//            eventType = "hwheel";
-//            break;
-//        }
-
-//        MSLLHOOKSTRUCT* pMhs = (MSLLHOOKSTRUCT*)lParam;
-//        short zDelta = HIWORD(pMhs->mouseData);
-
-//        int scrollAmount = GET_WHEEL_DELTA_WPARAM(wParam);
-//        if (scrollAmount != 0)
-//            std::cout << eventType << " " << scrollAmount << " units\n";
-
-//        // Convert the scroll amount to lines or pages depending on the scroll bar orientation
-//        // int scrollLines = scrollAmount / WHEEL_DELTA;
-//        // int scrollPages = scrollAmount / (WHEEL_DELTA * 3);
-
-//        // Print out the scroll distance
-//        std::cout << eventType << " " << zDelta << " units\n";
-//    }
-
-//    // Call the next hook in the chain
-//    return CallNextHookEx(NULL, nCode, wParam, lParam);
-//}
-
-//void Server::startHook() {
-//    mouseHook = SetWindowsHookEx(WH_MOUSE_LL, MouseHookProc, NULL, 0);
-//    if (mouseHook == NULL) {
-//        std::cerr << "Failed to set mouse hook.\n";
-//    }
-//}
-
-//void Server::stopHook() {
-//    if (mouseHook != NULL) {
-//        UnhookWindowsHookEx(mouseHook);
-//    }
-//}
 
 

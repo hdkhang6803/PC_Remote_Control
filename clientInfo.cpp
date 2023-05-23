@@ -4,7 +4,7 @@
 
 #include "clientInfo.h"
 #include "clientWindow.h"
-#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_clientInfo.h"
+
 
 clientInfo::clientInfo(QWidget *parent) :
     QMainWindow(parent)
@@ -22,27 +22,9 @@ clientInfo::clientInfo(QWidget *parent) :
     portLabel = ui->portLabel;
     portBox = ui->portInput;
     ui->failLabel->setVisible(false);
-////    statusLabel = new QLabel("Status: ");
-////    statusBox = new QLineEdit;
-//    serverInfoLayout->addRow(ipLabel, ipBox);
-//    serverInfoLayout->addRow(portLabel, portBox);
-////    serverInfoLayout->addRow(statusLabel, statusBox);
-//    serverInfoWidget->setLayout(serverInfoLayout);
-//    overallLayout->addWidget(serverInfoWidget);
-
-//    // buttonsWidget
-//    buttonsLayout = new QHBoxLayout;
-//    dialogButtonBox = new QDialogButtonBox;
     connectButton = ui->pushButton;
-//    dialogButtonBox->addButton(okButton, QDialogButtonBox::AcceptRole);
     exitButton = ui->pushButton_2;
-//    dialogButtonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
-//    buttonsLayout->addWidget(dialogButtonBox);
-//    buttonsWidget->setLayout(buttonsLayout);
-//    overallLayout->addWidget(buttonsWidget);
 
-//    // set central widget
-//    this->setLayout(overallLayout);
     // -----------------------------------------------
 
 
@@ -53,10 +35,13 @@ clientInfo::clientInfo(QWidget *parent) :
 
 void clientInfo::on_buttonBox_accepted()
 {
+    ui->failLabel->setText("Connecting...");
+    ui->failLabel->show();
     emit (connectToServer(ipBox->text(), portBox->text().toInt()));
 
 }
 void clientInfo::fail_mess_display(){
+    ui->failLabel->setText("Connect unsuccessfully! Try again.");
     ui->failLabel->setVisible(true);
 }
 void clientInfo::on_buttonBox_rejected()

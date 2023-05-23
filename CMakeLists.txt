@@ -32,7 +32,9 @@ set(PROJECT_SOURCES
         featureButton.h featureButton.cpp
         mouse_track_test.h
 #        keyboard_track.cpp keyboard_track.h
-        audiorecorder.h audiorecorder.cpp audiorecorder.ui
+        audiorecorder.h audiorecorder.cpp
+        audiorecorder.ui
+        audiowindow.h audiowindow.cpp
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
 )
 

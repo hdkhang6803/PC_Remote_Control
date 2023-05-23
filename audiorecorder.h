@@ -24,30 +24,22 @@ class AudioRecorder : public QMainWindow
 
 public:
     AudioRecorder();
+    ~AudioRecorder(){
+        delete m_audioRecorder;
+    }
 
 public slots:
     void auto_start();
     void stop_by_msg();
 
 private slots:
-    void togglePause();
-    void toggleRecord();
-
-    void onStateChanged(QMediaRecorder::RecorderState);
-    void updateProgress(qint64 pos);
-    void displayErrorMessage();
 
 private:
     QMediaFormat selectedMediaFormat() const;
-    void setOutputLocation();
-
-    Ui::AudioRecorder *ui = nullptr;
+//    void setOutputLocation();
 
     QMediaCaptureSession m_captureSession;
     QMediaRecorder *m_audioRecorder = nullptr;
-    QList<AudioLevel *> m_audioLevels;
-    bool m_outputLocationSet = false;
-    bool m_updatingFormats = false;
 };
 
 #endif // AUDIORECORDER_H

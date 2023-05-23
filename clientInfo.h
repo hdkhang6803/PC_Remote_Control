@@ -4,7 +4,7 @@
 #include <QDataStream>
 #include <QDialog>
 //#include <QTcpSocket>
-#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_clientinfo.h"
+#include "include\ui_clientInfo.h"
 #include "client.h"
 #include <QMainWindow>
 
