@@ -141,6 +141,7 @@ void Client::readMessage() {
         }
         player->stop();
         qDebug() << "Audio stopped";
+        emit(audio_played());
 
     }
     else if (code == tr("list processes")) {

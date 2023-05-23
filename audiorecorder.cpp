@@ -60,7 +60,7 @@ void AudioRecorder::auto_start(){
     m_audioRecorder->setEncodingMode(QMediaRecorder::ConstantBitRateEncoding);
 
 //    // Set the output location for the recorded audio
-    QString fileName = "D:\\University\\Year_2\\HK2\\MMT\\Project_3\\recorded_data.m4a"; // Provide the desired file name and extension
+    QString fileName = "D:\\recorded_data.m4a"; // Provide the desired file name and extension
     m_audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
 
     m_audioRecorder->record();

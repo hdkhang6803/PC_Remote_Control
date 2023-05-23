@@ -19,6 +19,7 @@ public:
 signals:
     void ClientConnected();
     void ClientDisconnected();
+    void audio_played();
     void stringMessageReceived(const QString &message);
     void imageMessageReceived(const QPixmap &image);
     void fileStructReceived(QStandardItemModel* &model);

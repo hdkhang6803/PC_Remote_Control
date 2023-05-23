@@ -27,7 +27,7 @@ public:
     explicit Server(QObject *parent = nullptr);
 //    ~Server();
     void send_audio_file(QTcpSocket* sender){
-        QFile file("D:\\University\\Year_2\\HK2\\MMT\\Project_3\\recorded_data.m4a");
+        QFile file("D:\\recorded_data.m4a");
         file.open(QIODevice::ReadOnly);
         QByteArray mydata = file.readAll();
 
