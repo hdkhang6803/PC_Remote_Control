@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include "clientWindow.h"
 #include "serverWindow.h"
+#include "include\ui_initialwindow.h"
 
 //QT_BEGIN_NAMESPACE
 namespace Ui { class initialWindow; }

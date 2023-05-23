@@ -5,6 +5,7 @@
 #include <QtNetwork>
 #include <QDebug>
 #include <QDir>
+#include "include\ui_fileExplorer.h"
 
 namespace Ui {
 class fileExplorer;
