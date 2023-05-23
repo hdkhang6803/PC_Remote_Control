@@ -4,7 +4,7 @@
 
 #include "clientInfo.h"
 #include "clientWindow.h"
-#include "D:\University\Year_2\HK2\MMT\Project_3\include\ui_clientInfo.h"
+#include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_clientInfo.h"
 
 clientInfo::clientInfo(QWidget *parent) :
     QMainWindow(parent)

@@ -51,7 +51,8 @@ private:
     void sendKeyboardTrack(QTcpSocket* clientSocket);
     void sendApplications(QTcpSocket* clientSocket, const QStringList &appList);
 public:
-    QString ipAddress;
+    QStringList adapterNamesList;
+    QStringList ipAddressList;
     QString port;
 private:
     QTcpServer *tcpServer = nullptr;

@@ -32,17 +32,169 @@ void Server::initServer()
         return;
     }
 
-    const QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-    // use the first non-localhost IPv4 address
-    for (const QHostAddress &entry : ipAddressesList) {
-        if (entry != QHostAddress::LocalHost && entry.toIPv4Address()) {
-            ipAddress = entry.toString();
-            break;
+//    const QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
+//    // use the first non-localhost IPv4 address
+//    for (const QHostAddress &entry : ipAddressesList) {
+//        if (entry != QHostAddress::LocalHost && entry.toIPv4Address()) {
+//            ipAddress = entry.toString();
+//            break;
+//        }
+//    }
+//    // if we did not find one, use IPv4 localhost
+//    if (ipAddress.isEmpty())
+//        ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
+
+    //First enumerate all network adapters
+
+    HKEY hNetCardsKey;
+    LSTATUS lStatus = ERROR_SUCCESS;
+
+    lStatus = RegOpenKey(HKEY_LOCAL_MACHINE,
+                         NETCARD_ROOT,
+                         &hNetCardsKey);
+
+    if(ERROR_SUCCESS == lStatus)
+    {
+        DWORD dwCards = 0L;
+        DWORD dwMaxSubkeyNameLen = 0L;
+        lStatus = RegQueryInfoKey(hNetCardsKey, NULL, NULL, NULL, &dwCards,
+                                  &dwMaxSubkeyNameLen, NULL, NULL, NULL, NULL, NULL, NULL);
+
+        if(ERROR_SUCCESS == lStatus && dwCards)
+        {
+            for(DWORD i = 0; i < dwCards; i++)
+            {
+                TCHAR wszCurrentCardIdxName[MAX_PATH];
+                wszCurrentCardIdxName[0] = '\0';
+                lStatus = RegEnumKey(hNetCardsKey, i,
+                                     wszCurrentCardIdxName, MAX_PATH);
+
+                if(ERROR_SUCCESS == lStatus)
+                {
+                    TCHAR wszAdapterKeyName[MAX_PATH];
+                    wszAdapterKeyName[0] = '\0';
+
+                    wsprintf(wszAdapterKeyName, L"%s\\%s", NETCARD_ROOT,
+                             wszCurrentCardIdxName);
+
+                    HKEY hCardNameKey;
+
+                    lStatus = RegOpenKey(
+                        HKEY_LOCAL_MACHINE,
+                        wszAdapterKeyName,
+                        &hCardNameKey);
+
+                    if(ERROR_SUCCESS == lStatus)
+                    {
+                        TCHAR wszServiceNameGuid[MAX_PATH];
+                        TCHAR wszAdapterName[MAX_PATH];
+
+                        DWORD dwSize = sizeof(wszServiceNameGuid);
+                        wszServiceNameGuid[0] = '\0';
+                        RegQueryValueEx(
+                            hCardNameKey,
+                            L"ServiceName",
+                            NULL,
+                            NULL,
+                            (LPBYTE)wszServiceNameGuid,
+                            &dwSize);
+
+                        dwSize = sizeof(wszAdapterName);
+                        RegQueryValueEx(
+                            hCardNameKey,
+                            L"Description",
+                            NULL,
+                            NULL,
+                            (LPBYTE)wszAdapterName,
+                            &dwSize);
+
+                        OutputDebugStringW(wszServiceNameGuid);
+                        OutputDebugStringW(L"\n");
+
+                        RegCloseKey(hCardNameKey);
+
+                        //Get parameters
+                        TCHAR wszCardParamKey[MAX_PATH];
+                        wszCardParamKey[0] = '\0';
+                        wsprintf(wszCardParamKey,L"%s\\%s", TCPIP_ROOT, wszServiceNameGuid);
+
+                        HKEY hParamKey = NULL;
+
+                        lStatus = RegOpenKey(
+                            HKEY_LOCAL_MACHINE,
+                            wszCardParamKey,
+                            &hParamKey);
+
+                        if(ERROR_SUCCESS == lStatus)
+                        {
+                            DWORD dwEnabledDHCP = 0L;
+                            DWORD dwDWSize = sizeof(DWORD);
+                            TCHAR wszStaticIP[32];
+                            TCHAR wszDHCPIP[32];
+                            DWORD dwIPSize = sizeof(wszDHCPIP);
+
+                            ZeroMemory(wszDHCPIP, dwIPSize);
+                            ZeroMemory(wszStaticIP, dwIPSize);
+
+                            lStatus = RegQueryValueEx(
+                                hParamKey,
+                                L"EnableDHCP",
+                                NULL, NULL,
+                                (LPBYTE)&dwEnabledDHCP,
+                                &dwDWSize);
+
+                            if(SUCCEEDED(lStatus))
+                            {
+//                                wprintf_s(L"Adapter : %s [%s] \n\tDHCP : %s\n",
+//                                          wszServiceNameGuid,
+//                                          wszAdapterName,
+//                                          dwEnabledDHCP
+//                                              ? L"Yes" : L"No");
+                                adapterNamesList.push(QString(wszAdapterName));
+                            }
+
+                            lStatus = RegQueryValueEx(
+                                hParamKey,
+                                L"IPAddress",
+                                NULL,
+                                NULL,
+                                (LPBYTE)&wszStaticIP,
+                                &dwIPSize);
+
+                            if(SUCCEEDED(lStatus))
+                            {
+//                                wprintf_s(L"\tConfigured IP Address : %s\n", wszStaticIP);
+                            }
+
+                            dwIPSize = sizeof(wszDHCPIP);
+                            lStatus = RegQueryValueEx(
+                                hParamKey,
+                                L"DhcpIPAddress",
+                                NULL,
+                                NULL,
+                                (LPBYTE)&wszDHCPIP,
+                                &dwIPSize);
+
+                            if(SUCCEEDED(lStatus))
+                            {
+//                                wprintf_s(L"\tDHCP IP Address : %s\n", wszDHCPIP);
+                                ipAddressList.push(QString(wszDHCPIP));
+                            }
+
+//                            wprintf_s(L"\n");
+
+                            RegCloseKey(hParamKey);
+                        }
+
+                    }
+                }
+            }
         }
+
+
+        RegCloseKey(hNetCardsKey);
     }
-    // if we did not find one, use IPv4 localhost
-    if (ipAddress.isEmpty())
-        ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
+
 
     //! [1]
     port = QString::number(tcpServer->serverPort());
