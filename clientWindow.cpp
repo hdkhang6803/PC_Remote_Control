@@ -150,6 +150,7 @@ void ClientWindow::on_pushButton_clicked_7(){
     audio_w->show();
     connect(audio_w, &audioWindow::click_stop, [=](){
         client->sendMessage(tr("stop_recording"));
+        audio_w->m_timer->stop();
         delete audio_w;
     });
 

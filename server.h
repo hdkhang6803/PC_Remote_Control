@@ -55,6 +55,7 @@ public:
     QString ipAddress;
     QString port;
 private:
+
     QTcpServer *tcpServer = nullptr;
     QDataStream in;
 

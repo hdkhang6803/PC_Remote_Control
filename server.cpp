@@ -234,8 +234,7 @@ void Server::sendApplications(QTcpSocket* sender, const QStringList &appList)
     sender->write(block);
 }
 void Server::send_audio_file(QTcpSocket* sender){
-    QString fileName = "D:\\recorded_data.m4a";
-    QFile file(fileName);
+    QFile file("D:\\recorded_data.m4a");
     file.open(QIODevice::ReadOnly);
     QByteArray mydata = file.readAll();
 
@@ -245,9 +244,15 @@ void Server::send_audio_file(QTcpSocket* sender){
     out << tr("audio") << mydata;
     sender->write(mydata);
     qDebug() << "audio sent";
-    file.close();
-//    QFile::remove(fileName);
-    qDebug() << "audio file delete in server";
+    QTimer::singleShot(5000, this, [=]() {
+        QFile file1("D:\\recorded_data.m4a");
+        file1.setPermissions(QFileDevice::WriteUser | QFileDevice::ReadUser | QFileDevice::ExeUser);
+        if (file1.exists() && file1.remove()) {
+            qDebug() << "Audio file deleted on the server";
+        } else {
+            qDebug() << "Failed to delete audio file on the server";
+        }
+    });
 }
 void Server::readMessage() {
     QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
@@ -334,10 +339,12 @@ void Server::readMessage() {
     }
     else if (message == tr("stop_recording")){
         recorder->stop_by_msg();
-        send_audio_file(clientConnection);
+
         recorder->close();
         delete recorder;
         recorder = nullptr;
+
+        send_audio_file(clientConnection);
 
 
     }
