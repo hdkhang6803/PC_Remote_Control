@@ -41,7 +41,6 @@ public:
     QPushButton *processButton_7;
     QPushButton *exitButton;
     QWidget *widget_2;
-    QPushButton *exitButton_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -49,18 +48,18 @@ public:
     {
         if (clientWindow1->objectName().isEmpty())
             clientWindow1->setObjectName("clientWindow1");
-        clientWindow1->resize(1245, 647);
+        clientWindow1->resize(1250, 647);
         clientWindow1->setStyleSheet(QString::fromUtf8("background-color: #ffffff;"));
         centralwidget = new QWidget(clientWindow1);
         centralwidget->setObjectName("centralwidget");
         line = new QFrame(centralwidget);
         line->setObjectName("line");
-        line->setGeometry(QRect(300, 0, 20, 611));
+        line->setGeometry(QRect(310, 10, 20, 611));
         line->setFrameShape(QFrame::VLine);
         line->setFrameShadow(QFrame::Sunken);
         widget = new QWidget(centralwidget);
         widget->setObjectName("widget");
-        widget->setGeometry(QRect(0, 0, 301, 611));
+        widget->setGeometry(QRect(10, 10, 301, 611));
         widget->setStyleSheet(QString::fromUtf8("background-color: #F2F6FC;\n"
 "border-radius: 7px;"));
         groupBox = new QGroupBox(widget);
@@ -142,20 +141,12 @@ public:
 ""));
         widget_2 = new QWidget(centralwidget);
         widget_2->setObjectName("widget_2");
-        widget_2->setGeometry(QRect(320, 0, 911, 611));
+        widget_2->setGeometry(QRect(330, 10, 911, 611));
         widget_2->setStyleSheet(QString::fromUtf8("background-color: #F2F6FC;"));
-        exitButton_2 = new QPushButton(widget_2);
-        exitButton_2->setObjectName("exitButton_2");
-        exitButton_2->setGeometry(QRect(870, 10, 31, 29));
-        exitButton_2->setStyleSheet(QString::fromUtf8("background-color: rgb(170, 0, 0);\n"
-"color: #ffffff;\n"
-"border: solid 2px;\n"
-"font: 800;\n"
-"border-radius: 5px;"));
         clientWindow1->setCentralWidget(centralwidget);
         menubar = new QMenuBar(clientWindow1);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1245, 26));
+        menubar->setGeometry(QRect(0, 0, 1250, 26));
         clientWindow1->setMenuBar(menubar);
         statusbar = new QStatusBar(clientWindow1);
         statusbar->setObjectName("statusbar");
@@ -181,7 +172,6 @@ public:
         processButton_6->setText(QCoreApplication::translate("clientWindow1", "Screen Streaming", nullptr));
         processButton_7->setText(QCoreApplication::translate("clientWindow1", "Audio Streaming", nullptr));
         exitButton->setText(QCoreApplication::translate("clientWindow1", "Exit", nullptr));
-        exitButton_2->setText(QCoreApplication::translate("clientWindow1", "X", nullptr));
     } // retranslateUi
 
 };
