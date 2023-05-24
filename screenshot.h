@@ -17,9 +17,9 @@ signals:
     void end_session();
 
 private slots:
-    void on_saveButton_clicked();
-    void on_captureButton_clicked();
-    void on_exitButton_clicked();
+    void m_on_saveButton_clicked();
+    void m_on_captureButton_clicked();
+    void m_on_exitButton_clicked();
 public:
     explicit screenshot(QWidget *parent = nullptr);
     void display_image(QByteArray& img_byte);

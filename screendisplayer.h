@@ -15,6 +15,7 @@ class screendisplayer : public QWidget
 signals:
     void start_stream();
     void close_stream();
+    void end_session();
 public:
     explicit screendisplayer(QWidget *parent = nullptr);
     ~screendisplayer();

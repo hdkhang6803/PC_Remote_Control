@@ -28,19 +28,21 @@ screendisplayer::screendisplayer(QWidget *parent) :
             ui->startButton->setStyleSheet("border-radius: 10px;\nbox-shadow:  10px 5px 5px rgb(0, 0, 0);\nbackground: #C2E7FF;\nborder:  1px solid rgb(154, 154, 154);\ncolor: black\n\n");
             record_flag = 0;
         }
-        delete this;
+        emit(end_session());
     });
 
     this->show();
 }
 
 void screendisplayer::display_image(QByteArray& img_byte){
-    QPixmap img;
-    img.loadFromData(img_byte, "JPEG");
-    ui->screenLabel->setPixmap(img);
-    ui->screenLabel->setScaledContents( true );
+    if(this != nullptr){
+        QPixmap img;
+        img.loadFromData(img_byte, "JPEG");
+        ui->screenLabel->setPixmap(img);
+        ui->screenLabel->setScaledContents( true );
 
-    ui->screenLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+        ui->screenLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+    }
 }
 
 screendisplayer::~screendisplayer()

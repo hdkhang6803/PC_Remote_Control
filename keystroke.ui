@@ -112,7 +112,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <widget class="QPushButton" name="startButton">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>380</x>
      <y>500</y>
      <width>131</width>
      <height>31</height>
@@ -134,7 +134,7 @@ border:  1px solid rgb(154, 154, 154);
   <widget class="QPushButton" name="exitButton">
    <property name="geometry">
     <rect>
-     <x>460</x>
+     <x>540</x>
      <y>500</y>
      <width>121</width>
      <height>31</height>
@@ -149,6 +149,28 @@ border-radius: 10px;
    </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="clearButton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>500</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 10px;
+font: 600 9pt &quot;UTM Avo&quot;;
+box-shadow:  10px 5px 5px rgb(0, 0, 0);
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+
+</string>
+   </property>
+   <property name="text">
+    <string>Clear</string>
    </property>
   </widget>
  </widget>

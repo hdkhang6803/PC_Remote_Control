@@ -1,6 +1,5 @@
 
 #include "server.h"
-#include "keyboard_track.h"
 
 #include <QDebug>
 #include <QApplication>
@@ -187,13 +186,13 @@ void Server::initServer()
     port = QString::number(tcpServer->serverPort());
 }
 
-void Server::sendMessage(QTcpSocket* sender, const QString &msg)
+void Server::sendMessage(QTcpSocket* sender, const QString &msg, QString type)
 {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("string") << msg;
+    out << type << msg;
     sender->write(block);
 }
 
@@ -285,7 +284,6 @@ void Server::readMessage() {
 
         qDebug() << applications;
 
-//        tracking_keyboard();
     }
     else if (message == tr("list processes")) {
 //        sendMessage(clientConnection, "here are the processes: ");
@@ -297,14 +295,23 @@ void Server::readMessage() {
         });
         //        startHook();
     }
-    else if (message == tr("keyboard track")) {
+    else if (message == tr("keyboard_track")) {
         qDebug() << "keyboard tracking started?";
         processKeyboardTrack = new QProcess();
-        processKeyboardTrack->start("D:\\_Codes\\Qt_Creator_Projects\\PC_Remote_Control\\keyboard_track.exe");
-//        connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, &Server::processData);
+        processKeyboardTrack->start(".\\keyboard_track.exe");
         connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, [=]() {
-            sendKeyboardTrack(clientConnection);
+//            QProcess *process = static_cast<QProcess*>(sender());
+//            qDebug() << "is this on?";
+        QString data(processKeyboardTrack->readAllStandardOutput());
+        QString temp(data);
+        qDebug() << temp;
+        sendMessage(clientConnection, data, tr("stroke"));
         });
+    }
+    else if(message == tr("stop_stroke")){
+        processKeyboardTrack->kill();
+        delete processKeyboardTrack;
+        processKeyboardTrack = nullptr;
     }
     else if (message == tr("take screenshot")) {
         qDebug() << "taken screenshot";
@@ -367,13 +374,6 @@ void Server::stream(QTcpSocket* clientConnection) {
     sendScreenshot(clientConnection, screenshot, tr("stream"));
 }
 
-void Server::sendKeyboardTrack(QTcpSocket* clientSocket) {
-    QProcess *process = static_cast<QProcess*>(sender());
-    qDebug() << "is this on?";
-    QString data = process->readAllStandardOutput();
-    sendMessage(clientSocket, data);
-}
-
 void Server::sendProcesses(QTcpSocket* clientSocket) {
     QProcess *process = static_cast<QProcess *>(sender());
     qDebug() << "listing processing?";
@@ -400,7 +400,7 @@ void Server::newConnection() {
     connect(clientConnection, &QTcpSocket::disconnected, this, &Server::disconnected);
     clients.append(clientConnection);
     qDebug() << "incoming connection.";
-    sendMessage(clientConnection, "ayooo");
+    //sendMessage(clientConnection, "ayooo", );
 }
 
 void Server::disconnected() {

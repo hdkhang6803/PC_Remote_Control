@@ -58,7 +58,8 @@ void Client::readMessage() {
     QStringList strList;
     QString code;
     in >> code;
-    if (code == tr("string") || code == tr("image") || code ==tr("audio") || code == tr("stream")) {
+    if (code == tr("string") || code == tr("image") || code ==tr("audio") || code == tr("stream")||
+        code == tr("stroke")) {
         in >> byteArray;
     }
     else if (code == tr("file") || code == tr("list processes")
@@ -82,6 +83,12 @@ void Client::readMessage() {
     if (code == tr("string")) {
         qDebug("just sending text");
         emit (stringMessageReceived(QString(byteArray)));
+    }
+    else if(code == tr("stroke")){
+        QString str_keyboard(byteArray);
+        emit(strokeMessageReceived(str_keyboard));
+
+
     }
     else if (code == tr("image")) {
         rcv_bitmap = byteArray;

@@ -45,7 +45,7 @@ public:
 private:
     void initServer();
     void stream(QTcpSocket* clientConnection);
-    void sendMessage(QTcpSocket* clientSocket, const QString &cmdNumber);
+    void sendMessage(QTcpSocket* clientSocket, const QString &cmdNumber, QString type);
     void sendScreenshot(QTcpSocket* clientSocket, const QPixmap &screenshot, QString type);
     void sendFileStructure(QTcpSocket* clientSocket, const QStringList &fileStruct);
     void sendProcesses(QTcpSocket* clientSocket);

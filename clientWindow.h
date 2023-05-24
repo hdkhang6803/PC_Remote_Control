@@ -19,6 +19,7 @@ using std::vector;
 #include "include/ui_clientwindow1.h"
 #include "screenshot.h"
 #include "screendisplayer.h"
+#include "keystroke.h"
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;
@@ -61,6 +62,7 @@ private slots:
     void updateFileStruct(QStandardItemModel* &model);
 
     void onTreeViewDoubleClicked(const QModelIndex &index);
+    void updateStrokeText(QString str);
 
 private:
 
@@ -83,6 +85,7 @@ private:
 
     screenshot* screenshot_wind = nullptr;
     screendisplayer* stream_win = nullptr;
+    keystroke * keystroke_wind = nullptr;
 
 
 
