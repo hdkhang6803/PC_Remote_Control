@@ -47,7 +47,7 @@ border-radius: 10px;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+    <string notr="true">font: 600 14pt &quot;UTM Avo&quot;;
 background-color: #ffffff;
 border: 2px solid;
 

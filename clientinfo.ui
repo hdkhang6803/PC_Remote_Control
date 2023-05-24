@@ -27,8 +27,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius: 5px;
-background-color: #F2F6FC;</string>
+     <string notr="true">background-color: #F2F6FC;</string>
     </property>
     <widget class="QLineEdit" name="IDinput">
      <property name="geometry">
