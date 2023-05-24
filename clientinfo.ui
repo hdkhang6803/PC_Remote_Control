@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>333</width>
-    <height>347</height>
+    <width>334</width>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <x>0</x>
       <y>0</y>
       <width>331</width>
-      <height>301</height>
+      <height>391</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -34,7 +34,7 @@ background-color: #F2F6FC;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>60</y>
+       <y>100</y>
        <width>251</width>
        <height>41</height>
       </rect>
@@ -43,14 +43,17 @@ background-color: #F2F6FC;</string>
       <string notr="true">background-color: #ffffff;
 border: 1px #000000;
 border-radius: 5px;
-padding: 10px;</string>
+padding-left: 10px;</string>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLabel" name="IDlabel">
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>30</y>
+       <y>60</y>
        <width>251</width>
        <height>20</height>
       </rect>
@@ -67,7 +70,7 @@ border: none;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>110</y>
+       <y>160</y>
        <width>251</width>
        <height>20</height>
       </rect>
@@ -84,7 +87,7 @@ border: none;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>140</y>
+       <y>200</y>
        <width>251</width>
        <height>41</height>
       </rect>
@@ -93,14 +96,14 @@ border: none;</string>
       <string notr="true">background-color: #ffffff;
 border: 1px #000000;
 border-radius: 5px;
-padding: 10px;</string>
+padding-left: 10px;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>240</y>
+       <y>310</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -120,7 +123,7 @@ color: #ffffff;</string>
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>240</y>
+       <y>310</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -139,18 +142,17 @@ border-radius: 5px;
     <widget class="QLabel" name="failLabel">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>190</y>
-       <width>361</width>
-       <height>41</height>
+       <x>40</x>
+       <y>260</y>
+       <width>321</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: italic 600 9pt &quot;UTM Avo&quot;;
-border: none;
-text-align: justify;
+      <string notr="true">font: bold 600 9pt &quot;UTM Avo&quot;;
 color: rgb(170, 0, 0);
-</string>
+border: none;
+text-align: justify;</string>
      </property>
      <property name="text">
       <string>Connect unsuccessfully. Try again!</string>
@@ -163,7 +165,7 @@ color: rgb(170, 0, 0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>333</width>
+     <width>334</width>
      <height>26</height>
     </rect>
    </property>

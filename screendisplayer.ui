@@ -20,10 +20,10 @@ background-color: #F2F6FC;</string>
   <widget class="QLabel" name="screenLabel">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>861</width>
-     <height>491</height>
+     <x>10</x>
+     <y>50</y>
+     <width>881</width>
+     <height>461</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -44,7 +44,7 @@ font: 500 9pt &quot;UTM Avo&quot;;
   <widget class="QPushButton" name="startButton">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>300</x>
      <y>520</y>
      <width>131</width>
      <height>31</height>
@@ -61,6 +61,26 @@ border:  1px solid rgb(154, 154, 154);
    </property>
    <property name="text">
     <string>Start</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>520</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 10px;
+</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
    </property>
   </widget>
  </widget>

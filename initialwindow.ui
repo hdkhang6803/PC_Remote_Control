@@ -54,7 +54,7 @@ box-shadow: 5px 5px;</string>
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>170</y>
+       <y>160</y>
        <width>231</width>
        <height>91</height>
       </rect>

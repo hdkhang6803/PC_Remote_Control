@@ -30,7 +30,7 @@ background-color: #F2F6FC;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>10</y>
       <width>221</width>
       <height>31</height>
      </rect>
@@ -50,9 +50,9 @@ font: 600 11pt &quot;UTM Avo&quot;;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>50</y>
       <width>221</width>
-      <height>501</height>
+      <height>461</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -188,7 +188,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>20</y>
+      <y>10</y>
       <width>631</width>
       <height>31</height>
      </rect>
@@ -208,7 +208,7 @@ font: 600 11pt &quot;UTM Avo&quot;;</string>
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>60</y>
+      <y>50</y>
       <width>631</width>
       <height>500</height>
      </rect>
@@ -479,6 +479,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">padding-top: 10px;
+padding-bottom: 6px;
+margin: 14px;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -492,7 +497,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
-                <number>17</number>
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -524,6 +529,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">padding-top: 12px;
+padding-bottom: 6px;
+margin: 5px;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -540,7 +550,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
                <property name="margin">
-                <number>10</number>
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -662,6 +672,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">padding-top: 12px;
+padding-bottom: 6px;
+margin: 5px;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -675,7 +690,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
-                <number>10</number>
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -707,6 +722,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">padding-top: 12px;
+padding-bottom: 6px;
+margin: 5px;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -720,7 +740,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
-                <number>10</number>
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -752,6 +772,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">padding-top: 10px;
+padding-bottom: 6px;
+margin: 14px;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -765,7 +790,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
-                <number>17</number>
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -913,6 +938,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">padding-top: 10px;
+padding-bottom: 6px;
+margin: 14px;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -926,7 +956,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
-                <number>17</number>
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -1001,10 +1031,31 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
      </layout>
     </widget>
    </widget>
+   <widget class="QPushButton" name="exitButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>520</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
    <zorder>treeWidget</zorder>
    <zorder>TreeView</zorder>
    <zorder>scrollArea</zorder>
    <zorder>Path</zorder>
+   <zorder>exitButton</zorder>
   </widget>
  </widget>
  <resources/>

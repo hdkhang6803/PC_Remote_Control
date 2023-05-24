@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>903</width>
+    <width>912</width>
     <height>573</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@ background-color: #F2F6FC;</string>
      <x>0</x>
      <y>0</y>
      <width>901</width>
-     <height>581</height>
+     <height>521</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -32,17 +32,45 @@ background-color: #F2F6FC;</string>
    <property name="currentIndex">
     <number>1</number>
    </property>
-   <widget class="QWidget" name="runningAppsTab">
+   <widget class="QWidget" name="runningProcessesTab">
     <attribute name="title">
-     <string>Running applications</string>
+     <string>Running Processes</string>
     </attribute>
-    <widget class="QTreeView" name="runningAppsTree">
+    <widget class="QScrollArea" name="scrollArea">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>20</y>
        <width>851</width>
-       <height>491</height>
+       <height>471</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>851</width>
+        <height>471</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="runningAppsTab">
+    <attribute name="title">
+     <string>Running applications</string>
+    </attribute>
+    <widget class="QTableView" name="runningAppTable">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>851</width>
+       <height>451</height>
       </rect>
      </property>
     </widget>
@@ -51,17 +79,37 @@ background-color: #F2F6FC;</string>
     <attribute name="title">
      <string>All applications</string>
     </attribute>
-    <widget class="QTreeView" name="allAppsView">
+    <widget class="QTableView" name="appTable">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>20</y>
        <width>851</width>
-       <height>491</height>
+       <height>451</height>
       </rect>
      </property>
     </widget>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>530</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
   </widget>
  </widget>
  <resources/>
