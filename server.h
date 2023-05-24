@@ -50,7 +50,8 @@ private:
     void sendFileStructure(QTcpSocket* clientSocket, const QStringList &fileStruct);
     void sendProcesses(QTcpSocket* clientSocket);
     void sendKeyboardTrack(QTcpSocket* clientSocket);
-    void sendApplications(QTcpSocket* clientSocket, const QStringList &appList);
+    void sendApplications(QTcpSocket* clientSocket);
+    void sendRunningApplications(QTcpSocket* sender);
 public:
     QStringList adapterNamesList;
     QStringList ipAddressList;
@@ -61,6 +62,8 @@ private:
 
     QProcess *processKeyboardTrack;
     QProcess *processListProcesses;
+    QProcess *processListApps;
+    QProcess *processListRunningApps;
     AudioRecorder *recorder = nullptr;
     QList<QTcpSocket*> clients;
 

@@ -44,7 +44,7 @@ private:
 //    QFormLayout *serverInfoLayout = nullptr;
     QLabel *_ipLabel = nullptr;
     QLabel *_portLabel = nullptr;
-    QLineEdit *_ipBox = nullptr;
+    QTextEdit *_ipBox = nullptr;
     QLineEdit *_portBox = nullptr;
     QLabel *statusLabel = nullptr;
     QTextEdit *statusBox = nullptr;

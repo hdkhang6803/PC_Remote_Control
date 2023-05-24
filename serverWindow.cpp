@@ -1,5 +1,5 @@
 #include "serverWindow.h"
-#include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_serverinfo.h"
+//#include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_serverinfo.h"
 
 serverInfo::serverInfo(QWidget *parent) :
     QMainWindow(parent)
@@ -23,7 +23,7 @@ serverInfo::serverInfo(QWidget *parent) :
 //    serverInfoLayout = new QFormLayout;
     _ipLabel = ui->IDlabel;
     _portLabel = ui->portLabel;
-    _ipBox = ui->IDinput;
+    _ipBox = ui->IDInput;
     _portBox = ui->portInput;
     statusLabel = ui->statusLabel;
     statusBox = ui->statusText;
@@ -51,8 +51,18 @@ serverInfo::serverInfo(QWidget *parent) :
 
     statusBox->setText(tr("The server is running now."));
 
-    _ipBox->setText(server->ipAddress);
+//    _ipBox->setText(server->ipAddress);
+    _ipBox->clear();
+    for (int i = 0; i < server->adapterNamesList.size(); i++) {
+        QString adapter = server->adapterNamesList.at(i);
+        QString ipAddress = server->ipAddressList.at(i);
+//        _ipBox->append(ipAddress);
+        _ipBox->moveCursor(QTextCursor::End); // Move the cursor to the end of the text
+        _ipBox->insertPlainText("\n" + adapter + ": " + ipAddress);
+//        _ipBox->setText(ipAddress);
+    }
     _portBox->setText(server->port);
+    _portBox->setReadOnly(true);
 }
 
 void serverInfo::updateServerMsg(const QString &msg) {

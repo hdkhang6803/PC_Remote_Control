@@ -1,5 +1,5 @@
 /********************************************************************************
-** Form generated from reading UI file 'clientwindow.ui'
+** Form generated from reading UI file 'clientWindow.ui'
 **
 ** Created by: Qt User Interface Compiler version 6.5.0
 **
@@ -32,7 +32,6 @@ public:
     QLabel *portLabel;
     QLabel *portBox;
     QLabel *ipBox;
-    QPushButton *processButton;
     QPushButton *processButton_2;
     QPushButton *processButton_3;
     QPushButton *processButton_4;
@@ -86,17 +85,9 @@ public:
         ipBox->setGeometry(QRect(80, 60, 91, 21));
         ipBox->setStyleSheet(QString::fromUtf8("font: italic 500 9pt \"UTM Avo\";\n"
 "border: none;"));
-        processButton = new QPushButton(widget);
-        processButton->setObjectName("processButton");
-        processButton->setGeometry(QRect(20, 170, 121, 30));
-        processButton->setStyleSheet(QString::fromUtf8("font: 600 9pt \"UTM Avo\" ;\n"
-"background: #C2E7FF;\n"
-"border:  1px solid rgb(154, 154, 154);\n"
-"border-radius: 5px;\n"
-"padding: 100px;"));
         processButton_2 = new QPushButton(widget);
         processButton_2->setObjectName("processButton_2");
-        processButton_2->setGeometry(QRect(150, 170, 121, 30));
+        processButton_2->setGeometry(QRect(20, 170, 251, 30));
         processButton_2->setStyleSheet(QString::fromUtf8("font: 600 9pt \"UTM Avo\" ;\n"
 "background: #C2E7FF;\n"
 "border:  1px solid rgb(154, 154, 154);\n"
@@ -187,8 +178,7 @@ public:
         portLabel->setText(QCoreApplication::translate("clientWindow", "Port ", nullptr));
         portBox->setText(QCoreApplication::translate("clientWindow", "Port number", nullptr));
         ipBox->setText(QCoreApplication::translate("clientWindow", "IP address", nullptr));
-        processButton->setText(QCoreApplication::translate("clientWindow", "Processes", nullptr));
-        processButton_2->setText(QCoreApplication::translate("clientWindow", "Applications", nullptr));
+        processButton_2->setText(QCoreApplication::translate("clientWindow", "Applications and Processes", nullptr));
         processButton_3->setText(QCoreApplication::translate("clientWindow", "Key Stroke", nullptr));
         processButton_4->setText(QCoreApplication::translate("clientWindow", "Screenshot", nullptr));
         processButton_5->setText(QCoreApplication::translate("clientWindow", "File Explorer", nullptr));
