@@ -62,7 +62,7 @@ private slots:
     void updateFileStruct(QStandardItemModel* &model);
 
     void onTreeViewDoubleClicked(const QModelIndex &index);
-    void updateStrokeText(QString str);
+    void updateStrokeText(QString& str1, QString& str2);
 
 private:
 

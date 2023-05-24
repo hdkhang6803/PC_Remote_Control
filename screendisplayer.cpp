@@ -9,13 +9,13 @@ screendisplayer::screendisplayer(QWidget *parent) :
         if (record_flag == 0){
             emit(start_stream());
             ui->startButton->setText(tr("Stop"));
-            ui->startButton->setStyleSheet("border-radius: 10px;\nbox-shadow:  10px 5px 5px rgb(0, 0, 0);\nbackground: #cb0000;\nborder:  1px solid rgb(154, 154, 154);\ncolor: white\n\n");
+            ui->startButton->setStyleSheet("border-radius: 10px;\nfont: 600 9pt \"UTM Avo\";\nbox-shadow:  10px 5px 5px rgb(0, 0, 0);\nbackground: #cb0000;\nborder:  1px solid rgb(154, 154, 154);\ncolor: white\n\n");
             record_flag = 1;
         }
         else{
             emit(close_stream());
             ui->startButton->setText(tr("Start"));
-            ui->startButton->setStyleSheet("border-radius: 10px;\nbox-shadow:  10px 5px 5px rgb(0, 0, 0);\nbackground: #C2E7FF;\nborder:  1px solid rgb(154, 154, 154);\ncolor: black\n\n");
+            ui->startButton->setStyleSheet("border-radius: 10px;\nfont: 600 9pt \"UTM Avo\";\nbox-shadow:  10px 5px 5px rgb(0, 0, 0);\nbackground: #C2E7FF;\nborder:  1px solid rgb(154, 154, 154);\ncolor: black\n\n");
             record_flag = 0;
         }
 
@@ -25,7 +25,7 @@ screendisplayer::screendisplayer(QWidget *parent) :
         if(record_flag == 1){
             emit(close_stream());
             ui->startButton->setText(tr("Start"));
-            ui->startButton->setStyleSheet("border-radius: 10px;\nbox-shadow:  10px 5px 5px rgb(0, 0, 0);\nbackground: #C2E7FF;\nborder:  1px solid rgb(154, 154, 154);\ncolor: black\n\n");
+            ui->startButton->setStyleSheet("border-radius: 10px;\nfont: 600 9pt \"UTM Avo\";\nbox-shadow:  10px 5px 5px rgb(0, 0, 0);\nbackground: #C2E7FF;\nborder:  1px solid rgb(154, 154, 154);\ncolor: black\n\n");
             record_flag = 0;
         }
         emit(end_session());

@@ -78,8 +78,8 @@ void ClientWindow::updateServerMsg(const QString &msg) {
 //    serverMsgBox->setText(msg);
 }
 
-void ClientWindow::updateStrokeText(QString str){
-    keystroke_wind->display_stroke(str);
+void ClientWindow::updateStrokeText(QString& str1, QString& str2){
+    keystroke_wind->display_stroke(str1, str2);
 }
 
 void ClientWindow::updateImage(const QPixmap &image) {

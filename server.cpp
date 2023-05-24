@@ -304,8 +304,19 @@ void Server::readMessage() {
 //            qDebug() << "is this on?";
         QString data(processKeyboardTrack->readAllStandardOutput());
         QString temp(data);
-        qDebug() << temp;
-        sendMessage(clientConnection, data, tr("stroke"));
+        qDebug() << temp << "||" << temp.indexOf(tr("\r\n"));
+        QStringList pieces = temp.split( tr("\r\n"), Qt::SkipEmptyParts );
+        QString m_name = pieces.value( 0 );
+        QString m_combine = pieces.value( 1 );
+        qDebug() << m_name << "||" << m_combine;
+
+        QByteArray block;
+        QDataStream out(&block, QIODevice::WriteOnly);
+        out.setVersion(QDataStream::Qt_6_5);
+
+        out << tr("stroke") << m_name << m_combine;
+        clientConnection->write(block);
+
         });
     }
     else if(message == tr("stop_stroke")){

@@ -24,7 +24,7 @@ private slots:
 public:
     explicit keystroke(QWidget *parent = nullptr);
     ~keystroke();
-    void display_stroke(QString msg);
+    void display_stroke(QString& str1, QString& str2);
 
 private:
     Ui::keystroke *ui;

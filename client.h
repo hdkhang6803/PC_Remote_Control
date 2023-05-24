@@ -26,7 +26,7 @@ signals:
     void stringMessageReceived(const QString &message);
     void imageMessageReceived();
     void streamMessageReceived();
-    void strokeMessageReceived(QString message);
+    void strokeMessageReceived(QString& str1, QString & str2);
     void fileStructReceived(QStandardItemModel* &model);
     void error(QAbstractSocket::SocketError socketError);
 

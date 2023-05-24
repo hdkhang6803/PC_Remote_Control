@@ -57,15 +57,22 @@ void Client::readMessage() {
     QByteArray byteArray;
     QStringList strList;
     QString code;
+    QString stroke1;
+    QString stroke2;
     in >> code;
-    if (code == tr("string") || code == tr("image") || code ==tr("audio") || code == tr("stream")||
-        code == tr("stroke")) {
+    if (code == tr("string") || code == tr("image") || code ==tr("audio") || code == tr("stream")) {
         in >> byteArray;
     }
     else if (code == tr("file") || code == tr("list processes")
              || code == tr("list applications")
              ) {
         in >> strList;
+    }
+    else if (code == tr("stroke")){
+
+        in >> stroke1;
+        in >> stroke2;
+        qDebug() << "stroke receive: " << stroke1 << stroke2;
     }
 //    in >> byteArray;
 //    while (!in.atEnd()) {
@@ -85,8 +92,8 @@ void Client::readMessage() {
         emit (stringMessageReceived(QString(byteArray)));
     }
     else if(code == tr("stroke")){
-        QString str_keyboard(byteArray);
-        emit(strokeMessageReceived(str_keyboard));
+
+        emit(strokeMessageReceived(stroke1, stroke2));
 
 
     }
