@@ -42,7 +42,7 @@ public:
         timer = new QLabel(audiorecorder);
         timer->setObjectName("timer");
         timer->setGeometry(QRect(260, 190, 401, 61));
-        timer->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
+        timer->setStyleSheet(QString::fromUtf8("font: 600 14pt \"UTM Avo\";\n"
 "background-color: #ffffff;\n"
 "border: 2px solid;\n"
 "\n"

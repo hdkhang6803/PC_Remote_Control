@@ -33,9 +33,8 @@ public:
 "background-color: #F2F6FC;"));
         screenLabel = new QLabel(screendisplayer);
         screenLabel->setObjectName("screenLabel");
-        screenLabel->setGeometry(QRect(10, 50, 881, 461));
-        screenLabel->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
-"border: 2px solid;\n"
+        screenLabel->setGeometry(QRect(10, 10, 881, 511));
+        screenLabel->setStyleSheet(QString::fromUtf8("border: 2px solid;\n"
 "padding-left: 370px;\n"
 "font: 500 9pt \"UTM Avo\";\n"
 "\n"
@@ -43,7 +42,7 @@ public:
         screenLabel->setTextFormat(Qt::RichText);
         startButton = new QPushButton(screendisplayer);
         startButton->setObjectName("startButton");
-        startButton->setGeometry(QRect(300, 520, 131, 31));
+        startButton->setGeometry(QRect(300, 530, 131, 31));
         startButton->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
 "font: 600 9pt \"UTM Avo\";\n"
 "box-shadow:  10px 5px 5px rgb(0, 0, 0);\n"
@@ -53,7 +52,7 @@ public:
 ""));
         exitButton = new QPushButton(screendisplayer);
         exitButton->setObjectName("exitButton");
-        exitButton->setGeometry(QRect(460, 520, 121, 31));
+        exitButton->setGeometry(QRect(460, 530, 121, 31));
         exitButton->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
 "border: 1px solid rgb(194, 231, 255);\n"
 "background-color: #ffffff;\n"

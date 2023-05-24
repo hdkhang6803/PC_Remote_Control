@@ -41,15 +41,14 @@ public:
     {
         if (serverInfo->objectName().isEmpty())
             serverInfo->setObjectName("serverInfo");
-        serverInfo->resize(332, 489);
+        serverInfo->resize(332, 476);
         serverInfo->setStyleSheet(QString::fromUtf8("background-color: #ffffff;"));
         centralwidget = new QWidget(serverInfo);
         centralwidget->setObjectName("centralwidget");
         connectWidget = new QWidget(centralwidget);
         connectWidget->setObjectName("connectWidget");
         connectWidget->setGeometry(QRect(0, 0, 331, 431));
-        connectWidget->setStyleSheet(QString::fromUtf8("border-radius: 5px;\n"
-"background-color: #F2F6FC;"));
+        connectWidget->setStyleSheet(QString::fromUtf8("background-color: #F2F6FC;"));
         IDlabel = new QLabel(connectWidget);
         IDlabel->setObjectName("IDlabel");
         IDlabel->setGeometry(QRect(40, 20, 251, 20));
@@ -83,12 +82,13 @@ public:
 "border: none;"));
         statusText = new QTextEdit(connectWidget);
         statusText->setObjectName("statusText");
-        statusText->setEnabled(false);
+        statusText->setEnabled(true);
         statusText->setGeometry(QRect(40, 250, 251, 111));
         statusText->setStyleSheet(QString::fromUtf8("background-color: #ffffff;\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
 "padding: 10px;"));
+        statusText->setReadOnly(true);
         IPInput = new QTextEdit(connectWidget);
         IPInput->setObjectName("IPInput");
         IPInput->setEnabled(true);
@@ -133,7 +133,14 @@ public:
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
 "<p style=\" margin-top:0"
                         "px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p></body></html>", nullptr));
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; "
+                        "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Server has been created successfully!</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
         IPInput->setHtml(QCoreApplication::translate("serverInfo", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
