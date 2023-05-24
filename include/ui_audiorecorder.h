@@ -22,10 +22,7 @@ class Ui_audiorecorder
 public:
     QPushButton *stopButton;
     QLabel *timer;
-<<<<<<< HEAD
-=======
     QPushButton *exitButton;
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
     void setupUi(QWidget *audiorecorder)
     {
@@ -36,22 +33,6 @@ public:
 "background-color: #F2F6FC;"));
         stopButton = new QPushButton(audiorecorder);
         stopButton->setObjectName("stopButton");
-<<<<<<< HEAD
-        stopButton->setGeometry(QRect(330, 270, 131, 41));
-        stopButton->setStyleSheet(QString::fromUtf8("border-radius: 20px;\n"
-"font: 600 9pt \"UTM Avo\";\n"
-"box-shadow:  10px 5px 5px rgb(0, 0, 0);\n"
-"background: #C2E7FF;\n"
-"border:  1px solid rgb(154, 154, 154);\n"
-"\n"
-""));
-        timer = new QLabel(audiorecorder);
-        timer->setObjectName("timer");
-        timer->setGeometry(QRect(530, 270, 121, 41));
-        timer->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
-"\n"
-""));
-=======
         stopButton->setGeometry(QRect(320, 290, 121, 31));
         stopButton->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
 "border: 1px solid rgb(194, 231, 255);\n"
@@ -75,7 +56,6 @@ public:
 "background-color: #ffffff;\n"
 "border-radius: 10px;\n"
 ""));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         retranslateUi(audiorecorder);
 
@@ -87,10 +67,7 @@ public:
         audiorecorder->setWindowTitle(QCoreApplication::translate("audiorecorder", "Form", nullptr));
         stopButton->setText(QCoreApplication::translate("audiorecorder", "Stop", nullptr));
         timer->setText(QCoreApplication::translate("audiorecorder", "01:00", nullptr));
-<<<<<<< HEAD
-=======
         exitButton->setText(QCoreApplication::translate("audiorecorder", "Exit", nullptr));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
     } // retranslateUi
 
 };

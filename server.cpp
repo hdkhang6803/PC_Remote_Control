@@ -1,6 +1,6 @@
 
 #include "server.h"
-#include "keyboard_track.h"
+//#include "keyboard_track.h"
 
 #include <QDebug>
 #include <QApplication>
@@ -406,7 +406,6 @@ void Server::readMessage() {
 
         processListProcesses = new QProcess();
         QString workingDir = QDir::currentPath();
-//        qDebug() << "i got here!:" << workingDir;
         processListProcesses->start(workingDir + "//list_processes.exe");
 //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
         connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {

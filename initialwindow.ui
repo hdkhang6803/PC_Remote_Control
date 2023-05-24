@@ -54,11 +54,7 @@ box-shadow: 5px 5px;</string>
      <property name="geometry">
       <rect>
        <x>50</x>
-<<<<<<< HEAD
-       <y>170</y>
-=======
        <y>160</y>
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
        <width>231</width>
        <height>91</height>
       </rect>

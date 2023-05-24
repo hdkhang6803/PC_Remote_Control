@@ -22,10 +22,7 @@ class Ui_screendisplayer
 public:
     QLabel *screenLabel;
     QPushButton *startButton;
-<<<<<<< HEAD
-=======
     QPushButton *exitButton;
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
     void setupUi(QWidget *screendisplayer)
     {
@@ -36,11 +33,7 @@ public:
 "background-color: #F2F6FC;"));
         screenLabel = new QLabel(screendisplayer);
         screenLabel->setObjectName("screenLabel");
-<<<<<<< HEAD
-        screenLabel->setGeometry(QRect(20, 20, 861, 491));
-=======
         screenLabel->setGeometry(QRect(10, 50, 881, 461));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         screenLabel->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
 "border: 2px solid;\n"
 "padding-left: 370px;\n"
@@ -50,11 +43,7 @@ public:
         screenLabel->setTextFormat(Qt::RichText);
         startButton = new QPushButton(screendisplayer);
         startButton->setObjectName("startButton");
-<<<<<<< HEAD
-        startButton->setGeometry(QRect(390, 520, 131, 31));
-=======
         startButton->setGeometry(QRect(300, 520, 131, 31));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         startButton->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
 "font: 600 9pt \"UTM Avo\";\n"
 "box-shadow:  10px 5px 5px rgb(0, 0, 0);\n"
@@ -62,8 +51,6 @@ public:
 "border:  1px solid rgb(154, 154, 154);\n"
 "\n"
 ""));
-<<<<<<< HEAD
-=======
         exitButton = new QPushButton(screendisplayer);
         exitButton->setObjectName("exitButton");
         exitButton->setGeometry(QRect(460, 520, 121, 31));
@@ -72,7 +59,6 @@ public:
 "background-color: #ffffff;\n"
 "border-radius: 10px;\n"
 ""));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         retranslateUi(screendisplayer);
 
@@ -84,10 +70,7 @@ public:
         screendisplayer->setWindowTitle(QCoreApplication::translate("screendisplayer", "Form", nullptr));
         screenLabel->setText(QCoreApplication::translate("screendisplayer", "No screenstream", nullptr));
         startButton->setText(QCoreApplication::translate("screendisplayer", "Start", nullptr));
-<<<<<<< HEAD
-=======
         exitButton->setText(QCoreApplication::translate("screendisplayer", "Exit", nullptr));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
     } // retranslateUi
 
 };

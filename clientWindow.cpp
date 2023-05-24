@@ -3,6 +3,8 @@
 
 // #include "include/ui_clientWindow.h"
 #include "audiowindow.h"
+
+
 #include "client.h"
 #include <QDebug>
 #include <QTimer>
@@ -23,6 +25,8 @@ ClientWindow::ClientWindow(QWidget *parent) :
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
     connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
     connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
+    connect(client, &Client::allAppsReceived, this, &ClientWindow::updateAllApps);
+    connect(client, &Client::processesReceived, this, &ClientWindow::updateProcesses);
 
 
 
@@ -96,6 +100,9 @@ void ClientWindow::updateImage(const QPixmap &image) {
 
 void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
     qDebug() << "display file struct";
+//    if (appsWin == nullptr) {
+//        qDebug() << "Error: not found list app window";
+//    }
     QTreeView *treeView = new QTreeView(ui->widget_2);
 //    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     treeView->setModel(model);
@@ -114,6 +121,56 @@ void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
     treeView->show();
 }
 
+void ClientWindow::updateAllApps(QStandardItemModel* &model) {
+    qDebug() << "display all apps";
+//    if (appsWin == nullptr) {
+//        qDebug() << "Error: not found list app window";
+//    }
+//    QTreeView *treeView = new QTreeView(appsWin->ui-);
+    QTreeView *treeView = appsWin->ui->appTable;
+    //    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    treeView->setModel(model);
+    treeView->setHeaderHidden(true);
+    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    treeView->setAnimated(true);
+    treeView->setIndentation(20);
+    treeView->setSortingEnabled(true);
+    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    treeView->setExpandsOnDoubleClick(true);
+//    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
+//    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
+    //    treeView->show();
+    //    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
+    //    rightPanelLayout->addWidget(treeView);
+    treeView->show();
+}
+
+void ClientWindow::updateProcesses(QStandardItemModel* &model) {
+    qDebug() << "display all processes";
+    //    if (appsWin == nullptr) {
+    //        qDebug() << "Error: not found list app window";
+    //    }
+    //    QTreeView *treeView = new QTreeView(appsWin->ui-);
+    QTableView *tableView = appsWin->ui->tableView;
+    model->setHeaderData(0, Qt::Horizontal, "Process Name");
+    model->setHeaderData(1, Qt::Horizontal, "PID");
+    //    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    treeView->setModel(model);
+//    treeView->setHeaderHidden(true);
+//    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+//    treeView->setAnimated(true);
+//    treeView->setIndentation(20);
+//    treeView->setSortingEnabled(true);
+//    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+//    treeView->setExpandsOnDoubleClick(true);
+    //    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
+    //    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
+    //    treeView->show();
+    //    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
+    //    rightPanelLayout->addWidget(treeView);
+    tableView->show();
+}
+
 void ClientWindow::onTreeViewDoubleClicked(const QModelIndex &index)
 {
 //    // get the file path from the user role of the clicked item
@@ -125,6 +182,16 @@ void ClientWindow::onTreeViewDoubleClicked(const QModelIndex &index)
 
 void ClientWindow::on_pushButton_clicked_1(){
 //    client->sendMessage(tr("list processes"));
+//    client->sendMessage(tr("list applications"));
+    qDebug() << "Ua alo co chay cho nay khong";
+    appsWin = new appsWindow(ui->widget_2);
+    appsWin->show();
+//    connect(appsWin->ui->exitButton, &QPushButton::clicked, [=](){
+//        client->sendMessage(tr("stop_recording"));
+//        delete appsWin;
+////        appWin->
+//    });
+    client->sendMessage(tr("list processes"));
     client->sendMessage(tr("list applications"));
 }
 void ClientWindow::on_pushButton_clicked_2(){

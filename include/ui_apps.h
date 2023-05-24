@@ -16,6 +16,7 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -27,10 +28,12 @@ public:
     QWidget *runningProcessesTab;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
+    QTableView *tableView;
     QWidget *runningAppsTab;
     QTableView *runningAppTable;
     QWidget *allAppsTab;
-    QTableView *appTable;
+    QTreeView *appTable;
+    QPushButton *pushButton;
     QPushButton *exitButton;
 
     void setupUi(QWidget *apps)
@@ -54,6 +57,9 @@ public:
         scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 851, 471));
         scrollArea->setWidget(scrollAreaWidgetContents);
+        tableView = new QTableView(runningProcessesTab);
+        tableView->setObjectName("tableView");
+        tableView->setGeometry(QRect(-50, -40, 256, 192));
         tabWidget->addTab(runningProcessesTab, QString());
         runningAppsTab = new QWidget();
         runningAppsTab->setObjectName("runningAppsTab");
@@ -63,9 +69,12 @@ public:
         tabWidget->addTab(runningAppsTab, QString());
         allAppsTab = new QWidget();
         allAppsTab->setObjectName("allAppsTab");
-        appTable = new QTableView(allAppsTab);
+        appTable = new QTreeView(allAppsTab);
         appTable->setObjectName("appTable");
-        appTable->setGeometry(QRect(20, 20, 851, 451));
+        appTable->setGeometry(QRect(20, 20, 651, 451));
+        pushButton = new QPushButton(allAppsTab);
+        pushButton->setObjectName("pushButton");
+        pushButton->setGeometry(QRect(740, 40, 83, 29));
         tabWidget->addTab(allAppsTab, QString());
         exitButton = new QPushButton(apps);
         exitButton->setObjectName("exitButton");
@@ -78,7 +87,7 @@ public:
 
         retranslateUi(apps);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(apps);
@@ -89,6 +98,7 @@ public:
         apps->setWindowTitle(QCoreApplication::translate("apps", "Form", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(runningProcessesTab), QCoreApplication::translate("apps", "Running Processes", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(runningAppsTab), QCoreApplication::translate("apps", "Running applications", nullptr));
+        pushButton->setText(QCoreApplication::translate("apps", "delete", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(allAppsTab), QCoreApplication::translate("apps", "All applications", nullptr));
         exitButton->setText(QCoreApplication::translate("apps", "Exit", nullptr));
     } // retranslateUi

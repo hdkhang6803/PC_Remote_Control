@@ -25,6 +25,8 @@ signals:
     void stringMessageReceived(const QString &message);
     void imageMessageReceived(const QPixmap &image);
     void fileStructReceived(QStandardItemModel* &model);
+    void allAppsReceived(QStandardItemModel* &model);
+    void processesReceived(QStandardItemModel* &model);
     void error(QAbstractSocket::SocketError socketError);
 
     void audio_played();

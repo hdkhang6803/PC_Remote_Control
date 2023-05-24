@@ -1,9 +1,5 @@
 /********************************************************************************
-<<<<<<< HEAD
-** Form generated from reading UI file 'fileexplorer.ui'
-=======
 ** Form generated from reading UI file 'fileExplorer.ui'
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 **
 ** Created by: Qt User Interface Compiler version 6.5.0
 **
@@ -19,10 +15,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-<<<<<<< HEAD
-=======
 #include <QtWidgets/QPushButton>
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTreeWidget>
@@ -91,20 +84,13 @@ public:
     QVBoxLayout *File1_28;
     QLabel *IconFile1_23;
     QLabel *Label_23;
-<<<<<<< HEAD
-=======
     QPushButton *exitButton;
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
     void setupUi(QWidget *fileExplorer)
     {
         if (fileExplorer->objectName().isEmpty())
             fileExplorer->setObjectName("fileExplorer");
-<<<<<<< HEAD
-        fileExplorer->resize(1040, 940);
-=======
         fileExplorer->resize(901, 573);
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         MainWidget = new QWidget(fileExplorer);
         MainWidget->setObjectName("MainWidget");
         MainWidget->setGeometry(QRect(0, 0, 901, 571));
@@ -112,11 +98,7 @@ public:
 "background-color: #F2F6FC;"));
         TreeView = new QLabel(MainWidget);
         TreeView->setObjectName("TreeView");
-<<<<<<< HEAD
-        TreeView->setGeometry(QRect(10, 20, 221, 31));
-=======
         TreeView->setGeometry(QRect(10, 10, 221, 31));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         TreeView->setStyleSheet(QString::fromUtf8("background-color: rgb(194, 231, 255);\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
@@ -171,11 +153,7 @@ public:
         __qtreewidgetitem6->setFont(0, font1);
         new QTreeWidgetItem(treeWidget);
         treeWidget->setObjectName("treeWidget");
-<<<<<<< HEAD
-        treeWidget->setGeometry(QRect(10, 60, 221, 501));
-=======
         treeWidget->setGeometry(QRect(10, 50, 221, 461));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         treeWidget->setStyleSheet(QString::fromUtf8("background-color: #ffffff;\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
@@ -183,11 +161,7 @@ public:
 "font: 500 10pt \"UTM Avo\";"));
         Path = new QLabel(MainWidget);
         Path->setObjectName("Path");
-<<<<<<< HEAD
-        Path->setGeometry(QRect(240, 20, 631, 31));
-=======
         Path->setGeometry(QRect(240, 10, 631, 31));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         Path->setStyleSheet(QString::fromUtf8("background-color: rgb(194, 231, 255);\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
@@ -195,11 +169,7 @@ public:
 "font: 600 11pt \"UTM Avo\";"));
         scrollArea = new QScrollArea(MainWidget);
         scrollArea->setObjectName("scrollArea");
-<<<<<<< HEAD
-        scrollArea->setGeometry(QRect(240, 60, 631, 500));
-=======
         scrollArea->setGeometry(QRect(240, 50, 631, 500));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -329,12 +299,6 @@ public:
         IconFile1_2 = new QLabel(GirdFrame);
         IconFile1_2->setObjectName("IconFile1_2");
         IconFile1_2->setMaximumSize(QSize(100, 100));
-<<<<<<< HEAD
-        IconFile1_2->setTextFormat(Qt::RichText);
-        IconFile1_2->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/document.png")));
-        IconFile1_2->setScaledContents(true);
-        IconFile1_2->setMargin(17);
-=======
         IconFile1_2->setStyleSheet(QString::fromUtf8("padding-top: 10px;\n"
 "padding-bottom: 6px;\n"
 "margin: 14px;"));
@@ -342,7 +306,6 @@ public:
         IconFile1_2->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/document.png")));
         IconFile1_2->setScaledContents(true);
         IconFile1_2->setMargin(0);
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         File1_7->addWidget(IconFile1_2);
 
@@ -361,21 +324,14 @@ public:
         Folder1_icon = new QLabel(GirdFrame);
         Folder1_icon->setObjectName("Folder1_icon");
         Folder1_icon->setMaximumSize(QSize(100, 100));
-<<<<<<< HEAD
-=======
         Folder1_icon->setStyleSheet(QString::fromUtf8("padding-top: 12px;\n"
 "padding-bottom: 6px;\n"
 "margin: 5px;"));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         Folder1_icon->setTextFormat(Qt::RichText);
         Folder1_icon->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/folder (1).png")));
         Folder1_icon->setScaledContents(true);
         Folder1_icon->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-<<<<<<< HEAD
-        Folder1_icon->setMargin(10);
-=======
         Folder1_icon->setMargin(0);
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         Folder1->addWidget(Folder1_icon);
 
@@ -438,12 +394,6 @@ public:
         Folder3_icon = new QLabel(GirdFrame);
         Folder3_icon->setObjectName("Folder3_icon");
         Folder3_icon->setMaximumSize(QSize(100, 100));
-<<<<<<< HEAD
-        Folder3_icon->setTextFormat(Qt::RichText);
-        Folder3_icon->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/folder (1).png")));
-        Folder3_icon->setScaledContents(true);
-        Folder3_icon->setMargin(10);
-=======
         Folder3_icon->setStyleSheet(QString::fromUtf8("padding-top: 12px;\n"
 "padding-bottom: 6px;\n"
 "margin: 5px;"));
@@ -451,7 +401,6 @@ public:
         Folder3_icon->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/folder (1).png")));
         Folder3_icon->setScaledContents(true);
         Folder3_icon->setMargin(0);
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         Folder3->addWidget(Folder3_icon);
 
@@ -470,12 +419,6 @@ public:
         Folder2_icon = new QLabel(GirdFrame);
         Folder2_icon->setObjectName("Folder2_icon");
         Folder2_icon->setMaximumSize(QSize(100, 100));
-<<<<<<< HEAD
-        Folder2_icon->setTextFormat(Qt::RichText);
-        Folder2_icon->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/folder (1).png")));
-        Folder2_icon->setScaledContents(true);
-        Folder2_icon->setMargin(10);
-=======
         Folder2_icon->setStyleSheet(QString::fromUtf8("padding-top: 12px;\n"
 "padding-bottom: 6px;\n"
 "margin: 5px;"));
@@ -483,7 +426,6 @@ public:
         Folder2_icon->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/folder (1).png")));
         Folder2_icon->setScaledContents(true);
         Folder2_icon->setMargin(0);
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         Folder2->addWidget(Folder2_icon);
 
@@ -502,12 +444,6 @@ public:
         IconFile1_19 = new QLabel(GirdFrame);
         IconFile1_19->setObjectName("IconFile1_19");
         IconFile1_19->setMaximumSize(QSize(100, 100));
-<<<<<<< HEAD
-        IconFile1_19->setTextFormat(Qt::RichText);
-        IconFile1_19->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/document.png")));
-        IconFile1_19->setScaledContents(true);
-        IconFile1_19->setMargin(17);
-=======
         IconFile1_19->setStyleSheet(QString::fromUtf8("padding-top: 10px;\n"
 "padding-bottom: 6px;\n"
 "margin: 14px;"));
@@ -515,7 +451,6 @@ public:
         IconFile1_19->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/document.png")));
         IconFile1_19->setScaledContents(true);
         IconFile1_19->setMargin(0);
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         File1_24->addWidget(IconFile1_19);
 
@@ -586,12 +521,6 @@ public:
         File1_icon = new QLabel(GirdFrame);
         File1_icon->setObjectName("File1_icon");
         File1_icon->setMaximumSize(QSize(100, 100));
-<<<<<<< HEAD
-        File1_icon->setTextFormat(Qt::RichText);
-        File1_icon->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/document.png")));
-        File1_icon->setScaledContents(true);
-        File1_icon->setMargin(17);
-=======
         File1_icon->setStyleSheet(QString::fromUtf8("padding-top: 10px;\n"
 "padding-bottom: 6px;\n"
 "margin: 14px;"));
@@ -599,7 +528,6 @@ public:
         File1_icon->setPixmap(QPixmap(QString::fromUtf8("C:/Users/LENOVO/Downloads/document.png")));
         File1_icon->setScaledContents(true);
         File1_icon->setMargin(0);
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         File1->addWidget(File1_icon);
 
@@ -642,8 +570,6 @@ public:
         verticalLayout_2->addWidget(GirdFrame);
 
         scrollArea->setWidget(Contents);
-<<<<<<< HEAD
-=======
         exitButton = new QPushButton(MainWidget);
         exitButton->setObjectName("exitButton");
         exitButton->setGeometry(QRect(10, 520, 221, 31));
@@ -652,15 +578,11 @@ public:
 "background-color: #ffffff;\n"
 "border-radius: 5px;\n"
 ""));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
         treeWidget->raise();
         TreeView->raise();
         scrollArea->raise();
         Path->raise();
-<<<<<<< HEAD
-=======
         exitButton->raise();
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
         retranslateUi(fileExplorer);
 
@@ -727,10 +649,7 @@ public:
         File1_label->setText(QCoreApplication::translate("fileExplorer", "File1", nullptr));
         IconFile1_23->setText(QString());
         Label_23->setText(QCoreApplication::translate("fileExplorer", "File1", nullptr));
-<<<<<<< HEAD
-=======
         exitButton->setText(QCoreApplication::translate("fileExplorer", "Exit", nullptr));
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
     } // retranslateUi
 
 };

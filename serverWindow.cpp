@@ -23,7 +23,7 @@ serverInfo::serverInfo(QWidget *parent) :
 //    serverInfoLayout = new QFormLayout;
     _ipLabel = ui->IDlabel;
     _portLabel = ui->portLabel;
-    _ipBox = ui->IDInput;
+    _ipBox = ui->IPInput;
     _portBox = ui->portInput;
     statusLabel = ui->statusLabel;
     statusBox = ui->statusText;
@@ -56,9 +56,11 @@ serverInfo::serverInfo(QWidget *parent) :
     for (int i = 0; i < server->adapterNamesList.size(); i++) {
         QString adapter = server->adapterNamesList.at(i);
         QString ipAddress = server->ipAddressList.at(i);
+        if (ipAddress != "0.0.0.0") {
 //        _ipBox->append(ipAddress);
         _ipBox->moveCursor(QTextCursor::End); // Move the cursor to the end of the text
-        _ipBox->insertPlainText("\n" + adapter + ": " + ipAddress);
+        _ipBox->insertPlainText(ipAddress);
+        }
 //        _ipBox->setText(ipAddress);
     }
     _portBox->setText(server->port);

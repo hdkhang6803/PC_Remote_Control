@@ -155,9 +155,16 @@ void Client::readMessage() {
         for (int i = 0; i + 1 < lines.size(); i+=2) {
             QString process_name = lines[i];
             QString process_pid = lines[i+1];
-            qDebug() << process_name << process_pid;
+
+            QList<QStandardItem*> rowItems;
+            QStandardItem* nameItem = new QStandardItem(process_name);
+            QStandardItem* pidItem = new QStandardItem(process_pid);
+            rowItems << nameItem << pidItem;
+
+            rootItem->appendRow(rowItems);
+//            qDebug() << process_name << process_pid;
         }
-//        emit (fileStructReceived(model));
+        emit (processesReceived(model));
     }
     else if (code == tr("list applications")) {
         QStringList applications = strList;
@@ -179,7 +186,7 @@ void Client::readMessage() {
             rootItem->appendRow(item);
         }
         //        treeView->setModel(&model);
-        emit (fileStructReceived(model));
+        emit (allAppsReceived(model));
     }
     else if (code == tr("list running applications")) {
         QStringList applications = strList;

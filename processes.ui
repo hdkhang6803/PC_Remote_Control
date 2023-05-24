@@ -30,19 +30,11 @@ background-color: #F2F6FC;</string>
     <string notr="true">font: 500 10pt &quot;UTM Avo&quot;;</string>
    </property>
    <property name="currentIndex">
-<<<<<<< HEAD
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="runningAppsTab">
-    <attribute name="title">
-     <string>Running processes</string>
-=======
     <number>1</number>
    </property>
    <widget class="QWidget" name="runningAppsTab">
     <attribute name="title">
      <string>Running applications</string>
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
     </attribute>
     <widget class="QTreeView" name="runningAppsTree">
      <property name="geometry">
@@ -57,11 +49,7 @@ background-color: #F2F6FC;</string>
    </widget>
    <widget class="QWidget" name="allAppsTab">
     <attribute name="title">
-<<<<<<< HEAD
-     <string>All </string>
-=======
      <string>All applications</string>
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
     </attribute>
     <widget class="QTreeView" name="allAppsView">
      <property name="geometry">
@@ -74,14 +62,6 @@ background-color: #F2F6FC;</string>
      </property>
     </widget>
    </widget>
-<<<<<<< HEAD
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Page</string>
-    </attribute>
-   </widget>
-=======
->>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
   </widget>
  </widget>
  <resources/>

@@ -30,7 +30,7 @@ background-color: #F2F6FC;</string>
     <string notr="true">font: 500 10pt &quot;UTM Avo&quot;;</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="runningProcessesTab">
     <attribute name="title">
@@ -59,6 +59,16 @@ background-color: #F2F6FC;</string>
       </property>
      </widget>
     </widget>
+    <widget class="QTableView" name="tableView">
+     <property name="geometry">
+      <rect>
+       <x>-50</x>
+       <y>-40</y>
+       <width>256</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="runningAppsTab">
     <attribute name="title">
@@ -79,14 +89,27 @@ background-color: #F2F6FC;</string>
     <attribute name="title">
      <string>All applications</string>
     </attribute>
-    <widget class="QTableView" name="appTable">
+    <widget class="QTreeView" name="appTable">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>851</width>
+       <width>651</width>
        <height>451</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>740</x>
+       <y>40</y>
+       <width>83</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>delete</string>
      </property>
     </widget>
    </widget>

@@ -16,8 +16,9 @@ using std::vector;
 
 #include "client.h"
 #include "clientInfo.h"
-#include "featureButton.h"
+//#include "featureButton.h"
 #include "include/ui_clientWindow.h"
+#include "appswindow.h"
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;
@@ -58,6 +59,8 @@ private slots:
     void updateServerMsg(const QString &msg);
     void updateImage(const QPixmap &image);
     void updateFileStruct(QStandardItemModel* &model);
+    void updateAllApps(QStandardItemModel* &model);
+    void updateProcesses(QStandardItemModel* &model);
 
     void onTreeViewDoubleClicked(const QModelIndex &index);
 
@@ -82,7 +85,7 @@ private:
     QPushButton *contrButton = nullptr;
     QPushButton *exitButton = nullptr;
 
-
+    appsWindow* appsWin = nullptr;
 
 private slots:
     void on_pushButton_clicked_1();

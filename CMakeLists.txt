@@ -28,16 +28,15 @@ set(PROJECT_SOURCES
         client.h client.cpp
         clientWindow.h clientWindow.cpp
         clientInfo.cpp clientInfo.h
-        serverWindow.h serverWindow.cpp serverWindow.ui
-        featureButton.h featureButton.cpp
-        mouse_track_test.h
-#        keyboard_track.cpp keyboard_track.h
+        serverWindow.h serverWindow.cpp
+
         audiorecorder.h audiorecorder.cpp
         audiorecorder.ui
         audiowindow.h audiowindow.cpp
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
 
         processes.ui apps.ui keystroke.ui screendisplayer.ui screenshot.ui
+        appswindow.h appswindow.cpp apps.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
