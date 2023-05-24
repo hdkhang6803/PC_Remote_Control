@@ -23,14 +23,14 @@ background-color: #F2F6FC;</string>
      <x>0</x>
      <y>0</y>
      <width>901</width>
-     <height>521</height>
+     <height>571</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">font: 500 10pt &quot;UTM Avo&quot;;</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="runningProcessesTab">
     <attribute name="title">
@@ -41,9 +41,69 @@ background-color: #F2F6FC;</string>
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>871</width>
-       <height>461</height>
+       <width>851</width>
+       <height>451</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="reloadButton">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+     </property>
+     <property name="text">
+      <string>Reload</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="stopButton">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>490</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: rgb(194, 231, 255);
+border-radius: 10px;
+</string>
+     </property>
+     <property name="text">
+      <string> Kill process</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="exitButton">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
      </property>
     </widget>
    </widget>
@@ -61,6 +121,86 @@ background-color: #F2F6FC;</string>
       </rect>
      </property>
     </widget>
+    <widget class="QPushButton" name="startButton_2">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: rgb(194, 231, 255);
+border-radius: 10px;
+</string>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="stopButton_2">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: rgb(194, 231, 255);
+border-radius: 10px;
+</string>
+     </property>
+     <property name="text">
+      <string>Stop</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="exitButton_2">
+     <property name="geometry">
+      <rect>
+       <x>610</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="reloadButton_2">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+     </property>
+     <property name="text">
+      <string>Reload</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="allAppsTab">
     <attribute name="title">
@@ -72,31 +212,71 @@ background-color: #F2F6FC;</string>
        <x>20</x>
        <y>10</y>
        <width>871</width>
-       <height>471</height>
+       <height>461</height>
       </rect>
      </property>
     </widget>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="exitButton">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>530</y>
-     <width>111</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+    <widget class="QPushButton" name="startButton_3">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: rgb(194, 231, 255);
+border-radius: 10px;
+</string>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="reloadButton_3">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
 border: 1px solid rgb(194, 231, 255);
 background-color: #ffffff;
 border-radius: 5px;
 </string>
-   </property>
-   <property name="text">
-    <string>Exit</string>
-   </property>
+     </property>
+     <property name="text">
+      <string>Reload</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="exitButton_3">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>490</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>
