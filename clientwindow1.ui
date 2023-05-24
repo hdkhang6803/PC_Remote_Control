@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>clientWindow1</class>
+ <widget class="QMainWindow" name="clientWindow1">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1245</width>
+    <height>647</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #ffffff;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>0</y>
+      <width>20</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>301</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #F2F6FC;
+border-radius: 7px;</string>
+    </property>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>261</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 12pt &quot;UTM Avo&quot;;
+border: 2px solid rgb(194, 231, 255);
+color: #fffff;</string>
+     </property>
+     <property name="title">
+      <string>Server info</string>
+     </property>
+     <widget class="QLabel" name="ipLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>34</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 570 9pt &quot;UTM Avo&quot;;
+border: none;</string>
+      </property>
+      <property name="text">
+       <string>IP    </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="portLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>50</y>
+        <width>38</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 600 9pt &quot;UTM Avo&quot;;
+border: none;</string>
+      </property>
+      <property name="text">
+       <string>Port </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="portBox">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>30</y>
+        <width>171</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
+border: none;
+font-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Port number</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ipBox">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>60</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: italic 500 9pt &quot;UTM Avo&quot;;
+border: none;</string>
+      </property>
+      <property name="text">
+       <string>IP address</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="processButton_1">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>251</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string>Processes and Applications</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="processButton_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>210</y>
+       <width>251</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string>Key Stroke</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="processButton_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>260</y>
+       <width>251</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string>Screenshot</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="processButton_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>310</y>
+       <width>251</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string>File Explorer</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="processButton_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>251</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 9pt &quot;UTM Avo&quot;;
+background: rgb(194, 231, 255);
+border:  1px solid rgb(154, 154, 154);
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string>Screen Streaming</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="processButton_7">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>410</y>
+       <width>251</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 9pt &quot;UTM Avo&quot; ;
+background: #C2E7FF;
+border:  1px solid rgb(154, 154, 154);
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string>Audio Streaming</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="exitButton">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>500</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 10px;
+</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>0</y>
+      <width>911</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #F2F6FC;</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1245</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
