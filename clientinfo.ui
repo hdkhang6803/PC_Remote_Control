@@ -6,8 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>333</width>
     <height>347</height>
+=======
+    <width>334</width>
+    <height>436</height>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,18 +28,30 @@
       <x>0</x>
       <y>0</y>
       <width>331</width>
+<<<<<<< HEAD
       <height>301</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 5px;
 background-color: #F2F6FC;</string>
+=======
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #F2F6FC;</string>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
     </property>
     <widget class="QLineEdit" name="IDinput">
      <property name="geometry">
       <rect>
        <x>40</x>
+<<<<<<< HEAD
        <y>60</y>
+=======
+       <y>100</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
        <width>251</width>
        <height>41</height>
       </rect>
@@ -43,14 +60,25 @@ background-color: #F2F6FC;</string>
       <string notr="true">background-color: #ffffff;
 border: 1px #000000;
 border-radius: 5px;
+<<<<<<< HEAD
 padding: 10px;</string>
+=======
+padding-left: 10px;</string>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      </property>
     </widget>
     <widget class="QLabel" name="IDlabel">
      <property name="geometry">
       <rect>
        <x>40</x>
+<<<<<<< HEAD
        <y>30</y>
+=======
+       <y>60</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
        <width>251</width>
        <height>20</height>
       </rect>
@@ -67,7 +95,11 @@ border: none;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
+<<<<<<< HEAD
        <y>110</y>
+=======
+       <y>160</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
        <width>251</width>
        <height>20</height>
       </rect>
@@ -84,7 +116,11 @@ border: none;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
+<<<<<<< HEAD
        <y>140</y>
+=======
+       <y>200</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
        <width>251</width>
        <height>41</height>
       </rect>
@@ -93,14 +129,22 @@ border: none;</string>
       <string notr="true">background-color: #ffffff;
 border: 1px #000000;
 border-radius: 5px;
+<<<<<<< HEAD
 padding: 10px;</string>
+=======
+padding-left: 10px;</string>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
        <x>40</x>
+<<<<<<< HEAD
        <y>240</y>
+=======
+       <y>310</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
        <width>111</width>
        <height>31</height>
       </rect>
@@ -120,7 +164,11 @@ color: #ffffff;</string>
      <property name="geometry">
       <rect>
        <x>180</x>
+<<<<<<< HEAD
        <y>240</y>
+=======
+       <y>310</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
        <width>111</width>
        <height>31</height>
       </rect>
@@ -139,6 +187,7 @@ border-radius: 5px;
     <widget class="QLabel" name="failLabel">
      <property name="geometry">
       <rect>
+<<<<<<< HEAD
        <x>60</x>
        <y>190</y>
        <width>361</width>
@@ -151,6 +200,19 @@ border: none;
 text-align: justify;
 color: rgb(170, 0, 0);
 </string>
+=======
+       <x>40</x>
+       <y>260</y>
+       <width>321</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 600 9pt &quot;UTM Avo&quot;;
+color: rgb(170, 0, 0);
+border: none;
+text-align: justify;</string>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      </property>
      <property name="text">
       <string>Connect unsuccessfully. Try again!</string>
@@ -163,7 +225,11 @@ color: rgb(170, 0, 0);
     <rect>
      <x>0</x>
      <y>0</y>
+<<<<<<< HEAD
      <width>333</width>
+=======
+     <width>334</width>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      <height>26</height>
     </rect>
    </property>

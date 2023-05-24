@@ -30,7 +30,11 @@ background-color: #F2F6FC;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
+<<<<<<< HEAD
       <y>20</y>
+=======
+      <y>10</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
       <width>221</width>
       <height>31</height>
      </rect>
@@ -50,9 +54,15 @@ font: 600 11pt &quot;UTM Avo&quot;;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
+<<<<<<< HEAD
       <y>60</y>
       <width>221</width>
       <height>501</height>
+=======
+      <y>50</y>
+      <width>221</width>
+      <height>461</height>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      </rect>
     </property>
     <property name="styleSheet">
@@ -188,7 +198,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
     <property name="geometry">
      <rect>
       <x>240</x>
+<<<<<<< HEAD
       <y>20</y>
+=======
+      <y>10</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
       <width>631</width>
       <height>31</height>
      </rect>
@@ -208,7 +222,11 @@ font: 600 11pt &quot;UTM Avo&quot;;</string>
     <property name="geometry">
      <rect>
       <x>240</x>
+<<<<<<< HEAD
       <y>60</y>
+=======
+      <y>50</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
       <width>631</width>
       <height>500</height>
      </rect>
@@ -479,6 +497,14 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+<<<<<<< HEAD
+=======
+               <property name="styleSheet">
+                <string notr="true">padding-top: 10px;
+padding-bottom: 6px;
+margin: 14px;</string>
+               </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                <property name="text">
                 <string/>
                </property>
@@ -492,7 +518,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
+<<<<<<< HEAD
                 <number>17</number>
+=======
+                <number>0</number>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                </property>
               </widget>
              </item>
@@ -524,6 +554,14 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+<<<<<<< HEAD
+=======
+               <property name="styleSheet">
+                <string notr="true">padding-top: 12px;
+padding-bottom: 6px;
+margin: 5px;</string>
+               </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                <property name="text">
                 <string/>
                </property>
@@ -540,7 +578,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
                <property name="margin">
+<<<<<<< HEAD
                 <number>10</number>
+=======
+                <number>0</number>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                </property>
               </widget>
              </item>
@@ -662,6 +704,14 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+<<<<<<< HEAD
+=======
+               <property name="styleSheet">
+                <string notr="true">padding-top: 12px;
+padding-bottom: 6px;
+margin: 5px;</string>
+               </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                <property name="text">
                 <string/>
                </property>
@@ -675,7 +725,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
+<<<<<<< HEAD
                 <number>10</number>
+=======
+                <number>0</number>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                </property>
               </widget>
              </item>
@@ -707,6 +761,14 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+<<<<<<< HEAD
+=======
+               <property name="styleSheet">
+                <string notr="true">padding-top: 12px;
+padding-bottom: 6px;
+margin: 5px;</string>
+               </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                <property name="text">
                 <string/>
                </property>
@@ -720,7 +782,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
+<<<<<<< HEAD
                 <number>10</number>
+=======
+                <number>0</number>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                </property>
               </widget>
              </item>
@@ -752,6 +818,14 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+<<<<<<< HEAD
+=======
+               <property name="styleSheet">
+                <string notr="true">padding-top: 10px;
+padding-bottom: 6px;
+margin: 14px;</string>
+               </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                <property name="text">
                 <string/>
                </property>
@@ -765,7 +839,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
+<<<<<<< HEAD
                 <number>17</number>
+=======
+                <number>0</number>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                </property>
               </widget>
              </item>
@@ -913,6 +991,14 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                  <height>100</height>
                 </size>
                </property>
+<<<<<<< HEAD
+=======
+               <property name="styleSheet">
+                <string notr="true">padding-top: 10px;
+padding-bottom: 6px;
+margin: 14px;</string>
+               </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                <property name="text">
                 <string/>
                </property>
@@ -926,7 +1012,11 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                 <bool>true</bool>
                </property>
                <property name="margin">
+<<<<<<< HEAD
                 <number>17</number>
+=======
+                <number>0</number>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
                </property>
               </widget>
              </item>
@@ -1001,10 +1091,37 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
      </layout>
     </widget>
    </widget>
+<<<<<<< HEAD
+=======
+   <widget class="QPushButton" name="exitButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>520</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 5px;
+</string>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
    <zorder>treeWidget</zorder>
    <zorder>TreeView</zorder>
    <zorder>scrollArea</zorder>
    <zorder>Path</zorder>
+<<<<<<< HEAD
+=======
+   <zorder>exitButton</zorder>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
   </widget>
  </widget>
  <resources/>

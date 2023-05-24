@@ -20,6 +20,7 @@ background-color: #F2F6FC;</string>
   <widget class="QPushButton" name="stopButton">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>330</x>
      <y>270</y>
      <width>131</width>
@@ -33,6 +34,19 @@ box-shadow:  10px 5px 5px rgb(0, 0, 0);
 background: #C2E7FF;
 border:  1px solid rgb(154, 154, 154);
 
+=======
+     <x>320</x>
+     <y>290</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: rgb(194, 231, 255);
+border-radius: 10px;
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 </string>
    </property>
    <property name="text">
@@ -42,6 +56,7 @@ border:  1px solid rgb(154, 154, 154);
   <widget class="QLabel" name="timer">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>530</x>
      <y>270</y>
      <width>121</width>
@@ -50,12 +65,50 @@ border:  1px solid rgb(154, 154, 154);
    </property>
    <property name="styleSheet">
     <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+=======
+     <x>260</x>
+     <y>190</y>
+     <width>401</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 14pt &quot;UTM Avo&quot;;
+background-color: #ffffff;
+border: 2px solid;
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 
 </string>
    </property>
    <property name="text">
     <string>01:00</string>
    </property>
+<<<<<<< HEAD
+=======
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>290</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 10px;
+</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
   </widget>
  </widget>
  <resources/>

@@ -20,6 +20,7 @@ background-color: #F2F6FC;</string>
   <widget class="QLabel" name="screenLabel">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>20</x>
      <y>20</y>
      <width>861</width>
@@ -30,22 +31,71 @@ background-color: #F2F6FC;</string>
     <string notr="true">border-radius: 10px;
 border: 2px solid;
 padding-left: 370px;
+=======
+     <x>10</x>
+     <y>10</y>
+     <width>881</width>
+     <height>511</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid;
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 font: 500 9pt &quot;UTM Avo&quot;;
 
 </string>
    </property>
    <property name="text">
+<<<<<<< HEAD
     <string>No screenshot</string>
+=======
+    <string/>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
    </property>
    <property name="textFormat">
     <enum>Qt::RichText</enum>
    </property>
+<<<<<<< HEAD
+=======
+   <property name="pixmap">
+    <pixmap>C:/Users/LENOVO/Downloads/CLINIC.drawio.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+   <property name="indent">
+    <number>0</number>
+   </property>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
   </widget>
   <widget class="QPushButton" name="captureButton">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>290</x>
      <y>520</y>
+=======
+     <x>220</x>
+     <y>530</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      <width>131</width>
      <height>31</height>
     </rect>
@@ -66,8 +116,13 @@ border:  1px solid rgb(154, 154, 154);
   <widget class="QPushButton" name="saveButton">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>470</x>
      <y>520</y>
+=======
+     <x>380</x>
+     <y>530</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      <width>131</width>
      <height>31</height>
     </rect>
@@ -85,6 +140,29 @@ border:  1px solid rgb(154, 154, 154);
     <string>Save</string>
    </property>
   </widget>
+<<<<<<< HEAD
+=======
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>530</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 10px;
+</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </widget>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
  </widget>
  <resources/>
  <connections/>

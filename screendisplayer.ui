@@ -20,6 +20,7 @@ background-color: #F2F6FC;</string>
   <widget class="QLabel" name="screenLabel">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>20</x>
      <y>20</y>
      <width>861</width>
@@ -29,6 +30,16 @@ background-color: #F2F6FC;</string>
    <property name="styleSheet">
     <string notr="true">border-radius: 10px;
 border: 2px solid;
+=======
+     <x>10</x>
+     <y>10</y>
+     <width>881</width>
+     <height>511</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid;
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
 padding-left: 370px;
 font: 500 9pt &quot;UTM Avo&quot;;
 
@@ -44,8 +55,13 @@ font: 500 9pt &quot;UTM Avo&quot;;
   <widget class="QPushButton" name="startButton">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>390</x>
      <y>520</y>
+=======
+     <x>300</x>
+     <y>530</y>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
      <width>131</width>
      <height>31</height>
     </rect>
@@ -63,6 +79,29 @@ border:  1px solid rgb(154, 154, 154);
     <string>Start</string>
    </property>
   </widget>
+<<<<<<< HEAD
+=======
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>530</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;UTM Avo&quot;;
+border: 1px solid rgb(194, 231, 255);
+background-color: #ffffff;
+border-radius: 10px;
+</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </widget>
+>>>>>>> 0bcd9ef0c187252ff7022416289f373dd0043275
  </widget>
  <resources/>
  <connections/>
