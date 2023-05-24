@@ -187,9 +187,9 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
    <widget class="QLabel" name="Path">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>280</x>
       <y>10</y>
-      <width>631</width>
+      <width>591</width>
       <height>31</height>
      </rect>
     </property>
@@ -197,7 +197,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
      <string notr="true">background-color: rgb(194, 231, 255);
 border: 1px #000000;
 border-radius: 5px;
-padding-left: 10px;
+padding-left: 6px;
 font: 600 11pt &quot;UTM Avo&quot;;</string>
     </property>
     <property name="text">
@@ -1051,11 +1051,52 @@ border-radius: 5px;
      <string>Exit</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>10</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 132, 255);
+border: 1px #000000;
+border-radius: 5px;
+padding: 0 7px 4px 0px;
+font: 600 11pt &quot;UTM Avo&quot;;</string>
+    </property>
+    <property name="text">
+     <string>&lt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Filler">
+    <property name="geometry">
+     <rect>
+      <x>275</x>
+      <y>10</y>
+      <width>16</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(194, 231, 255);
+border: 1px #000000;
+font: 600 11pt &quot;UTM Avo&quot;;
+border-radius: 0;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>treeWidget</zorder>
    <zorder>TreeView</zorder>
    <zorder>scrollArea</zorder>
-   <zorder>Path</zorder>
    <zorder>exitButton</zorder>
+   <zorder>backButton</zorder>
+   <zorder>Path</zorder>
+   <zorder>Filler</zorder>
   </widget>
  </widget>
  <resources/>

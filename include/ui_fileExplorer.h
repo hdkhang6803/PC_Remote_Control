@@ -85,6 +85,8 @@ public:
     QLabel *IconFile1_23;
     QLabel *Label_23;
     QPushButton *exitButton;
+    QPushButton *backButton;
+    QLabel *Filler;
 
     void setupUi(QWidget *fileExplorer)
     {
@@ -161,11 +163,11 @@ public:
 "font: 500 10pt \"UTM Avo\";"));
         Path = new QLabel(MainWidget);
         Path->setObjectName("Path");
-        Path->setGeometry(QRect(240, 10, 631, 31));
+        Path->setGeometry(QRect(280, 10, 591, 31));
         Path->setStyleSheet(QString::fromUtf8("background-color: rgb(194, 231, 255);\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
-"padding-left: 10px;\n"
+"padding-left: 6px;\n"
 "font: 600 11pt \"UTM Avo\";"));
         scrollArea = new QScrollArea(MainWidget);
         scrollArea->setObjectName("scrollArea");
@@ -578,11 +580,28 @@ public:
 "background-color: #ffffff;\n"
 "border-radius: 5px;\n"
 ""));
+        backButton = new QPushButton(MainWidget);
+        backButton->setObjectName("backButton");
+        backButton->setGeometry(QRect(240, 10, 41, 31));
+        backButton->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 132, 255);\n"
+"border: 1px #000000;\n"
+"border-radius: 5px;\n"
+"padding: 0 7px 4px 0px;\n"
+"font: 600 11pt \"UTM Avo\";"));
+        Filler = new QLabel(MainWidget);
+        Filler->setObjectName("Filler");
+        Filler->setGeometry(QRect(275, 10, 16, 31));
+        Filler->setStyleSheet(QString::fromUtf8("background-color: rgb(194, 231, 255);\n"
+"border: 1px #000000;\n"
+"font: 600 11pt \"UTM Avo\";\n"
+"border-radius: 0;"));
         treeWidget->raise();
         TreeView->raise();
         scrollArea->raise();
-        Path->raise();
         exitButton->raise();
+        backButton->raise();
+        Path->raise();
+        Filler->raise();
 
         retranslateUi(fileExplorer);
 
@@ -650,6 +669,8 @@ public:
         IconFile1_23->setText(QString());
         Label_23->setText(QCoreApplication::translate("fileExplorer", "File1", nullptr));
         exitButton->setText(QCoreApplication::translate("fileExplorer", "Exit", nullptr));
+        backButton->setText(QCoreApplication::translate("fileExplorer", "<", nullptr));
+        Filler->setText(QString());
     } // retranslateUi
 
 };
