@@ -152,56 +152,48 @@ void Client::readMessage() {
         QStringList lines = strList;
         QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *rootItem = model->invisibleRootItem();
-        foreach (QString line, lines) {
-            QList<QString>info  = line.split(' ', Qt::SkipEmptyParts);
-            if (info.size() > 1) {
-                qDebug() << info[0] << info[1];
-                QStandardItem *item = new QStandardItem(info[0]);
-                rootItem->appendRow(item);
-    //        qDebug() << line;
-            }
+        for (int i = 0; i + 1 < lines.size(); i+=2) {
+            QString process_name = lines[i];
+            QString process_pid = lines[i+1];
+            qDebug() << process_name << process_pid;
         }
-        emit (fileStructReceived(model));
+//        emit (fileStructReceived(model));
     }
     else if (code == tr("list applications")) {
         QStringList applications = strList;
         QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *rootItem = model->invisibleRootItem();
-//        for (QString appPath : applications) {
-//            qDebug() << appPath;
-////            QStandardItem *item = new QStandardItem(appPath);
-////            rootItem->appendRow(item);
 
-//            // chat gpt
-//            QFileInfo fileInfo(appPath);
-//            QString appName = fileInfo.baseName(); // Get app name from appPath
-//            QStandardItem *item = new QStandardItem(appName);
-
-//            // Add app icon and name from appPath
-//            if (fileInfo.isFile() && (fileInfo.suffix() == "exe" || fileInfo.suffix() == "lnk")) {
-//                QSettings settings(appPath, QSettings::NativeFormat);
-//                QString iconPath = settings.value("icon").toString();
-//                if (!iconPath.isEmpty()) {
-//                    int index = iconPath.indexOf(",");
-//                    if (index != -1) {
-//                        iconPath = iconPath.left(index);
-//                    }
-//                    QIcon icon(iconPath);
-//                    item->setIcon(icon);
-//                }
-//            }
-//            item->setData(appPath, Qt::UserRole);
-
-//            rootItem->appendRow(item);
-
-
-//        }
         QFileIconProvider iconProvider;
 
-        for (QString appPath : applications) {
+        for (int i = 0; i + 1 < applications.size(); i+=2) {
+            QString appName = applications[i];
+            QString appPath = applications[i+1];
             QFileInfo fileInfo(appPath);
             QIcon appIcon = iconProvider.icon(fileInfo);
-            QString appName = fileInfo.baseName();
+            //            QString appName = fileInfo.baseName();
+
+            qDebug() << appName << ' ' << appPath;
+            QStandardItem *item = new QStandardItem(appIcon, appName);
+            item->setData(appPath, Qt::UserRole); // store appPath in the item's user role
+            rootItem->appendRow(item);
+        }
+        //        treeView->setModel(&model);
+        emit (fileStructReceived(model));
+    }
+    else if (code == tr("list running applications")) {
+        QStringList applications = strList;
+        QStandardItemModel *model = new QStandardItemModel;
+        QStandardItem *rootItem = model->invisibleRootItem();
+
+        QFileIconProvider iconProvider;
+
+        for (int i = 0; i + 1 < applications.size(); i+=2) {
+            QString appName = applications[i];
+            QString appPath = applications[i+1];
+            QFileInfo fileInfo(appPath);
+            QIcon appIcon = iconProvider.icon(fileInfo);
+//            QString appName = fileInfo.baseName();
 
             qDebug() << appName;
             QStandardItem *item = new QStandardItem(appIcon, appName);

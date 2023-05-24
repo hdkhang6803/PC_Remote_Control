@@ -36,6 +36,8 @@ set(PROJECT_SOURCES
         audiorecorder.ui
         audiowindow.h audiowindow.cpp
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
+
+        processes.ui apps.ui keystroke.ui screendisplayer.ui screenshot.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

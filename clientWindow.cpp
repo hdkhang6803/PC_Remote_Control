@@ -1,5 +1,5 @@
 #include "clientWindow.h"
-#include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_clientWindow.h"
+//#include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_clientWindow.h"
 
 // #include "include/ui_clientWindow.h"
 #include "audiowindow.h"
@@ -35,8 +35,8 @@ ClientWindow::ClientWindow(QWidget *parent) :
 
 
 
-    processButton = ui->processButton;
-    appButton = ui->processButton_2;
+    processButton = ui->processButton_2;
+//    appButton = ui->processButton_2;
     keystrButton =  ui->processButton_3;
     screenButton = ui->processButton_4;
     fileButton = ui->processButton_5;
@@ -45,7 +45,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     contrButton = ui->processButton_8;
     exitButton = ui->exitButton;
     connect(processButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_1);
-    connect(appButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_2);
+//    connect(processButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_2);
     connect(keystrButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_3);
     connect(screenButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_4);
     connect(fileButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_5);
@@ -95,22 +95,23 @@ void ClientWindow::updateImage(const QPixmap &image) {
 }
 
 void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
-//    qDebug() << "display file struct";
-//    QTreeView *treeView = new QTreeView;
-////    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    treeView->setModel(model);
-//    treeView->setHeaderHidden(true);
-//    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-//    treeView->setAnimated(true);
-//    treeView->setIndentation(20);
-//    treeView->setSortingEnabled(true);
-//    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
-//    treeView->setExpandsOnDoubleClick(true);
-//    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
-//    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
-////    treeView->show();
-////    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
+    qDebug() << "display file struct";
+    QTreeView *treeView = new QTreeView(ui->widget_2);
+//    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    treeView->setModel(model);
+    treeView->setHeaderHidden(true);
+    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    treeView->setAnimated(true);
+    treeView->setIndentation(20);
+    treeView->setSortingEnabled(true);
+    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    treeView->setExpandsOnDoubleClick(true);
+    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
+    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
+//    treeView->show();
+//    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
 //    rightPanelLayout->addWidget(treeView);
+    treeView->show();
 }
 
 void ClientWindow::onTreeViewDoubleClicked(const QModelIndex &index)
@@ -123,8 +124,8 @@ void ClientWindow::onTreeViewDoubleClicked(const QModelIndex &index)
 }
 
 void ClientWindow::on_pushButton_clicked_1(){
-    client->sendMessage(tr("list processes"));
-
+//    client->sendMessage(tr("list processes"));
+    client->sendMessage(tr("list applications"));
 }
 void ClientWindow::on_pushButton_clicked_2(){
     client->sendMessage(tr("list applications"));

@@ -17,6 +17,7 @@ using std::vector;
 #include "client.h"
 #include "clientInfo.h"
 #include "featureButton.h"
+#include "include/ui_clientWindow.h"
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;

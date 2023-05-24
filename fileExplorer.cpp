@@ -1,5 +1,5 @@
 #include "fileExplorer.h"
-#include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_fileExplorer.h"
+//#include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_fileExplorer.h"
 
 fileExplorer::fileExplorer(QTcpServer *parServer, QWidget *parent) :
     QWidget(parent),

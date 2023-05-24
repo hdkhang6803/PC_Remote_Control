@@ -30,7 +30,7 @@ background-color: #F2F6FC;</string>
     <string notr="true">font: 500 10pt &quot;UTM Avo&quot;;</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="runningAppsTab">
     <attribute name="title">
