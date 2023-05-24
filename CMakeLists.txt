@@ -21,21 +21,24 @@ set(PROJECT_SOURCES
         serverinfo.ui
         fileExplorer.ui
         clientinfo.ui
-        clientWindow.ui
+        clientwindow1.ui
         serverWindow.ui
+
+
 
         server.h server.cpp
         client.h client.cpp
         clientWindow.h clientWindow.cpp
         clientInfo.cpp clientInfo.h
         serverWindow.h serverWindow.cpp serverWindow.ui
-        featureButton.h featureButton.cpp
         mouse_track_test.h
 #        keyboard_track.cpp keyboard_track.h
         audiorecorder.h audiorecorder.cpp
         audiorecorder.ui
         audiowindow.h audiowindow.cpp
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
+        screenshot.ui screenshot.cpp screenshot.h
+        screendisplayer.ui screendisplayer.cpp screendisplayer.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

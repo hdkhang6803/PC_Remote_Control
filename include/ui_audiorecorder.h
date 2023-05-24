@@ -22,6 +22,7 @@ class Ui_audiorecorder
 public:
     QPushButton *stopButton;
     QLabel *timer;
+    QPushButton *exitButton;
 
     void setupUi(QWidget *audiorecorder)
     {
@@ -32,19 +33,28 @@ public:
 "background-color: #F2F6FC;"));
         stopButton = new QPushButton(audiorecorder);
         stopButton->setObjectName("stopButton");
-        stopButton->setGeometry(QRect(330, 270, 131, 41));
-        stopButton->setStyleSheet(QString::fromUtf8("border-radius: 20px;\n"
-"font: 600 9pt \"UTM Avo\";\n"
-"box-shadow:  10px 5px 5px rgb(0, 0, 0);\n"
-"background: #C2E7FF;\n"
-"border:  1px solid rgb(154, 154, 154);\n"
-"\n"
+        stopButton->setGeometry(QRect(320, 290, 121, 31));
+        stopButton->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
+"border: 1px solid rgb(194, 231, 255);\n"
+"background-color: rgb(194, 231, 255);\n"
+"border-radius: 10px;\n"
 ""));
         timer = new QLabel(audiorecorder);
         timer->setObjectName("timer");
-        timer->setGeometry(QRect(530, 270, 121, 41));
+        timer->setGeometry(QRect(260, 190, 401, 61));
         timer->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
+"background-color: #ffffff;\n"
+"border: 2px solid;\n"
 "\n"
+""));
+        timer->setAlignment(Qt::AlignCenter);
+        exitButton = new QPushButton(audiorecorder);
+        exitButton->setObjectName("exitButton");
+        exitButton->setGeometry(QRect(470, 290, 111, 31));
+        exitButton->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
+"border: 1px solid rgb(194, 231, 255);\n"
+"background-color: #ffffff;\n"
+"border-radius: 10px;\n"
 ""));
 
         retranslateUi(audiorecorder);
@@ -57,6 +67,7 @@ public:
         audiorecorder->setWindowTitle(QCoreApplication::translate("audiorecorder", "Form", nullptr));
         stopButton->setText(QCoreApplication::translate("audiorecorder", "Stop", nullptr));
         timer->setText(QCoreApplication::translate("audiorecorder", "01:00", nullptr));
+        exitButton->setText(QCoreApplication::translate("audiorecorder", "Exit", nullptr));
     } // retranslateUi
 
 };

@@ -15,6 +15,7 @@ class Client : public QObject
     Q_OBJECT
 public:
     explicit Client(QObject *parent = nullptr);
+    QByteArray rcv_bitmap;
 
 signals:
 
@@ -23,7 +24,8 @@ signals:
     void m_connecting();
 
     void stringMessageReceived(const QString &message);
-    void imageMessageReceived(const QPixmap &image);
+    void imageMessageReceived();
+    void streamMessageReceived();
     void fileStructReceived(QStandardItemModel* &model);
     void error(QAbstractSocket::SocketError socketError);
 
@@ -38,6 +40,7 @@ private:
     QTcpSocket *tcpSocket = nullptr;
     QDataStream in;
     QByteArray buffer;
+
 };
 
 #endif // CLIENT_H

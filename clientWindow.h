@@ -16,7 +16,9 @@ using std::vector;
 
 #include "client.h"
 #include "clientInfo.h"
-#include "featureButton.h"
+#include "include/ui_clientwindow1.h"
+#include "screenshot.h"
+#include "screendisplayer.h"
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;
@@ -29,7 +31,7 @@ using std::vector;
 //QT_END_NAMESPACE
 
 namespace Ui {
-class clientWindow;
+class clientWindow1;
 }
 
 const int numberOfFeat = 8;
@@ -44,7 +46,7 @@ public:
 //    ~ClientWindow();
 
 private:
-    Ui::clientWindow *ui;
+    Ui::clientWindow1 *ui;
 
 signals:
     void appear();
@@ -71,15 +73,16 @@ private:
     QLabel *_ipBox = nullptr;
     QLabel *_portBox = nullptr;
 
-    QPushButton *processButton = nullptr;
-    QPushButton *appButton = nullptr;
+    QPushButton *PAButton = nullptr;
     QPushButton *keystrButton = nullptr;
     QPushButton *screenButton = nullptr;
     QPushButton *fileButton = nullptr;
     QPushButton *streamButton = nullptr;
     QPushButton *audioButton = nullptr;
-    QPushButton *contrButton = nullptr;
     QPushButton *exitButton = nullptr;
+
+    screenshot* screenshot_wind = nullptr;
+    screendisplayer* stream_win = nullptr;
 
 
 

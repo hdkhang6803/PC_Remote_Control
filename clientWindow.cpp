@@ -1,6 +1,6 @@
 #include "clientWindow.h"
-#include "include/ui_clientWindow.h"
 #include "audiowindow.h"
+#include "screenshot.h"
 #include "client.h"
 #include <QDebug>
 #include <QTimer>
@@ -8,7 +8,7 @@
 
 ClientWindow::ClientWindow(QWidget *parent) :
     QMainWindow(parent)
-    , ui(new Ui::clientWindow)
+    , ui(new Ui::clientWindow1)
 {
     ui->setupUi(this);
 
@@ -19,7 +19,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     connect(client_info, &clientInfo::connectToServer, this, &ClientWindow::receivedServerInfo);
 //    connect(client_info, &clientInfo::exit, this, &ClientWindow::close);
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
-    connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
+//    connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
     connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFileStruct);
 
 
@@ -33,23 +33,20 @@ ClientWindow::ClientWindow(QWidget *parent) :
 
 
 
-    processButton = ui->processButton;
-    appButton = ui->processButton_2;
+    PAButton = ui->processButton_1;
+
     keystrButton =  ui->processButton_3;
     screenButton = ui->processButton_4;
     fileButton = ui->processButton_5;
     streamButton = ui->processButton_6;
     audioButton = ui->processButton_7;
-    contrButton = ui->processButton_8;
     exitButton = ui->exitButton;
-    connect(processButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_1);
-    connect(appButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_2);
+    connect(PAButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_1);
     connect(keystrButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_3);
     connect(screenButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_4);
     connect(fileButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_5);
     connect(streamButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_6);
     connect(audioButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_7);
-    connect(contrButton, &QPushButton::clicked, this, &ClientWindow::on_pushButton_clicked_8);
 
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
@@ -132,19 +129,53 @@ void ClientWindow::on_pushButton_clicked_3(){
 
 }
 void ClientWindow::on_pushButton_clicked_4(){
-    client->sendMessage(tr("take screenshot"));
+    qDebug() << "screenshot clicked";
+    screenshot_wind = new screenshot(ui->widget_2);
+    connect(screenshot_wind, &screenshot::capture, [=](){
+        client->sendMessage(tr("take screenshot"));
+        qDebug() << "capture signal sent";
+    });
+    connect(screenshot_wind, &screenshot::end_session, [=](){
+        delete screenshot_wind;
+        screenshot_wind = nullptr;
+    });
+    connect(screenshot_wind, &screenshot::save, [=](){
+        QDateTime date = QDateTime::currentDateTime();
+        QString formattedTime = date.toString("ddMMyyyy_hh_mm_ss");
+        QByteArray formattedTimeMsg = formattedTime.toLocal8Bit();
+
+        QFile file("screen_" + formattedTime + ".jpg");
+        file.open(QIODevice::WriteOnly);
+        QPixmap img;
+        img.loadFromData(client->rcv_bitmap, "JPEG");
+        img.save(&file, "JPEG");
+    });
+    connect(client, &Client::imageMessageReceived, [=]{
+        screenshot_wind->display_image(client->rcv_bitmap);
+    });
+
 
 }
 void ClientWindow::on_pushButton_clicked_5(){
     client->sendMessage(tr("ls"));
 }
 void ClientWindow::on_pushButton_clicked_6(){
+    qDebug() << "Stream button clicked";
+    stream_win = new screendisplayer(ui->widget_2);
+    connect(stream_win, &screendisplayer::start_stream, [=]{
+        client->sendMessage(tr("stream screen"));
+    });
+    connect(stream_win, &screendisplayer::close_stream, [=]{
+        client->sendMessage(tr("stop_stream"));
+    });
+    connect(client, &Client::streamMessageReceived, [=]{
+        stream_win->display_image(client->rcv_bitmap);
+    });
 
 }
 void ClientWindow::on_pushButton_clicked_7(){
     client->sendMessage(tr("recording"));
 
-//    QWidget* previous_widg = ui->widget_2;
     audioWindow* audio_w = new audioWindow(ui->widget_2);
     audio_w->set_time();
     audio_w->show();

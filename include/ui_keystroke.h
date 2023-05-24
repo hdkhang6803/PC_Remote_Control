@@ -26,6 +26,7 @@ public:
     QLabel *label_2;
     QTextEdit *textEdit_2;
     QPushButton *startButton;
+    QPushButton *exitButton;
 
     void setupUi(QWidget *keystroke)
     {
@@ -62,13 +63,21 @@ public:
 "font: 500 10pt \"UTM Avo\";"));
         startButton = new QPushButton(keystroke);
         startButton->setObjectName("startButton");
-        startButton->setGeometry(QRect(380, 500, 131, 31));
+        startButton->setGeometry(QRect(300, 500, 131, 31));
         startButton->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
 "font: 600 9pt \"UTM Avo\";\n"
 "box-shadow:  10px 5px 5px rgb(0, 0, 0);\n"
 "background: #C2E7FF;\n"
 "border:  1px solid rgb(154, 154, 154);\n"
 "\n"
+""));
+        exitButton = new QPushButton(keystroke);
+        exitButton->setObjectName("exitButton");
+        exitButton->setGeometry(QRect(460, 500, 121, 31));
+        exitButton->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
+"border: 1px solid rgb(194, 231, 255);\n"
+"background-color: #ffffff;\n"
+"border-radius: 10px;\n"
 ""));
 
         retranslateUi(keystroke);
@@ -98,6 +107,7 @@ public:
 "</style></head><body style=\" font-family:'UTM Avo'; font-size:10pt; font-weight:500; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">K</p></body></html>", nullptr));
         startButton->setText(QCoreApplication::translate("keystroke", "Stop", nullptr));
+        exitButton->setText(QCoreApplication::translate("keystroke", "Exit", nullptr));
     } // retranslateUi
 
 };

