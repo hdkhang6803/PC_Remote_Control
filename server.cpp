@@ -300,23 +300,19 @@ void Server::readMessage() {
         processKeyboardTrack = new QProcess();
         processKeyboardTrack->start(".\\keyboard_track.exe");
         connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, [=]() {
-//            QProcess *process = static_cast<QProcess*>(sender());
-//            qDebug() << "is this on?";
-        QString data(processKeyboardTrack->readAllStandardOutput());
-        QString temp(data);
-        qDebug() << temp << "||" << temp.indexOf(tr("\r\n"));
-        QStringList pieces = temp.split( tr("\r\n"), Qt::SkipEmptyParts );
-        QString m_name = pieces.value( 0 );
-        QString m_combine = pieces.value( 1 );
-        qDebug() << m_name << "||" << m_combine;
+            QString data(processKeyboardTrack->readAllStandardOutput());
+            QString temp(data);
 
-        QByteArray block;
-        QDataStream out(&block, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_6_5);
+            QStringList pieces = temp.split( tr("\r\n"), Qt::SkipEmptyParts );
+            QString m_name = pieces.value( 0 );
+            QString m_combine = pieces.value( 1 );
 
-        out << tr("stroke") << m_name << m_combine;
-        clientConnection->write(block);
+            QByteArray block;
+            QDataStream out(&block, QIODevice::WriteOnly);
+            out.setVersion(QDataStream::Qt_6_5);
 
+            out << tr("stroke") << m_name << m_combine;
+            clientConnection->write(block);
         });
     }
     else if(message == tr("stop_stroke")){
