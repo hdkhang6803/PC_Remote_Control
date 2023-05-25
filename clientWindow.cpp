@@ -107,6 +107,7 @@ void ClientWindow::updateFilesWindow(QStringList files) {
     }
 
     QGridLayout *layout = fileExp->ui->DirectoryGrid;
+    QFrame *GirdFrame = fileExp->ui->GirdFrame;
 
     int numColumns = 7;
     int rowIndex = 0;
@@ -150,13 +151,17 @@ void ClientWindow::updateFilesWindow(QStringList files) {
         return fileInfoA.isDir();
     });
 
-    fileExp->ui->Path->setText(sortedFiles[0]);
-
+    QString curDir = sortedFiles[0];
+    fileExp->ui->Path->setText(curDir);
 
     for (int i = 0; i < sortedFiles.size(); ++i) {
         QString filePath = sortedFiles[i];
         QFileInfo fileInfo(filePath);
         QString name = fileInfo.fileName();
+        if (name == "..") {
+            name = "<";
+        }
+        else if (name == ".") continue;
         QLabel *label = new QLabel(name);
         fileExp->fileNameLabels.push_back(label);
         qDebug() << filePath;
@@ -190,10 +195,41 @@ void ClientWindow::updateFilesWindow(QStringList files) {
         });
 
         // Add the QLabel to the layout
-        layout->addWidget(label, rowIndex, colIndex);
-        layout->addWidget(button, rowIndex, colIndex);
+        /*layout->addWidget(label, rowIndex, colIndex);
+        layout->addWidget(button, rowIndex, colIndex);*/
 
-//        colIndex++;
+        bool isDirectory = QFileInfo(filePath).isDir();
+
+        QVBoxLayout* vbox = new QVBoxLayout();
+        vbox->setObjectName(name);
+        QLabel* IconFile1_5 = new QLabel(GirdFrame);
+        IconFile1_5->setObjectName("IconFile1_5");
+        IconFile1_5->setMaximumSize(QSize(100, 100));
+        IconFile1_5->setTextFormat(Qt::RichText);
+        IconFile1_5->setStyleSheet(QString::fromUtf8("padding-top: 8px;\n"
+                                          "padding-bottom: 2px;\n"
+                                          "margin: 0px;"));
+        IconFile1_5->setPixmap(QPixmap(QString::fromUtf8("document.png")));
+        if (isDirectory)
+            IconFile1_5->setPixmap(QPixmap(QString::fromUtf8("folder.png")));
+        IconFile1_5->setScaledContents(true);
+        IconFile1_5->setMargin(17);
+
+//        vbox->addWidget(button);
+        vbox->addWidget(IconFile1_5);
+
+        QLabel* Label_5 = new QLabel(GirdFrame);
+        Label_5->setObjectName("Label_5");
+        Label_5->setMaximumSize(QSize(100, 50));
+        Label_5->setAlignment(Qt::AlignCenter);
+        Label_5->setText(name);
+
+        vbox->addWidget(Label_5);
+
+
+
+        layout->addLayout(vbox, rowIndex, colIndex, 1, 1);
+        layout->addWidget(button, rowIndex, colIndex);
     }
 }
 
@@ -489,6 +525,7 @@ void ClientWindow::on_pushButton_clicked_1(){
         appsWin = nullptr;
 ////        appWin->
     });
+
     connect(appsWin->ui->exitButton_2, &QPushButton::clicked, [=](){
         delete appsWin;
         appsWin = nullptr;
@@ -532,6 +569,7 @@ void ClientWindow::on_pushButton_clicked_1(){
         client->sendMessage(tr("list applications"));
         }
     });
+
     client->sendMessage(tr("list processes and apps"));
 //    client->sendMessage(tr("list applications"));
 }
@@ -593,6 +631,11 @@ void ClientWindow::on_pushButton_clicked_5(){
     connect(fileExp->ui->exitButton, QPushButton::clicked, [=](){
         delete fileExp;
     });
+//    connect(fileExp->ui->backButton, &QPushButton::clicked, [=](){
+//        QString prevWorkingDir = QDir::currentPath() + "//..";
+//        client->sendFolderRequest(prevWorkingDir);
+//    });
+
 }
 void ClientWindow::on_pushButton_clicked_6(){
     qDebug() << "Stream button clicked";
@@ -601,6 +644,7 @@ void ClientWindow::on_pushButton_clicked_6(){
         client->sendMessage(tr("stream screen"));
     });
     connect(stream_win, &screendisplayer::close_stream, [=]{
+
         client->sendMessage(tr("stop_stream"));
     });
     connect(stream_win, &screendisplayer::end_session, [=]{
