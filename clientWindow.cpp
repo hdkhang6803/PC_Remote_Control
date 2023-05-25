@@ -173,11 +173,6 @@ void ClientWindow::updateFilesWindow(QStringList files) {
 
         fileExp->fileNavList.push_back(button);
         button->setStyleSheet("background-color: transparent;");
-//        button->setStyleSheet("QPushButton {"
-//                              "  background-color: transparent;"
-//                              "  border: none;"
-//                              "  padding: 0px;"
-//                              "}");
 
         // Determine if it's a directory or file
 

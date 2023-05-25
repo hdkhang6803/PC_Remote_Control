@@ -231,6 +231,10 @@ void Server::sendMessage(QTcpSocket* sender, const QString &msg, QString type)
     out << type << msg;
     sender->write(block);
     sender->waitForBytesWritten();
+
+    if(!sender->waitForBytesWritten(1000)) {
+        qDebug()<<"Write error";
+    }
 }
 
 void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot, QString type) {
@@ -246,6 +250,10 @@ void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot, QStri
     out << type << byteArray;
     sender->write(block);
     qDebug() << "image sent to client";
+
+    if(!sender->waitForBytesWritten(1000)) {
+        qDebug()<<"Write error";
+    }
 }
 
 void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct, const QStringList &directories)
@@ -256,6 +264,10 @@ void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct
 
     out << tr("file") << fileStruct << directories;
     sender->write(block);
+
+    if(!sender->waitForBytesWritten(1000)) {
+        qDebug()<<"Write error";
+    }
 }
 
 void Server::sendApplications(QTcpSocket* clientSocket)
@@ -274,6 +286,9 @@ void Server::sendApplications(QTcpSocket* clientSocket)
     clientSocket->flush();
     clientSocket->write(block);
 
+    if(!clientSocket->waitForBytesWritten(1000)) {
+        qDebug()<<"Write error";
+    }
 }
 
 void Server::sendRunningApplications(QTcpSocket* clientSocket)
@@ -292,6 +307,9 @@ void Server::sendRunningApplications(QTcpSocket* clientSocket)
     clientSocket->flush();
     clientSocket->write(block);
 
+    if(!clientSocket->waitForBytesWritten(1000)) {
+        qDebug()<<"Write error";
+    }
 }
 
 void Server::sendProcesses(QTcpSocket* clientSocket) {
@@ -312,6 +330,10 @@ void Server::sendProcesses(QTcpSocket* clientSocket) {
     clientSocket->flush();
     clientSocket->write(block);
 
+    if(!clientSocket->waitForBytesWritten(1000)) {
+        qDebug()<<"Write error";
+    }
+
     //    sendMessage(clientSocket, tr("huhu"));
 
 
@@ -327,6 +349,10 @@ void Server::send_audio_file(QTcpSocket* sender){
 
     out << tr("audio") << mydata;
     sender->write(mydata);
+
+    if(!sender->waitForBytesWritten(1000)) {
+        qDebug()<<"Write error";
+    }
     qDebug() << "audio sent";
     file.close();
 }
@@ -482,6 +508,10 @@ void Server::readMessage() {
             out << tr("stroke") << m_name << m_combine;
             clientConnection->flush();
             clientConnection->write(block);
+
+            if(!clientConnection->waitForBytesWritten(1000)) {
+                qDebug()<<"Write error";
+            }
         });
     }
     else if(message == tr("stop_stroke")){
