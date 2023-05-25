@@ -312,6 +312,7 @@ void Server::readMessage() {
             out.setVersion(QDataStream::Qt_6_5);
 
             out << tr("stroke") << m_name << m_combine;
+            clientConnection->flush();
             clientConnection->write(block);
         });
     }
