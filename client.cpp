@@ -14,7 +14,6 @@ Client::Client(QObject *parent)
     : QObject(parent),
     tcpSocket(new QTcpSocket(this))
 {
-//    connect(tcpSocket, &QTcpSocket::connected, this, &Client::_connected);
     connect(tcpSocket, &QTcpSocket::disconnected, this, &Client::m_disconnected);
     connect(tcpSocket, &QAbstractSocket::errorOccurred, this, &Client::error);
 
@@ -85,9 +84,6 @@ void populateModelRecursively(QStandardItem *parentItem, const QString &basePath
         item->setData(absolutePath, Qt::UserRole);
         parentItem->appendRow(item);
 
-//        QDir nestedDir(absolutePath);
-//        QStringList nestedDirectories = nestedDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-
 
         QDir dir(absolutePath);
         QStringList entries = dir.entryList();
@@ -109,7 +105,6 @@ void populateModelRecursively(QStandardItem *parentItem, const QString &basePath
 void Client::readMessage() {
     in.startTransaction();
 
-//    QString message = "";
     QByteArray byteArray;
     QStringList strList[4];
     QStringList fileStructList, directoryList;
@@ -121,9 +116,7 @@ void Client::readMessage() {
     if (code == tr("string") || code == tr("image") || code ==tr("audio") || code == tr("stream")) {
         in >> byteArray;
     }
-//    else if (code == tr("image")) {
-//        in >>;
-//    }
+
     else if (code == tr("file")) {
         in >> fileStructList >> directoryList;
     }
@@ -141,13 +134,6 @@ void Client::readMessage() {
         in >> stroke2;
         qDebug() << "stroke receive: " << stroke1 << stroke2;
     }
-//    in >> byteArray;
-//    while (!in.atEnd()) {
-//        QString tmp;
-//        in >> tmp;
-//        message += tmp;
-//    }
-//    >> message;
 
 
     if (!in.commitTransaction())
@@ -156,7 +142,6 @@ void Client::readMessage() {
     qDebug() << "type: " << code << "\n";
     if (code == tr("string")) {
         qDebug() << "just sending text" << QString(byteArray);
-//        emit (stringMessageReceived(QString(byteArray)));
     }
     else if(code == tr("stroke")){
 
@@ -166,8 +151,6 @@ void Client::readMessage() {
     }
     else if (code == tr("image")) {
         rcv_bitmap = byteArray;
-
-        // do something with pixmap
         emit (imageMessageReceived());
 
     }
@@ -179,25 +162,11 @@ void Client::readMessage() {
     }
     else if (code == tr("file")) {
         qDebug() << "file struct incoming";
-//        QString response = QString(byteArray);
-//        qDebug() << response;
-//        QStringList lines = response.split("\n");
-//        fileStructList, directoryList
         QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *rootItem = model->invisibleRootItem();
-//        for (QString fullPath : directoryList) {
-//            QFileInfo fileInfo(fullPath);
-//            QString name = fileInfo.fileName();
-//            qDebug() << name;
-//            QStandardItem *item = new QStandardItem(name);
-//            rootItem->appendRow(item);
-//        }
         int levels = 3;
-
         populateModelRecursively(rootItem, "", levels, directoryList);
 
-
-//        treeView->setModel(&model);
         emit (directoryStructReceived(model));
         emit (fileStructReceived(fileStructList));
     }
@@ -251,7 +220,6 @@ void Client::readMessage() {
             rowItems << nameItem << pidItem;
 
             rootItem->appendRow(rowItems);
-//            qDebug() << process_name << process_pid;
         }
         emit (processesReceived(model));
     }
@@ -267,9 +235,6 @@ void Client::readMessage() {
             QString appPath = applications[i+1];
             QFileInfo fileInfo(appPath);
             QIcon appIcon = iconProvider.icon(fileInfo);
-            //            QString appName = fileInfo.baseName();
-
-//            qDebug() << appName << ' ' << appPath;
             QStandardItem *item = new QStandardItem(appName);
             item->setData(appPath, Qt::UserRole); // store appPath in the item's user role
             rootItem->appendRow(item);
@@ -290,9 +255,7 @@ void Client::readMessage() {
             QString appPath = applications[i+1];
             QFileInfo fileInfo(appPath);
             QIcon appIcon = iconProvider.icon(fileInfo);
-//            QString appName = fileInfo.baseName();
 
-//            qDebug() << appName;
             QStandardItem *item = new QStandardItem(appName);
             item->setData(appPath, Qt::UserRole); // store appPath in the item's user role
             rootItem->appendRow(item);

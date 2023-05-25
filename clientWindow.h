@@ -69,7 +69,6 @@ private slots:
     void updateRunningApps(QStandardItemModel* &model);
     void updateProcesses(QStandardItemModel* &model);
 
-    void onTreeViewDoubleClicked(const QModelIndex &index);
     void updateStrokeText(QString& str1, QString& str2);
     void onItemClicked(const QModelIndex& index);
 

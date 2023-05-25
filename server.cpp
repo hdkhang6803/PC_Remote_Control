@@ -33,24 +33,9 @@ void Server::initServer()
 {
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen()) {
-//        QMessageBox::critical(this, tr("Fortune Server"),
-//                              tr("Unable to start the server: %1.")
-//                                  .arg(tcpServer->errorString()));
         qDebug() << "Unable to start server.";
         return;
     }
-
-//    const QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-//    // use the first non-localhost IPv4 address
-//    for (const QHostAddress &entry : ipAddressesList) {
-//        if (entry != QHostAddress::LocalHost && entry.toIPv4Address()) {
-//            ipAddress = entry.toString();
-//            break;
-//        }
-//    }
-//    // if we did not find one, use IPv4 localhost
-//    if (ipAddress.isEmpty())
-//        ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
 
     //First enumerate all network adapters
 
@@ -153,11 +138,6 @@ void Server::initServer()
 
                             if(SUCCEEDED(lStatus))
                             {
-//                                wprintf_s(L"Adapter : %s [%s] \n\tDHCP : %s\n",
-//                                          wszServiceNameGuid,
-//                                          wszAdapterName,
-//                                          dwEnabledDHCP
-//                                              ? L"Yes" : L"No");
                                 std::wstring your_wchar_in_ws(wszAdapterName);
                                 std::string your_wchar_in_str(your_wchar_in_ws.begin(), your_wchar_in_ws.end());
                                 const char* your_wchar_in_char =  your_wchar_in_str.c_str();
@@ -319,9 +299,6 @@ void Server::sendProcesses(QTcpSocket* clientSocket) {
     //    QStringList lines = output.split('\n');
     QStringList processInfo = output.split('\n');
 
-    //    foreach (QString line, lines) {
-    //        qDebug() << line;
-    //    }
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
@@ -333,8 +310,6 @@ void Server::sendProcesses(QTcpSocket* clientSocket) {
     if(!clientSocket->waitForBytesWritten(1000)) {
         qDebug()<<"Write error";
     }
-
-    //    sendMessage(clientSocket, tr("huhu"));
 
 
 }
@@ -360,26 +335,13 @@ void Server::send_audio_file(QTcpSocket* sender){
 void Server::startTask(QString taskToStart) {
     qDebug() << "Hello im testing taskkill :D." << taskToStart << QString(taskToStart);
     QProcess* process = new QProcess;
-//    QString program = "start";
-//    QStringList arguments;
-//    arguments << taskToStart;
+
     process->start(taskToStart);
     process->waitForFinished(-1); // Wait for the process to finish
 
     connect(process, &QProcess::finished, [=]() {
-        // Process has finished, delete the object
         process->deleteLater();
     });
-//    QUrl fileUrl = QUrl::fromLocalFile(taskToStart);
-
-//    bool opened = QGuiApplication::openUrl(fileUrl);
-//    if (opened) {
-//        // File was opened successfully
-//        qDebug() << taskToStart << "launched";
-//    } else {
-//        // Failed to open the file
-//        qDebug() << taskToStart << "error";
-//    }
 }
 
 void Server::killTaskName(QString taskToKill) {
@@ -581,9 +543,6 @@ void Server::readMessage() {
         }
 
         sendFileStructure(clientConnection, fullPathsEntries, directories);
-
-//        qDebug() << entries << "\n";
-        //        clientSocket->flush();
     }
     else if (message == tr("kill task pid")) {
         qDebug() << "killing task pid" << target;
