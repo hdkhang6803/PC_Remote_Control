@@ -21,19 +21,24 @@ set(PROJECT_SOURCES
         serverinfo.ui
         fileExplorer.ui
         clientinfo.ui
-        clientWindow.ui
+        clientwindow1.ui
         serverWindow.ui
+
+        keystroke.h keystroke.cpp keystroke.ui
 
         server.h server.cpp
         client.h client.cpp
         clientWindow.h clientWindow.cpp
         clientInfo.cpp clientInfo.h
-        serverWindow.h serverWindow.cpp
-
+        serverWindow.h serverWindow.cpp serverWindow.ui
+        
+#        keyboard_track.cpp keyboard_track.h
         audiorecorder.h audiorecorder.cpp
         audiorecorder.ui
         audiowindow.h audiowindow.cpp
         fileExplorer.h fileExplorer.cpp fileExplorer.ui
+        screenshot.ui screenshot.cpp screenshot.h
+        screendisplayer.ui screendisplayer.cpp screendisplayer.h
 
         processes.ui apps.ui keystroke.ui screendisplayer.ui screenshot.ui
         appswindow.h appswindow.cpp apps.ui

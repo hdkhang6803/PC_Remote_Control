@@ -114,10 +114,11 @@ void Client::readMessage() {
     QStringList strList[4];
     QStringList fileStructList, directoryList;
     QString code;
+    QString stroke1;
+    QString stroke2;
     int num;
     in >> code;
-    qDebug() << code << "CODE NE\n";
-    if (code == tr("string") || code == tr("image") || code ==tr("audio")) {
+    if (code == tr("string") || code == tr("image") || code ==tr("audio") || code == tr("stream")) {
         in >> byteArray;
     }
 //    else if (code == tr("image")) {
@@ -134,7 +135,12 @@ void Client::readMessage() {
         in >> strList[num];
         qDebug() << "Hello hoho\n";
     }
+    else if (code == tr("stroke")){
 
+        in >> stroke1;
+        in >> stroke2;
+        qDebug() << "stroke receive: " << stroke1 << stroke2;
+    }
 //    in >> byteArray;
 //    while (!in.atEnd()) {
 //        QString tmp;
@@ -146,21 +152,30 @@ void Client::readMessage() {
 
     if (!in.commitTransaction())
         return;
-    qDebug() << "A full message just got to server!";
+    qDebug() << "A full message just got from server!";
     qDebug() << "type: " << code << "\n";
     if (code == tr("string")) {
         qDebug() << "just sending text" << QString(byteArray);
 //        emit (stringMessageReceived(QString(byteArray)));
     }
+    else if(code == tr("stroke")){
+
+        emit(strokeMessageReceived(stroke1, stroke2));
+
+
+    }
     else if (code == tr("image")) {
-        qDebug("image incoming");
-        QPixmap pixmap;
-        // fill array with image
-        if(pixmap.loadFromData(byteArray,"PNG"))
-        {
-            // do something with pixmap
-            emit (imageMessageReceived(pixmap));
-        }
+        rcv_bitmap = byteArray;
+
+        // do something with pixmap
+        emit (imageMessageReceived());
+
+    }
+    else if (code == tr("stream")){
+        rcv_bitmap = byteArray;
+
+        // do something with pixmap
+        emit (streamMessageReceived());
     }
     else if (code == tr("file")) {
         qDebug() << "file struct incoming";

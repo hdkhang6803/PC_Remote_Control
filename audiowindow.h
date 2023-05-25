@@ -17,6 +17,7 @@ class audioWindow : public QWidget
 public:
     explicit audioWindow(QWidget *parent = nullptr);
     ~audioWindow();
+    QTimer* m_timer = nullptr;
 
 public slots:
     void set_time();
@@ -27,6 +28,7 @@ signals:
     void click_stop();
 private:
     Ui::audiorecorder *ui;
+
 };
 
 #endif // AUDIOWINDOW_H

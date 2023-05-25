@@ -34,6 +34,15 @@ MainWindow::MainWindow(QWidget *parent)
 //    centralWidget = new QWidget;
 //    centralWidget->setLayout(overallLayout);
 //    setCentralWidget(centralWidget);
+//    QByteArray byteArray();
+//    QString::fromUtf16("\u0000R\u0000i\u0000g\u0000h\u0000t\u0000\u0000\u0000\r\u0000\n")
+//    QString convertedString = QString::fromWCharArray(reinterpret_cast<const wchar_t*>(byteArray.constData()), byteArray.size() / sizeof(wchar_t));
+
+//    qDebug() << convertedString;
+//    QString str = tr("abc");
+//    QByteArray arr = str.toUtf8();
+//    QString temp(arr);
+//    qDebug() << temp;
 
     connect(createServerButton, SIGNAL(clicked()), this, SLOT(on_CreateServerButton_clicked()));
     connect(connectServerButton, SIGNAL(clicked()), this, SLOT(on_ConnectServerButton_clicked()));

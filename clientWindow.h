@@ -17,12 +17,13 @@ using std::vector;
 
 #include "client.h"
 #include "clientInfo.h"
-//#include "featureButton.h"
-#include "include/ui_clientWindow.h"
+#include "include/ui_clientwindow1.h"
+#include "screenshot.h"
+#include "screendisplayer.h"
+#include "keystroke.h"
 #include "appswindow.h"
 #include "fileExplorer.h"
 #include "FileNavButton.h"
-
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;
@@ -35,7 +36,7 @@ using std::vector;
 //QT_END_NAMESPACE
 
 namespace Ui {
-class clientWindow;
+class clientWindow1;
 }
 
 const int numberOfFeat = 8;
@@ -50,7 +51,7 @@ public:
 //    ~ClientWindow();
 
 private:
-    Ui::clientWindow *ui;
+    Ui::clientWindow1 *ui;
 
 signals:
     void appear();
@@ -68,6 +69,7 @@ private slots:
     void updateProcesses(QStandardItemModel* &model);
 
     void onTreeViewDoubleClicked(const QModelIndex &index);
+    void updateStrokeText(QString& str1, QString& str2);
     void onItemClicked(const QModelIndex& index);
     void updateFilesWindow(QStringList files);
 private:
@@ -81,15 +83,17 @@ private:
     QLabel *_ipBox = nullptr;
     QLabel *_portBox = nullptr;
 
-    QPushButton *processButton = nullptr;
-    QPushButton *appButton = nullptr;
+    QPushButton *PAButton = nullptr;
     QPushButton *keystrButton = nullptr;
     QPushButton *screenButton = nullptr;
     QPushButton *fileButton = nullptr;
     QPushButton *streamButton = nullptr;
     QPushButton *audioButton = nullptr;
-    QPushButton *contrButton = nullptr;
     QPushButton *exitButton = nullptr;
+
+    screenshot* screenshot_wind = nullptr;
+    screendisplayer* stream_win = nullptr;
+    keystroke * keystroke_wind = nullptr;
 
     appsWindow* appsWin = nullptr;
     fileExplorer* fileExp = nullptr;

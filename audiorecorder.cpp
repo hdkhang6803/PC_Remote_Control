@@ -24,17 +24,13 @@ AudioRecorder::AudioRecorder()
     m_audioRecorder = new QMediaRecorder(this);
     m_captureSession.setRecorder(m_audioRecorder);
     m_captureSession.setAudioInput(new QAudioInput(this));
+    connect(m_audioRecorder, &QMediaRecorder::recorderStateChanged, [=]{
+        qDebug() << m_audioRecorder->recorderState();
+        if(m_audioRecorder->recorderState() == QMediaRecorder::StoppedState){
+            delete m_audioRecorder;
+        }
+    });
 }
-
-//void AudioRecorder::updateProgress(qint64 duration)
-//{
-//    if (m_audioRecorder->error() != QMediaRecorder::NoError || duration < 2000)
-//        return;
-
-////    ui->statusbar->showMessage(tr("Recorded %1 sec").arg(duration / 1000));
-//}
-
-
 
 
 void AudioRecorder::auto_start(){

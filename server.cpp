@@ -1,6 +1,5 @@
 
 #include "server.h"
-//#include "keyboard_track.h"
 
 #include <QDebug>
 #include <QApplication>
@@ -223,32 +222,30 @@ void Server::initServer()
     port = QString::number(tcpServer->serverPort());
 }
 
-void Server::sendMessage(QTcpSocket* sender, const QString &msg)
+void Server::sendMessage(QTcpSocket* sender, const QString &msg, QString type)
 {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("string") << msg;
+    out << type << msg;
     sender->write(block);
     sender->waitForBytesWritten();
 }
 
-void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot) {
-    QPixmap resizedScreenshot = screenshot.scaled(800, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot, QString type) {
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-//    out << tr("image") << screenshot;
-//    curClient->write(block);
     QByteArray byteArray;
     QBuffer buffer(&byteArray);
     buffer.open(QIODevice::WriteOnly);
-    resizedScreenshot.save(&buffer, "PNG");
-    out << tr("image") << byteArray;
+    screenshot.save(&buffer, "JPEG");
+    out << type << byteArray;
     sender->write(block);
+    qDebug() << "image sent to client";
 }
 
 void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct, const QStringList &directories)
@@ -321,8 +318,7 @@ void Server::sendProcesses(QTcpSocket* clientSocket) {
 }
 
 void Server::send_audio_file(QTcpSocket* sender){
-    QString fileName = "D:\\recorded_data.m4a";
-    QFile file(fileName);
+    QFile file("D:\\recorded_data.m4a");
     file.open(QIODevice::ReadOnly);
     QByteArray mydata = file.readAll();
 
@@ -333,8 +329,6 @@ void Server::send_audio_file(QTcpSocket* sender){
     sender->write(mydata);
     qDebug() << "audio sent";
     file.close();
-//    QFile::remove(fileName);
-    qDebug() << "audio file delete in server";
 }
 
 void Server::startTask(QString taskToStart) {
@@ -394,7 +388,7 @@ void Server::readMessage() {
     if (clientConnection != nullptr) {
         qDebug() << "read message client connection not null";
     }
-    qDebug() << "A message just got to server!";
+
 
     in.setDevice(clientConnection);
     in.setVersion(QDataStream::Qt_6_5);
@@ -409,6 +403,10 @@ void Server::readMessage() {
         message == tr("ls")) {
         in >> target;
     }
+
+    qDebug() << "A message just got to server: " << message;
+
+    qDebug() << "A message just got to server: " << message;
 
     if (!in.commitTransaction())
         return;
@@ -465,34 +463,52 @@ void Server::readMessage() {
             sendProcesses(clientConnection);
         });
     }
-    else if (message == tr("keyboard track")) {
+    else if (message == tr("keyboard_track")) {
         qDebug() << "keyboard tracking started?";
         processKeyboardTrack = new QProcess();
-        QString workingDir = QDir::currentPath();
-        processKeyboardTrack->start(workingDir + "//keyboard_track.exe");
-//        connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, &Server::processData);
+        processKeyboardTrack->start(".\\keyboard_track.exe");
         connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, [=]() {
-            sendKeyboardTrack(clientConnection);
+            QString data(processKeyboardTrack->readAllStandardOutput());
+            QString temp(data);
+
+            QStringList pieces = temp.split( tr("\r\n"), Qt::SkipEmptyParts );
+            QString m_name = pieces.value( 0 );
+            QString m_combine = pieces.value( 1 );
+
+            QByteArray block;
+            QDataStream out(&block, QIODevice::WriteOnly);
+            out.setVersion(QDataStream::Qt_6_5);
+
+            out << tr("stroke") << m_name << m_combine;
+            clientConnection->flush();
+            clientConnection->write(block);
         });
+    }
+    else if(message == tr("stop_stroke")){
+        processKeyboardTrack->kill();
+        delete processKeyboardTrack;
+        processKeyboardTrack = nullptr;
     }
     else if (message == tr("take screenshot")) {
         qDebug() << "taken screenshot";
-//        QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
-////        emit(display(screenshot));
-//        sendScreenshot(screenshot);
-        QTimer *timer = new QTimer;
+        QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
+        sendScreenshot(clientConnection, screenshot, tr("image"));
+
+    }
+    else if (message == tr("stream screen")){
+        qDebug() << "streaming screen";
+        timer = new QTimer;
         connect(timer, &QTimer::timeout, this, [=]() {
             stream(clientConnection);
         });
-        timer->start();
-//        connect(stopButton, clicked, timer, &QTimer::stop);
-        QTimer::singleShot(3000, timer, &QTimer::stop);
+        timer->start(200);
+//        QTimer::singleShot(3000, timer, &QTimer::stop);
     }
-    else if (message == tr("show directories")) {
-        qDebug() << "show directories";
-        QFileSystemModel model;
-        model.setRootPath("C:\\");
-//        sendFileStructure(model);
+    else if (message == tr("stop_stream")){
+        timer->stop();
+        delete timer;
+        timer = nullptr;
+        //        QTimer::singleShot(3000, timer, &QTimer::stop);
     }
     else if (message == tr("recording")){
         if (recorder == nullptr)
@@ -502,12 +518,12 @@ void Server::readMessage() {
     }
     else if (message == tr("stop_recording")){
         recorder->stop_by_msg();
-        send_audio_file(clientConnection);
+
         recorder->close();
         delete recorder;
         recorder = nullptr;
 
-
+        send_audio_file(clientConnection);
     }
     else if (message == "ls") {
         qDebug() << "roi co ls chua";
@@ -555,15 +571,7 @@ void Server::readMessage() {
 
 void Server::stream(QTcpSocket* clientConnection) {
     QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
-    //        emit(display(screenshot));
-    sendScreenshot(clientConnection, screenshot);
-}
-
-void Server::sendKeyboardTrack(QTcpSocket* clientSocket) {
-    QProcess *process = static_cast<QProcess*>(sender());
-    qDebug() << "is this on?";
-    QString data = process->readAllStandardOutput();
-    sendMessage(clientSocket, data);
+    sendScreenshot(clientConnection, screenshot, tr("stream"));
 }
 
 
@@ -574,7 +582,7 @@ void Server::newConnection() {
     connect(clientConnection, &QTcpSocket::disconnected, this, &Server::disconnected);
     clients.append(clientConnection);
     qDebug() << "incoming connection.";
-    sendMessage(clientConnection, "ayooo");
+    //sendMessage(clientConnection, "ayooo", );
 }
 
 void Server::disconnected() {

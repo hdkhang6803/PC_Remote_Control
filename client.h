@@ -15,6 +15,7 @@ class Client : public QObject
     Q_OBJECT
 public:
     explicit Client(QObject *parent = nullptr);
+    QByteArray rcv_bitmap;
 
 signals:
 
@@ -23,12 +24,10 @@ signals:
     void m_connecting();
 
     void stringMessageReceived(const QString &message);
-    void imageMessageReceived(const QPixmap &image);
-    void fileStructReceived(QStringList &files);
-    void directoryStructReceived(QStandardItemModel* &model);
-    void allAppsReceived(QStandardItemModel* &model);
-    void processesReceived(QStandardItemModel* &model);
-    void runningAppsReceived(QStandardItemModel* &model);
+    void imageMessageReceived();
+    void streamMessageReceived();
+    void strokeMessageReceived(QString& str1, QString & str2);
+    void fileStructReceived(QStandardItemModel* &model);
     void error(QAbstractSocket::SocketError socketError);
 //    void readySend();
 
@@ -46,7 +45,6 @@ private:
     QDataStream in;
     QByteArray buffer;
 
-//    bool sending = 0;
 };
 
 #endif // CLIENT_H
