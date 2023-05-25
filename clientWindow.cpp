@@ -235,29 +235,22 @@ void ClientWindow::updateFilesWindow(QStringList files) {
 
 void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
     qDebug() << "display file struct";
-    if (fileExp == nullptr) {
-        qDebug() << "Error: not found file explorer window";
-        return;
-    }
-    QTreeView *treeView = fileExp->ui->treeView;
-//    QTreeView *treeView = treeWidget->treeView();
-//    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    treeView->setModel(model);
-    treeView->setHeaderHidden(true);
-    treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    treeView->setAnimated(true);
-    treeView->setIndentation(20);
-    treeView->setSortingEnabled(true);
-    treeView->setContextMenuPolicy(Qt::CustomContextMenu);
-    treeView->setExpandsOnDoubleClick(true);
-    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
-    connect(treeView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
+    if (fileExp != nullptr) {
+        QTreeView *treeView = fileExp->ui->treeView;
+        treeView->setModel(model);
+        treeView->setHeaderHidden(true);
+        treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        treeView->setAnimated(true);
+        treeView->setIndentation(20);
+        treeView->setSortingEnabled(true);
+        treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+        treeView->setExpandsOnDoubleClick(true);
+        treeView->setStyleSheet("QTreeView::item { height: 26px; }");
+        connect(treeView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
 
-//    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
-//    treeView->show();
-//    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
-//    rightPanelLayout->addWidget(treeView);
-    treeView->show();
+        treeView->show();
+    }
+
 }
 
 // Define the slot that will be triggered
@@ -269,8 +262,6 @@ void ClientWindow::onItemClicked(const QModelIndex& index)
     qDebug() << "ON CLICKN E: " << itemData << itemPath;
     this->client->sendFolderRequest(itemPath);
 
-    // Perform any desired actions with the selected item
-    // ...
 }
 
 void ClientWindow::updateAllApps(QStandardItemModel* &new_model) {
@@ -283,11 +274,6 @@ void ClientWindow::updateAllApps(QStandardItemModel* &new_model) {
 
     QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(treeView->model());
 
-//    if (treeModel != nullptr) {
-//        qDebug() << "Error: treeView does not have a valid model";
-//        treeView->setModel(model);
-//        return;
-//    }
     if (treeModel != nullptr) {
         // Iterate over the rows in new_model and add them to treeView model
         for (int row = 0; row < new_model->rowCount(); row++) {
@@ -307,24 +293,16 @@ void ClientWindow::updateAllApps(QStandardItemModel* &new_model) {
     }
     qDebug() << "Error: treeView does not have a valid model";
     treeView->setModel(new_model);
-    //    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    treeView->setModel(model);
     treeView->setHeaderHidden(true);
     treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     treeView->setAnimated(true);
     treeView->setIndentation(20);
     treeView->setSortingEnabled(true);
     treeView->setContextMenuPolicy(Qt::CustomContextMenu);
-//    treeView->setExpandsOnDoubleClick(true);
-//    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
-//    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
-    //    treeView->show();
-    //    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
-    //    rightPanelLayout->addWidget(treeView);
-//    qDebug() << "are you sleeping?";
+
 
     QPushButton *startAppButton = appsWin->ui->startButton_3;
-//    treeView->setSelectionBehavior(QTableView.SelectRows);
+
 
     treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -358,10 +336,7 @@ void ClientWindow::updateProcesses(QStandardItemModel* &new_model) {
         qDebug() << "No window to display.\n";
         return;
     }
-    //    if (appsWin == nullptr) {
-    //        qDebug() << "Error: not found list app window";
-    //    }
-    //    QTreeView *treeView = new QTreeView(appsWin->ui-);
+
     QTableView *tableView = appsWin->ui->processTable;
 
     QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(tableView->model());
@@ -505,14 +480,6 @@ void ClientWindow::updateRunningApps(QStandardItemModel* &new_model) {
     treeView->show();
 }
 
-void ClientWindow::onTreeViewDoubleClicked(const QModelIndex &index)
-{
-//    // get the file path from the user role of the clicked item
-//    QString filePath = index.data(Qt::UserRole).toString();
-
-//    // open the file using QDesktopServices::openUrl()
-//    QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
-}
 
 void ClientWindow::on_pushButton_clicked_1(){
 //    client->sendMessage(tr("list processes"));
@@ -628,8 +595,9 @@ void ClientWindow::on_pushButton_clicked_5(){
     client->sendFolderRequest(tr("."));
     fileExp = new fileExplorer(ui->widget_2);
     fileExp->show();
-    connect(fileExp->ui->exitButton, QPushButton::clicked, [=](){
+    connect(fileExp->ui->exitButton, &QPushButton::clicked, [=](){
         delete fileExp;
+        fileExp = nullptr;
     });
 //    connect(fileExp->ui->backButton, &QPushButton::clicked, [=](){
 //        QString prevWorkingDir = QDir::currentPath() + "//..";

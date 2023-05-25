@@ -4,16 +4,12 @@
 
 #include "clientInfo.h"
 #include "clientWindow.h"
-// #include "D:\UltimateDownload\_Yr2Sem2\mmt\socket project\include\include\ui_clientInfo.h"
 
 clientInfo::clientInfo(QWidget *parent) :
     QMainWindow(parent)
     , ui(new Ui::clientInfo)
 {
     ui->setupUi(this);
-//    populateIpAddresses();
-
-//    ui->serverPortBox->setValidator(new QIntValidator(1, 65535, this));
 
     // ------------SETTING UP GUI ----------------------
 
@@ -26,7 +22,6 @@ clientInfo::clientInfo(QWidget *parent) :
     exitButton = ui->pushButton_2;
 
     // -----------------------------------------------
-
 
     connect(connectButton, &QPushButton::clicked, this, &clientInfo::on_buttonBox_accepted);
     connect(exitButton, &QPushButton::clicked, this, &clientInfo::on_buttonBox_rejected);

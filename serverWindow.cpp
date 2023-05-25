@@ -8,51 +8,24 @@ serverInfo::serverInfo(QWidget *parent) :
     ui->setupUi(this);
 
     server = new Server;
-//    myFileExplorer = new fileExplorer(server->getServer());
 
     connect(server, &Server::readyRead, this, &serverInfo::updateServerMsg);
     connect(server, &Server::display, this, &serverInfo::updatePic);
 
 //    // ------------SETTING UP GUI ----------------------
     exitButton = ui->exitButton;
-//    overallLayout = new QVBoxLayout;
-//    serverInfoWidget = new QWidget;
-//    buttonsWidget = new QWidget;
-
-//    // serverInfoWidget
-//    serverInfoLayout = new QFormLayout;
     _ipLabel = ui->IDlabel;
     _portLabel = ui->portLabel;
     _ipBox = ui->IPInput;
     _portBox = ui->portInput;
     statusLabel = ui->statusLabel;
     statusBox = ui->statusText;
-//    serverInfoLayout->addRow(ipLabel, ipBox);
-//    serverInfoLayout->addRow(portLabel, portBox);
-//    serverInfoLayout->addRow(statusLabel, statusBox);
-//    serverInfoWidget->setLayout(serverInfoLayout);
-//    overallLayout->addWidget(serverInfoWidget);
-
-//    // buttonsWidget
-//    buttonsLayout = new QHBoxLayout;
-//    restartButton = new QPushButton("Restart");
-//    exitButton = new QPushButton("Exit");
-//    buttonsLayout->addWidget(restartButton);
-//    buttonsLayout->addWidget(exitButton);
-//    buttonsWidget->setLayout(buttonsLayout);
-//    overallLayout->addWidget(buttonsWidget);
-
-//    // set central widget
-//    centralWidget = new QWidget;
-//    centralWidget->setLayout(overallLayout);
-//    setCentralWidget(centralWidget);
 
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
     statusBox->setText(tr("The server is running now."));
-
-//    _ipBox->setText(server->ipAddress);
     _ipBox->clear();
+
     for (int i = 0; i < server->adapterNamesList.size(); i++) {
         QString adapter = server->adapterNamesList.at(i);
         QString ipAddress = server->ipAddressList.at(i);
@@ -75,5 +48,4 @@ void serverInfo::updatePic(const QPixmap &screenshot) {
     qDebug() << "display picture?";
     QLabel *screenshotLabel = new QLabel();
     screenshotLabel->setPixmap(screenshot);
-//    buttonsLayout->addWidget(screenshotLabel);
 }

@@ -78,17 +78,4 @@ QMediaFormat AudioRecorder::selectedMediaFormat() const
     return format;
 }
 
-//void AudioRecorder::setOutputLocation(){
-//    QString fileName = "D:\\recorded_data.m4a"; // Provide the desired file name and extension
-//    QFile file(fileName);
-//    if(!(file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text))){
-//        qDebug() << "Audio file not created!";
-//        return;
-//    }
-//    m_audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
-////    m_outputLocationSet = true;
-//    qDebug() << "The output path is set";
-//}
-
-
 
