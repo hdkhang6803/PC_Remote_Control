@@ -64,6 +64,7 @@ private slots:
     void updateServerMsg(const QString &msg);
     void updateImage(const QPixmap &image);
     void updateFileStruct(QStandardItemModel* &model);
+    void updateFilesWindow(QStringList files);
     void updateAllApps(QStandardItemModel* &model);
     void updateRunningApps(QStandardItemModel* &model);
     void updateProcesses(QStandardItemModel* &model);
@@ -71,7 +72,7 @@ private slots:
     void onTreeViewDoubleClicked(const QModelIndex &index);
     void updateStrokeText(QString& str1, QString& str2);
     void onItemClicked(const QModelIndex& index);
-    void updateFilesWindow(QStringList files);
+
 private:
 
     Client *client = nullptr;

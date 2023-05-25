@@ -26,8 +26,12 @@ signals:
     void stringMessageReceived(const QString &message);
     void imageMessageReceived();
     void streamMessageReceived();
+    void allAppsReceived(QStandardItemModel* &model);
+    void processesReceived(QStandardItemModel* &model);
+    void runningAppsReceived(QStandardItemModel* &model);
     void strokeMessageReceived(QString& str1, QString & str2);
-    void fileStructReceived(QStandardItemModel* &model);
+    void fileStructReceived(QStringList &model);
+    void directoryStructReceived(QStandardItemModel* &model);
     void error(QAbstractSocket::SocketError socketError);
 //    void readySend();
 
