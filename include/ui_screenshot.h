@@ -34,15 +34,14 @@ public:
 "background-color: #F2F6FC;"));
         screenLabel = new QLabel(screenshot);
         screenLabel->setObjectName("screenLabel");
-        screenLabel->setGeometry(QRect(10, 10, 881, 501));
+        screenLabel->setGeometry(QRect(10, 10, 881, 511));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(screenLabel->sizePolicy().hasHeightForWidth());
         screenLabel->setSizePolicy(sizePolicy);
         screenLabel->setMaximumSize(QSize(16777215, 16777215));
-        screenLabel->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
-"border: 2px solid;\n"
+        screenLabel->setStyleSheet(QString::fromUtf8("border: 2px solid;\n"
 "font: 500 9pt \"UTM Avo\";\n"
 "\n"
 ""));
@@ -54,7 +53,7 @@ public:
         screenLabel->setIndent(0);
         captureButton = new QPushButton(screenshot);
         captureButton->setObjectName("captureButton");
-        captureButton->setGeometry(QRect(220, 520, 131, 31));
+        captureButton->setGeometry(QRect(220, 530, 131, 31));
         captureButton->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
 "font: 600 9pt \"UTM Avo\";\n"
 "box-shadow:  10px 5px 5px rgb(0, 0, 0);\n"
@@ -64,7 +63,7 @@ public:
 ""));
         saveButton = new QPushButton(screenshot);
         saveButton->setObjectName("saveButton");
-        saveButton->setGeometry(QRect(380, 520, 131, 31));
+        saveButton->setGeometry(QRect(380, 530, 131, 31));
         saveButton->setStyleSheet(QString::fromUtf8("border-radius: 10px;\n"
 "font: 600 9pt \"UTM Avo\";\n"
 "box-shadow:  10px 5px 5px rgb(0, 0, 0);\n"
@@ -74,7 +73,7 @@ public:
 ""));
         exitButton = new QPushButton(screenshot);
         exitButton->setObjectName("exitButton");
-        exitButton->setGeometry(QRect(540, 520, 121, 31));
+        exitButton->setGeometry(QRect(540, 530, 121, 31));
         exitButton->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
 "border: 1px solid rgb(194, 231, 255);\n"
 "background-color: #ffffff;\n"

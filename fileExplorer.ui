@@ -66,9 +66,9 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
    <widget class="QLabel" name="Path">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>280</x>
       <y>10</y>
-      <width>631</width>
+      <width>591</width>
       <height>31</height>
      </rect>
     </property>
@@ -76,7 +76,7 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
      <string notr="true">background-color: rgb(194, 231, 255);
 border: 1px #000000;
 border-radius: 5px;
-padding-left: 10px;
+padding-left: 6px;
 font: 600 11pt &quot;UTM Avo&quot;;</string>
     </property>
     <property name="text">
@@ -195,22 +195,6 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="Label_20">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="2" column="0">
@@ -237,22 +221,6 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                </property>
                <property name="margin">
                 <number>17</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="Label_4">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -285,22 +253,6 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="Label_5">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="2" column="3">
@@ -327,22 +279,6 @@ font: 500 10pt &quot;UTM Avo&quot;;</string>
                </property>
                <property name="margin">
                 <number>17</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -377,22 +313,6 @@ margin: 14px;</string>
                </property>
                <property name="margin">
                 <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="Label_2">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -433,22 +353,6 @@ margin: 5px;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="Folder1_label">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Folder1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="3" column="0">
@@ -478,22 +382,6 @@ margin: 5px;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="Label_22">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="2" column="4">
@@ -520,22 +408,6 @@ margin: 5px;</string>
                </property>
                <property name="margin">
                 <number>17</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="Label_8">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -573,22 +445,6 @@ margin: 5px;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="Folder3_label">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Folder3</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="0" column="1">
@@ -623,22 +479,6 @@ margin: 5px;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="Folder2_label">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Folder2</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="0" column="6">
@@ -670,22 +510,6 @@ margin: 14px;</string>
                </property>
                <property name="margin">
                 <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="Label_19">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -731,22 +555,6 @@ margin: 14px;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="Label_6">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="5" column="0">
@@ -773,22 +581,6 @@ margin: 14px;</string>
                </property>
                <property name="margin">
                 <number>17</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="Label_21">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -839,22 +631,6 @@ margin: 14px;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="File1_label">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="1" column="0">
@@ -881,22 +657,6 @@ margin: 14px;</string>
                </property>
                <property name="margin">
                 <number>17</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="Label_23">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>File1</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -930,11 +690,52 @@ border-radius: 5px;
      <string>Exit</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>10</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 132, 255);
+border: 1px #000000;
+border-radius: 5px;
+padding: 0 7px 4px 0px;
+font: 600 11pt &quot;UTM Avo&quot;;</string>
+    </property>
+    <property name="text">
+     <string>&lt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Filler">
+    <property name="geometry">
+     <rect>
+      <x>275</x>
+      <y>10</y>
+      <width>16</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(194, 231, 255);
+border: 1px #000000;
+font: 600 11pt &quot;UTM Avo&quot;;
+border-radius: 0;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>treeView</zorder>
    <zorder>TreeView</zorder>
    <zorder>scrollArea</zorder>
-   <zorder>Path</zorder>
    <zorder>exitButton</zorder>
+   <zorder>backButton</zorder>
+   <zorder>Path</zorder>
+   <zorder>Filler</zorder>
   </widget>
  </widget>
  <resources/>

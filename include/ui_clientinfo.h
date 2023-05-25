@@ -47,8 +47,7 @@ public:
         connectWidget = new QWidget(centralwidget);
         connectWidget->setObjectName("connectWidget");
         connectWidget->setGeometry(QRect(0, 0, 331, 391));
-        connectWidget->setStyleSheet(QString::fromUtf8("border-radius: 5px;\n"
-"background-color: #F2F6FC;"));
+        connectWidget->setStyleSheet(QString::fromUtf8("background-color: #F2F6FC;"));
         IDinput = new QLineEdit(connectWidget);
         IDinput->setObjectName("IDinput");
         IDinput->setGeometry(QRect(40, 100, 251, 41));

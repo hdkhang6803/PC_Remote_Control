@@ -167,7 +167,11 @@ void ClientWindow::updateFilesWindow(QStringList files) {
         colIndex = i % numColumns;
         qDebug() << rowIndex << colIndex;
 
+//        QIcon iconDir("folder.png");
+//        QIcon iconFile("document.png");
+
         FileNavButton *button = new FileNavButton();
+
         fileExp->fileNavList.push_back(button);
         button->setStyleSheet("background-color: transparent;");
 //        button->setStyleSheet("QPushButton {"
@@ -179,7 +183,6 @@ void ClientWindow::updateFilesWindow(QStringList files) {
         // Determine if it's a directory or file
 
 //        bool isDirectory = QFileInfo(filePath).isDir();
-
         connect(button, FileNavButton::doubleClicked, [filePath, this]() {
 //            MyPushButton *button = static_cast<MyPushButton*>(sender());
             bool isDirectory = QFileInfo(filePath).isDir();
@@ -240,16 +243,42 @@ void ClientWindow::onItemClicked(const QModelIndex& index)
     // ...
 }
 
-void ClientWindow::updateAllApps(QStandardItemModel* &model) {
+void ClientWindow::updateAllApps(QStandardItemModel* &new_model) {
     qDebug() << "display all apps";
     if (appsWin == nullptr) {
         qDebug() << "Error: not found list app window";
         return;
     }
-//    QTreeView *treeView = new QTreeView(appsWin->ui-);
     QTreeView *treeView = appsWin->ui->appTree;
+
+    QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(treeView->model());
+
+//    if (treeModel != nullptr) {
+//        qDebug() << "Error: treeView does not have a valid model";
+//        treeView->setModel(model);
+//        return;
+//    }
+    if (treeModel != nullptr) {
+        // Iterate over the rows in new_model and add them to treeView model
+        for (int row = 0; row < new_model->rowCount(); row++) {
+            QList<QStandardItem*> items;
+
+            // Iterate over the columns in each row
+            for (int col = 0; col < new_model->columnCount(); col++) {
+                QStandardItem *newItem = new_model->item(row, col)->clone();
+                items.append(newItem);
+            }
+
+            // Append the items as a new row in the treeView model
+            treeModel->appendRow(items);
+        }
+        treeView->show();
+        return;
+    }
+    qDebug() << "Error: treeView does not have a valid model";
+    treeView->setModel(new_model);
     //    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    treeView->setModel(model);
+//    treeView->setModel(model);
     treeView->setHeaderHidden(true);
     treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     treeView->setAnimated(true);
@@ -262,11 +291,38 @@ void ClientWindow::updateAllApps(QStandardItemModel* &model) {
     //    treeView->show();
     //    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
     //    rightPanelLayout->addWidget(treeView);
-    qDebug() << "are you sleeping?";
+//    qDebug() << "are you sleeping?";
+
+    QPushButton *startAppButton = appsWin->ui->startButton_3;
+//    treeView->setSelectionBehavior(QTableView.SelectRows);
+
+    treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    connect(startAppButton, QPushButton::clicked, [treeView, this]() {
+        QItemSelectionModel *selection_model = treeView->selectionModel();
+        if (selection_model) {
+        QModelIndexList selected_indexes = selection_model->selectedIndexes();
+        if (!selected_indexes.isEmpty()) {
+            int selected_row = selected_indexes[0].row();
+            QVariant selected_label = treeView->model()->index(selected_row, 0).data(Qt::UserRole);
+            //                QVariant itemData = index.data(Qt::UserRole);
+            QString itemPath = selected_label.toString();
+            itemPath.remove('\r');
+            itemPath.replace("\\\\", "\\");
+
+            this->client->sendAppTask("start task name", itemPath);
+            qDebug() << "Selected label:" << itemPath;
+        } else {
+            qDebug() << "No selected row.";
+            //            QMessageBox::information(&window, "No Selection", "Please select an item.");
+        }
+        }
+    });
+
     treeView->show();
 }
 
-void ClientWindow::updateProcesses(QStandardItemModel* &model) {
+void ClientWindow::updateProcesses(QStandardItemModel* &new_model) {
     qDebug() << "display all processes";
     if (appsWin == nullptr) {
         qDebug() << "No window to display.\n";
@@ -277,26 +333,93 @@ void ClientWindow::updateProcesses(QStandardItemModel* &model) {
     //    }
     //    QTreeView *treeView = new QTreeView(appsWin->ui-);
     QTableView *tableView = appsWin->ui->processTable;
-    model->setHeaderData(0, Qt::Horizontal, "Process Name");
-    model->setHeaderData(1, Qt::Horizontal, "PID");
-    tableView->setModel(model);
 
+    QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(tableView->model());
+
+    if (treeModel != nullptr) {
+        // Iterate over the rows in new_model and add them to treeView model
+        for (int row = 0; row < new_model->rowCount(); row++) {
+            QList<QStandardItem*> items;
+
+            // Iterate over the columns in each row
+            for (int col = 0; col < new_model->columnCount(); col++) {
+                QStandardItem *newItem = new_model->item(row, col)->clone();
+                items.append(newItem);
+            }
+
+            // Append the items as a new row in the treeView model
+            treeModel->appendRow(items);
+        }
+        tableView->show();
+        return;
+    }
+
+    new_model->setHeaderData(0, Qt::Horizontal, "Process Name");
+    new_model->setHeaderData(1, Qt::Horizontal, "PID");
+    tableView->setModel(new_model);
+
+    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    QPushButton* killProcessButton = appsWin->ui->stopButton;
+    connect(killProcessButton, QPushButton::clicked, [tableView, this]() {
+        QItemSelectionModel *selection_model = tableView->selectionModel();
+        if (selection_model) {
+
+            QModelIndexList selected_indexes = selection_model->selectedIndexes();
+            if (!selected_indexes.isEmpty()) {
+                int selected_row = selected_indexes[0].row();
+                QString selected_label = tableView->model()->index(selected_row, 1).data().toString();
+                qDebug() << "Selected label:" << selected_label;
+//                selected_label[selected_label.length() - 1] = '\0';
+                selected_label.remove('\r');
+                qDebug() << "Selected label:" << selected_label;
+                this->client->sendAppTask("kill task pid", selected_label);
+            } else {
+                qDebug() << "No selected row.";
+    //            QMessageBox::information(&window, "No Selection", "Please select an item.");
+            }
+        }
+    });
     tableView->show();
 }
 
 
-void ClientWindow::updateRunningApps(QStandardItemModel* &model) {
+void ClientWindow::updateRunningApps(QStandardItemModel* &new_model) {
+    qDebug() << "display running apps";
     if (appsWin == nullptr) {
+        qDebug() << "Error: not found list app window";
         return;
     }
-    qDebug() << "display running apps";
-    //    if (appsWin == nullptr) {
-    //        qDebug() << "Error: not found list app window";
-    //    }
-    //    QTreeView *treeView = new QTreeView(appsWin->ui-);
+
     QTreeView *treeView = appsWin->ui->runningAppTree;
+    QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(treeView->model());
+
+    //    if (treeModel != nullptr) {
+    //        qDebug() << "Error: treeView does not have a valid model";
+    //        treeView->setModel(model);
+    //        return;
+    //    }
+    if (treeModel != nullptr) {
+        // Iterate over the rows in new_model and add them to treeView model
+        for (int row = 0; row < new_model->rowCount(); row++) {
+            QList<QStandardItem*> items;
+
+            // Iterate over the columns in each row
+            for (int col = 0; col < new_model->columnCount(); col++) {
+                QStandardItem *newItem = new_model->item(row, col)->clone();
+                items.append(newItem);
+            }
+
+            // Append the items as a new row in the treeView model
+            treeModel->appendRow(items);
+        }
+        treeView->show();
+        return;
+    }
+
+
     //    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    treeView->setModel(model);
+    treeView->setModel(new_model);
     treeView->setHeaderHidden(true);
     treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     treeView->setAnimated(true);
@@ -304,11 +427,51 @@ void ClientWindow::updateRunningApps(QStandardItemModel* &model) {
     treeView->setSortingEnabled(true);
     treeView->setContextMenuPolicy(Qt::CustomContextMenu);
 //    treeView->setExpandsOnDoubleClick(true);
-    //    treeView->setStyleSheet("QTreeView::item { height: 26px; }");
-    //    connect(treeView, &QTreeView::doubleClicked, this, &ClientWindow::onTreeViewDoubleClicked);
-    //    treeView->show();
-    //    treeView->setFixedSize(200, 200); // Set a minimum size for the tree view
-    //    rightPanelLayout->addWidget(treeView);
+
+    treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    QPushButton *startAppButton = appsWin->ui->startButton_2;
+    //    treeView->setSelectionBehavior(QTableView.SelectRows);
+
+    connect(startAppButton, QPushButton::clicked, [treeView, this]() {
+        QItemSelectionModel *selection_model = treeView->selectionModel();
+        if (selection_model) {
+            QModelIndexList selected_indexes = selection_model->selectedIndexes();
+            if (!selected_indexes.isEmpty()) {
+                int selected_row = selected_indexes[0].row();
+                QVariant selected_label = treeView->model()->index(selected_row, 0).data(Qt::UserRole);
+//                QVariant itemData = index.data(Qt::UserRole);
+                QString itemPath = selected_label.toString();
+                itemPath.remove('\r');
+                itemPath.replace("\\\\", "\\");
+                this->client->sendAppTask("start task name", itemPath);
+                qDebug() << "Selected label:" << itemPath;
+            } else {
+                qDebug() << "No selected row.";
+                //            QMessageBox::information(&window, "No Selection", "Please select an item.");
+            }
+        }
+    });
+
+    QPushButton* killProcessButton = appsWin->ui->stopButton_2;
+    connect(killProcessButton, QPushButton::clicked, [treeView, this]() {
+        QItemSelectionModel *selection_model = treeView->selectionModel();
+        if (selection_model) {
+
+            QModelIndexList selected_indexes = selection_model->selectedIndexes();
+            if (!selected_indexes.isEmpty()) {
+                int selected_row = selected_indexes[0].row();
+                QVariant selected_label = treeView->model()->index(selected_row, 0).data(Qt::UserRole);
+                //                QVariant itemData = index.data(Qt::UserRole);
+                QString itemPath = selected_label.toString();
+//                itemPath[itemPath.length() - 1] = '\0';
+                itemPath.remove('\r');
+                this->client->sendAppTask("kill task name", itemPath);
+                qDebug() << "Selected label:" << itemPath;
+            } else {
+                //            QMessageBox::information(&window, "No Selection", "Please select an item.");
+            }
+        }
+    });
     treeView->show();
 }
 
@@ -327,11 +490,54 @@ void ClientWindow::on_pushButton_clicked_1(){
     if (!appsWin)
         appsWin = new appsWindow(ui->widget_2);
     appsWin->show();
-//    connect(appsWin->ui->exitButton, &QPushButton::clicked, [=](){
-//        client->sendMessage(tr("stop_recording"));
-//        delete appsWin;
+    connect(appsWin->ui->exitButton, &QPushButton::clicked, [=](){
+        delete appsWin;
+        appsWin = nullptr;
 ////        appWin->
-//    });
+    });
+    connect(appsWin->ui->exitButton_2, &QPushButton::clicked, [=](){
+        delete appsWin;
+        appsWin = nullptr;
+        ////        appWin->
+    });
+    connect(appsWin->ui->exitButton_3, &QPushButton::clicked, [=](){
+        delete appsWin;
+        appsWin = nullptr;
+        ////        appWin->
+    });
+    connect(appsWin->ui->reloadButton, &QPushButton::clicked, [=](){
+        QTableView *tableView = appsWin->ui->processTable;
+        if (tableView) {
+
+            QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(tableView->model());
+            treeModel->clear();
+            treeModel = nullptr;
+
+            client->sendMessage(tr("list processes"));
+        }
+    });
+    connect(appsWin->ui->reloadButton_2, &QPushButton::clicked, [=](){
+        QTreeView *treeView = appsWin->ui->runningAppTree;
+        if (treeView) {
+
+        QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(treeView->model());
+        treeModel->clear();
+        treeModel = nullptr;
+        client->sendMessage(tr("list running applications"));
+        }
+    });
+    connect(appsWin->ui->reloadButton_3, &QPushButton::clicked, [=](){
+//        client->sendMessage(tr("list applications"));
+//        appsWin->ui->appTree->model->clear();
+        QTreeView *treeView = appsWin->ui->appTree;
+        if (treeView) {
+
+        QStandardItemModel *treeModel = dynamic_cast<QStandardItemModel*>(treeView->model());
+        treeModel->clear();
+        treeModel = nullptr;
+        client->sendMessage(tr("list applications"));
+        }
+    });
     client->sendMessage(tr("list processes and apps"));
 //    client->sendMessage(tr("list applications"));
 }

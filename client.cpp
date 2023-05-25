@@ -255,7 +255,7 @@ void Client::readMessage() {
             //            QString appName = fileInfo.baseName();
 
 //            qDebug() << appName << ' ' << appPath;
-            QStandardItem *item = new QStandardItem(appIcon, appName);
+            QStandardItem *item = new QStandardItem(appName);
             item->setData(appPath, Qt::UserRole); // store appPath in the item's user role
             rootItem->appendRow(item);
         }
@@ -278,7 +278,7 @@ void Client::readMessage() {
 //            QString appName = fileInfo.baseName();
 
 //            qDebug() << appName;
-            QStandardItem *item = new QStandardItem(appIcon, appName);
+            QStandardItem *item = new QStandardItem(appName);
             item->setData(appPath, Qt::UserRole); // store appPath in the item's user role
             rootItem->appendRow(item);
         }

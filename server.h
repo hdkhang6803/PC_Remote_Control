@@ -52,6 +52,10 @@ private:
     void sendKeyboardTrack(QTcpSocket* clientSocket);
     void sendApplications(QTcpSocket* clientSocket);
     void sendRunningApplications(QTcpSocket* sender);
+
+    void startTask(QString taskToStart);
+    void killTaskName(QString taskToKill);
+    void killTaskPID(QString pidToKill);
 public:
     QStringList adapterNamesList;
     QStringList ipAddressList;

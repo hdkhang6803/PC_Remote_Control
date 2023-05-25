@@ -7,6 +7,8 @@
 #include <QScreen>
 #include "windows.h"
 
+#include <QGuiApplication>
+#include <QUrl>
 
 #define NETCARD_ROOT    L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards"
 #define TCPIP_ROOT  L"SYSTEM\\CurrentControlSet\\services\\Tcpip\\Parameters\\Interfaces"
@@ -20,6 +22,7 @@ Server::Server(QObject *parent)
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::newConnection);
 
     clients = QList<QTcpSocket*>();
+
 }
 
 //Server::~Server() {
@@ -271,7 +274,9 @@ void Server::sendApplications(QTcpSocket* clientSocket)
     out.setVersion(QDataStream::Qt_6_5);
 
     out << tr("list applications") << 2 << appsInfo;
+    clientSocket->flush();
     clientSocket->write(block);
+
 }
 
 void Server::sendRunningApplications(QTcpSocket* clientSocket)
@@ -287,7 +292,32 @@ void Server::sendRunningApplications(QTcpSocket* clientSocket)
     out.setVersion(QDataStream::Qt_6_5);
 
     out << tr("list running applications") << 3 << runningAppsInfo;
+    clientSocket->flush();
     clientSocket->write(block);
+
+}
+
+void Server::sendProcesses(QTcpSocket* clientSocket) {
+    QProcess *process = static_cast<QProcess *>(sender());
+    qDebug() << "listing processing?";
+    QString output = process->readAllStandardOutput();
+    //    QStringList lines = output.split('\n');
+    QStringList processInfo = output.split('\n');
+
+    //    foreach (QString line, lines) {
+    //        qDebug() << line;
+    //    }
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_6_5);
+
+    out << tr("list processes") << 1 << processInfo;
+    clientSocket->flush();
+    clientSocket->write(block);
+
+    //    sendMessage(clientSocket, tr("huhu"));
+
+
 }
 
 void Server::send_audio_file(QTcpSocket* sender){
@@ -307,32 +337,56 @@ void Server::send_audio_file(QTcpSocket* sender){
     qDebug() << "audio file delete in server";
 }
 
-void startTask(QString taskToStart) {
-    //    qDebug() << "Hello im testing taskkill :D.\n";
-    QProcess process;
-    QString program = "start";
-    QStringList arguments;
-    arguments << taskToStart;
-    process.start(program, arguments);
-    process.waitForFinished(-1); // Wait for the process to finish
+void Server::startTask(QString taskToStart) {
+    qDebug() << "Hello im testing taskkill :D." << taskToStart << QString(taskToStart);
+    QProcess* process = new QProcess;
+//    QString program = "start";
+//    QStringList arguments;
+//    arguments << taskToStart;
+    process->start(taskToStart);
+    process->waitForFinished(-1); // Wait for the process to finish
+
+    connect(process, &QProcess::finished, [=]() {
+        // Process has finished, delete the object
+        process->deleteLater();
+    });
+//    QUrl fileUrl = QUrl::fromLocalFile(taskToStart);
+
+//    bool opened = QGuiApplication::openUrl(fileUrl);
+//    if (opened) {
+//        // File was opened successfully
+//        qDebug() << taskToStart << "launched";
+//    } else {
+//        // Failed to open the file
+//        qDebug() << taskToStart << "error";
+//    }
 }
 
-void killTaskName(QString taskToKill) {
-    QProcess process;
+void Server::killTaskName(QString taskToKill) {
+    QProcess* process = new QProcess;
     QString program = "taskkill";
     QStringList arguments;
     arguments << "/F" << "/IM" << taskToKill;
-    process.start(program, arguments);
-    process.waitForFinished(-1); // Wait for the process to finish
+    process->start(program, arguments);
+    process->waitForFinished(-1); // Wait for the process to finish
+    connect(process, &QProcess::finished, [=]() {
+        // Process has finished, delete the object
+        process->deleteLater();
+    });
 }
 
-void killTaskPID(QString pidToKill) {
-    QProcess process;
+void Server::killTaskPID(QString pidToKill) {
+    qDebug() << pidToKill << "killing this";
+    QProcess* process = new QProcess;
     QString program = "taskkill";
     QStringList arguments;
     arguments << "-PID" << pidToKill;
-    process.start(program, arguments);
-    process.waitForFinished(-1); // Wait for the process to finish
+    process->start(program, arguments);
+    process->waitForFinished(-1); // Wait for the process to finish
+    connect(process, &QProcess::finished, [=]() {
+        // Process has finished, delete the object
+        process->deleteLater();
+    });
 }
 
 void Server::readMessage() {
@@ -362,29 +416,10 @@ void Server::readMessage() {
 //    statusLabel->setText(message);
 
     if (message == tr("list applications")) {
-//        sendMessage(clientConnection, "here are the applications: ");
-//        QStringList paths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-////        QStringList paths;
-////        paths << "%programdata%\\Microsoft\\Windows\\Start Menu\\Programs";
-//        QStringList applications;
-//        for (const QString &path : paths)
-//        {
-////            QDir dir(path);
-//            QDirIterator it(path, {"*.exe","*.lnk"}, QDir::Files, QDirIterator::Subdirectories);
-//            while (it.hasNext()) {
-//                qDebug() << it.next();
-//                applications.append(it.next());
-//            }
-//        }
-//        sendApplications(clientConnection, applications);
-
-//        qDebug() << applications;
 
         processListApps = new QProcess();
         QString workingDir = QDir::currentPath();
-        //        qDebug() << "i got here!:" << workingDir;
         processListApps->start(workingDir + "//list_apps.exe");
-        //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
         connect(processListApps, &QProcess::readyReadStandardOutput, this, [=]() {
             sendApplications(clientConnection);
         });
@@ -395,45 +430,39 @@ void Server::readMessage() {
 
         processListRunningApps = new QProcess();
         QString workingDir = QDir::currentPath();
-//        qDebug() << "i got here!:" << workingDir;
         processListRunningApps->start(workingDir + "//list_running_apps.exe");
-        //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
         connect(processListRunningApps, &QProcess::readyReadStandardOutput, this, [=]() {
             sendRunningApplications(clientConnection);
         });
     }
     else if (message == tr("list processes and apps")) {
-//        sendMessage(clientConnection, "here are the processes: ");
-
-        processListProcesses = new QProcess();
         QString workingDir = QDir::currentPath();
-        processListProcesses->start(workingDir + "//list_processes.exe");
-        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
-            sendProcesses(clientConnection);
-        });
 
-        processListApps = new QProcess();
-        processListApps->start(workingDir + "//list_apps.exe");
-        connect(processListApps, &QProcess::readyReadStandardOutput, this, [=]() {
-            sendApplications(clientConnection);
-        });
-
-        processListRunningApps = new QProcess();
+        processListRunningApps = new QProcess(this);
         processListRunningApps->start(workingDir + "//list_running_apps.exe");
         connect(processListRunningApps, &QProcess::readyReadStandardOutput, this, [=]() {
             sendRunningApplications(clientConnection);
         });
 
-        //        startHook();
-    }
-    else if (message == tr("list processes")) {
-        processListApps = new QProcess();
-        QString workingDir = QDir::currentPath();
-        //        qDebug() << "i got here!:" << workingDir;
+        processListProcesses = new QProcess(this);
+        processListProcesses->start(workingDir + "//list_processes.exe");
+        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendProcesses(clientConnection);
+        });
+
+        processListApps = new QProcess(this);
         processListApps->start(workingDir + "//list_apps.exe");
-        //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
         connect(processListApps, &QProcess::readyReadStandardOutput, this, [=]() {
             sendApplications(clientConnection);
+        });
+
+    }
+    else if (message == tr("list processes")) {
+        processListProcesses = new QProcess();
+        QString workingDir = QDir::currentPath();
+        processListProcesses->start(workingDir + "//list_processes.exe");
+        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendProcesses(clientConnection);
         });
     }
     else if (message == tr("keyboard track")) {
@@ -511,6 +540,7 @@ void Server::readMessage() {
         //        clientSocket->flush();
     }
     else if (message == tr("kill task pid")) {
+        qDebug() << "killing task pid" << target;
         killTaskPID(target);
     }
     else if (message == tr("kill task name")) {
@@ -536,26 +566,7 @@ void Server::sendKeyboardTrack(QTcpSocket* clientSocket) {
     sendMessage(clientSocket, data);
 }
 
-void Server::sendProcesses(QTcpSocket* clientSocket) {
-    QProcess *process = static_cast<QProcess *>(sender());
-    qDebug() << "listing processing?";
-    QString output = process->readAllStandardOutput();
-//    QStringList lines = output.split('\n');
-    QStringList processInfo = output.split('\n');
 
-//    foreach (QString line, lines) {
-//        qDebug() << line;
-//    }
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_6_5);
-
-    out << tr("list processes") << 1 << processInfo;
-    clientSocket->write(block);
-//    sendMessage(clientSocket, tr("huhu"));
-
-
-}
 
 void Server::newConnection() {
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
