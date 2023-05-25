@@ -30,42 +30,19 @@ background-color: #F2F6FC;</string>
     <string notr="true">font: 500 10pt &quot;UTM Avo&quot;;</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="runningProcessesTab">
     <attribute name="title">
      <string>Running Processes</string>
     </attribute>
-    <widget class="QScrollArea" name="scrollArea">
+    <widget class="QTableView" name="processTable">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>851</width>
-       <height>471</height>
-      </rect>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>851</width>
-        <height>471</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QTableView" name="tableView">
-     <property name="geometry">
-      <rect>
-       <x>-50</x>
-       <y>-40</y>
-       <width>256</width>
-       <height>192</height>
+       <width>871</width>
+       <height>461</height>
       </rect>
      </property>
     </widget>
@@ -74,12 +51,12 @@ background-color: #F2F6FC;</string>
     <attribute name="title">
      <string>Running applications</string>
     </attribute>
-    <widget class="QTableView" name="runningAppTable">
+    <widget class="QTreeView" name="runningAppTree">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>851</width>
+       <width>871</width>
        <height>451</height>
       </rect>
      </property>
@@ -89,27 +66,14 @@ background-color: #F2F6FC;</string>
     <attribute name="title">
      <string>All applications</string>
     </attribute>
-    <widget class="QTreeView" name="appTable">
+    <widget class="QTreeView" name="appTree">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>20</y>
-       <width>651</width>
-       <height>451</height>
+       <y>10</y>
+       <width>871</width>
+       <height>471</height>
       </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>740</x>
-       <y>40</y>
-       <width>83</width>
-       <height>29</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>delete</string>
      </property>
     </widget>
    </widget>

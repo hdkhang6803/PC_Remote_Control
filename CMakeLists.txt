@@ -37,6 +37,8 @@ set(PROJECT_SOURCES
 
         processes.ui apps.ui keystroke.ui screendisplayer.ui screenshot.ui
         appswindow.h appswindow.cpp apps.ui
+
+        FileNavButton.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

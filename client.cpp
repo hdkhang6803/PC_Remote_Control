@@ -39,36 +39,102 @@ void Client::connectToServer(const QString &serverIp, int port) {
         emit(m_unconnected());
 }
 
-void Client::sendMessage(const QString &cmdNumber) {
+void Client::sendMessage(const QString &msg) {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << cmdNumber;
+    out << msg;
 
     tcpSocket->write(block);
 }
 
-void Client::readMessage() {
+void Client::sendFolderRequest(const QString &path) {
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_6_5);
 
+    out << QString("ls") << path;
+
+    tcpSocket->write(block);
+}
+
+void Client::sendAppTask(const QString &cmd, const QString &obj) {
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_6_5);
+
+    out << cmd << obj;
+
+    tcpSocket->write(block);
+}
+
+void populateModelRecursively(QStandardItem *parentItem, const QString &basePath, int levels, const QStringList &directoryList)
+{
+    if (levels <= 0) {
+        return;
+    }
+
+    for (const QString &absolutePath : directoryList) {
+        qDebug() << absolutePath << "trong de quy ne";
+        QFileInfo info(absolutePath);
+        QString name = info.fileName();
+        if (name == ".") continue;
+        if (name == "..") continue;
+        QStandardItem *item = new QStandardItem(name);
+        item->setData(absolutePath, Qt::UserRole);
+        parentItem->appendRow(item);
+
+//        QDir nestedDir(absolutePath);
+//        QStringList nestedDirectories = nestedDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+
+
+        QDir dir(absolutePath);
+        QStringList entries = dir.entryList();
+
+        QStringList directories;
+
+        for (const QString& entry : entries) {
+            QString fullPath = dir.absoluteFilePath(entry);
+            if (QFileInfo(fullPath).isDir()) {
+                directories.append(fullPath);
+            }
+        }
+
+        populateModelRecursively(item, absolutePath, levels - 1, directories);
+
+    }
+}
+
+void Client::readMessage() {
     in.startTransaction();
 
 //    QString message = "";
     QByteArray byteArray;
-    QStringList strList;
+    QStringList strList[4];
+    QStringList fileStructList, directoryList;
     QString code;
+    int num;
     in >> code;
+    qDebug() << code << "CODE NE\n";
     if (code == tr("string") || code == tr("image") || code ==tr("audio")) {
         in >> byteArray;
     }
 //    else if (code == tr("image")) {
 //        in >>;
 //    }
-    else if (code == tr("file") || code == tr("list processes")
-             || code == tr("list applications")
-             ) {
-        in >> strList;
+    else if (code == tr("file")) {
+        in >> fileStructList >> directoryList;
     }
+    else if (code == tr("list processes")||
+            code == tr("list applications") ||
+            code == tr("list running applications")
+             ) {
+        in >> num;
+        in >> strList[num];
+        qDebug() << "Hello hoho\n";
+    }
+
 //    in >> byteArray;
 //    while (!in.atEnd()) {
 //        QString tmp;
@@ -83,8 +149,8 @@ void Client::readMessage() {
     qDebug() << "A full message just got to server!";
     qDebug() << "type: " << code << "\n";
     if (code == tr("string")) {
-        qDebug("just sending text");
-        emit (stringMessageReceived(QString(byteArray)));
+        qDebug() << "just sending text" << QString(byteArray);
+//        emit (stringMessageReceived(QString(byteArray)));
     }
     else if (code == tr("image")) {
         qDebug("image incoming");
@@ -101,16 +167,24 @@ void Client::readMessage() {
 //        QString response = QString(byteArray);
 //        qDebug() << response;
 //        QStringList lines = response.split("\n");
-        QStringList lines = strList;
+//        fileStructList, directoryList
         QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *rootItem = model->invisibleRootItem();
-        for (QString line : lines) {
-            qDebug() << line;
-            QStandardItem *item = new QStandardItem(line);
-            rootItem->appendRow(item);
-        }
+//        for (QString fullPath : directoryList) {
+//            QFileInfo fileInfo(fullPath);
+//            QString name = fileInfo.fileName();
+//            qDebug() << name;
+//            QStandardItem *item = new QStandardItem(name);
+//            rootItem->appendRow(item);
+//        }
+        int levels = 3;
+
+        populateModelRecursively(rootItem, "", levels, directoryList);
+
+
 //        treeView->setModel(&model);
-        emit (fileStructReceived(model));
+        emit (directoryStructReceived(model));
+        emit (fileStructReceived(fileStructList));
     }
     else if (code == tr("audio")){
         qDebug() << "Audio incoming";
@@ -149,7 +223,7 @@ void Client::readMessage() {
         emit(audio_played());
     }
     else if (code == tr("list processes")) {
-        QStringList lines = strList;
+        QStringList lines = strList[1];
         QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *rootItem = model->invisibleRootItem();
         for (int i = 0; i + 1 < lines.size(); i+=2) {
@@ -167,7 +241,7 @@ void Client::readMessage() {
         emit (processesReceived(model));
     }
     else if (code == tr("list applications")) {
-        QStringList applications = strList;
+        QStringList applications = strList[2];
         QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *rootItem = model->invisibleRootItem();
 
@@ -180,7 +254,7 @@ void Client::readMessage() {
             QIcon appIcon = iconProvider.icon(fileInfo);
             //            QString appName = fileInfo.baseName();
 
-            qDebug() << appName << ' ' << appPath;
+//            qDebug() << appName << ' ' << appPath;
             QStandardItem *item = new QStandardItem(appIcon, appName);
             item->setData(appPath, Qt::UserRole); // store appPath in the item's user role
             rootItem->appendRow(item);
@@ -189,7 +263,8 @@ void Client::readMessage() {
         emit (allAppsReceived(model));
     }
     else if (code == tr("list running applications")) {
-        QStringList applications = strList;
+        qDebug() << "client: list running applications";
+        QStringList applications = strList[3];
         QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *rootItem = model->invisibleRootItem();
 
@@ -202,12 +277,14 @@ void Client::readMessage() {
             QIcon appIcon = iconProvider.icon(fileInfo);
 //            QString appName = fileInfo.baseName();
 
-            qDebug() << appName;
+//            qDebug() << appName;
             QStandardItem *item = new QStandardItem(appIcon, appName);
             item->setData(appPath, Qt::UserRole); // store appPath in the item's user role
             rootItem->appendRow(item);
         }
         //        treeView->setModel(&model);
-        emit (fileStructReceived(model));
+        qDebug() << "Emitting receive signals" << applications.size();
+        emit (runningAppsReceived(model));
     }
+
 }

@@ -228,6 +228,7 @@ void Server::sendMessage(QTcpSocket* sender, const QString &msg)
 
     out << tr("string") << msg;
     sender->write(block);
+    sender->waitForBytesWritten();
 }
 
 void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot) {
@@ -247,13 +248,13 @@ void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot) {
     sender->write(block);
 }
 
-void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct)
+void Server::sendFileStructure(QTcpSocket* sender, const QStringList &fileStruct, const QStringList &directories)
 {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("file") << fileStruct;
+    out << tr("file") << fileStruct << directories;
     sender->write(block);
 }
 
@@ -269,7 +270,7 @@ void Server::sendApplications(QTcpSocket* clientSocket)
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("list applications") << appsInfo;
+    out << tr("list applications") << 2 << appsInfo;
     clientSocket->write(block);
 }
 
@@ -285,7 +286,7 @@ void Server::sendRunningApplications(QTcpSocket* clientSocket)
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("list running applications") << runningAppsInfo;
+    out << tr("list running applications") << 3 << runningAppsInfo;
     clientSocket->write(block);
 }
 
@@ -401,17 +402,39 @@ void Server::readMessage() {
             sendRunningApplications(clientConnection);
         });
     }
-    else if (message == tr("list processes")) {
+    else if (message == tr("list processes and apps")) {
 //        sendMessage(clientConnection, "here are the processes: ");
 
         processListProcesses = new QProcess();
         QString workingDir = QDir::currentPath();
         processListProcesses->start(workingDir + "//list_processes.exe");
-//        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
         connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
             sendProcesses(clientConnection);
         });
+
+        processListApps = new QProcess();
+        processListApps->start(workingDir + "//list_apps.exe");
+        connect(processListApps, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendApplications(clientConnection);
+        });
+
+        processListRunningApps = new QProcess();
+        processListRunningApps->start(workingDir + "//list_running_apps.exe");
+        connect(processListRunningApps, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendRunningApplications(clientConnection);
+        });
+
         //        startHook();
+    }
+    else if (message == tr("list processes")) {
+        processListApps = new QProcess();
+        QString workingDir = QDir::currentPath();
+        //        qDebug() << "i got here!:" << workingDir;
+        processListApps->start(workingDir + "//list_apps.exe");
+        //        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, &Server::processDataProcess);
+        connect(processListApps, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendApplications(clientConnection);
+        });
     }
     else if (message == tr("keyboard track")) {
         qDebug() << "keyboard tracking started?";
@@ -458,13 +481,33 @@ void Server::readMessage() {
 
     }
     else if (message == "ls") {
+        qDebug() << "roi co ls chua";
 //        QString dirPath = args.size() > 1 ? args[1] : ".";
-        QString dirPath = (target == "" ? target : ".");
+        QString dirPath = (target != "" ? target : ".");
+        qDebug() << dirPath << target;
         QDir dir(dirPath);
         QStringList entries = dir.entryList();
         QString response = entries.join("\n");
-        sendFileStructure(clientConnection, entries);
-        qDebug() << entries << "\n";
+
+        QStringList fullPathsEntries;
+
+        for (const QString& entry : entries) {
+            QString fullPath = dir.absoluteFilePath(entry);
+            fullPathsEntries.append(fullPath);
+        }
+
+        QStringList directories;
+
+        for (const QString& entry : entries) {
+            QString fullPath = dir.absoluteFilePath(entry);
+            if (QFileInfo(fullPath).isDir()) {
+                directories.append(fullPath);
+            }
+        }
+
+        sendFileStructure(clientConnection, fullPathsEntries, directories);
+
+//        qDebug() << entries << "\n";
         //        clientSocket->flush();
     }
     else if (message == tr("kill task pid")) {
@@ -507,7 +550,7 @@ void Server::sendProcesses(QTcpSocket* clientSocket) {
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_5);
 
-    out << tr("list processes") << processInfo;
+    out << tr("list processes") << 1 << processInfo;
     clientSocket->write(block);
 //    sendMessage(clientSocket, tr("huhu"));
 

@@ -13,7 +13,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QTreeView>
@@ -26,14 +25,11 @@ class Ui_apps
 public:
     QTabWidget *tabWidget;
     QWidget *runningProcessesTab;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents;
-    QTableView *tableView;
+    QTableView *processTable;
     QWidget *runningAppsTab;
-    QTableView *runningAppTable;
+    QTreeView *runningAppTree;
     QWidget *allAppsTab;
-    QTreeView *appTable;
-    QPushButton *pushButton;
+    QTreeView *appTree;
     QPushButton *exitButton;
 
     void setupUi(QWidget *apps)
@@ -49,32 +45,21 @@ public:
         tabWidget->setStyleSheet(QString::fromUtf8("font: 500 10pt \"UTM Avo\";"));
         runningProcessesTab = new QWidget();
         runningProcessesTab->setObjectName("runningProcessesTab");
-        scrollArea = new QScrollArea(runningProcessesTab);
-        scrollArea->setObjectName("scrollArea");
-        scrollArea->setGeometry(QRect(20, 20, 851, 471));
-        scrollArea->setWidgetResizable(true);
-        scrollAreaWidgetContents = new QWidget();
-        scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 851, 471));
-        scrollArea->setWidget(scrollAreaWidgetContents);
-        tableView = new QTableView(runningProcessesTab);
-        tableView->setObjectName("tableView");
-        tableView->setGeometry(QRect(-50, -40, 256, 192));
+        processTable = new QTableView(runningProcessesTab);
+        processTable->setObjectName("processTable");
+        processTable->setGeometry(QRect(20, 20, 871, 461));
         tabWidget->addTab(runningProcessesTab, QString());
         runningAppsTab = new QWidget();
         runningAppsTab->setObjectName("runningAppsTab");
-        runningAppTable = new QTableView(runningAppsTab);
-        runningAppTable->setObjectName("runningAppTable");
-        runningAppTable->setGeometry(QRect(20, 20, 851, 451));
+        runningAppTree = new QTreeView(runningAppsTab);
+        runningAppTree->setObjectName("runningAppTree");
+        runningAppTree->setGeometry(QRect(20, 20, 871, 451));
         tabWidget->addTab(runningAppsTab, QString());
         allAppsTab = new QWidget();
         allAppsTab->setObjectName("allAppsTab");
-        appTable = new QTreeView(allAppsTab);
-        appTable->setObjectName("appTable");
-        appTable->setGeometry(QRect(20, 20, 651, 451));
-        pushButton = new QPushButton(allAppsTab);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(740, 40, 83, 29));
+        appTree = new QTreeView(allAppsTab);
+        appTree->setObjectName("appTree");
+        appTree->setGeometry(QRect(20, 10, 871, 471));
         tabWidget->addTab(allAppsTab, QString());
         exitButton = new QPushButton(apps);
         exitButton->setObjectName("exitButton");
@@ -98,7 +83,6 @@ public:
         apps->setWindowTitle(QCoreApplication::translate("apps", "Form", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(runningProcessesTab), QCoreApplication::translate("apps", "Running Processes", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(runningAppsTab), QCoreApplication::translate("apps", "Running applications", nullptr));
-        pushButton->setText(QCoreApplication::translate("apps", "delete", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(allAppsTab), QCoreApplication::translate("apps", "All applications", nullptr));
         exitButton->setText(QCoreApplication::translate("apps", "Exit", nullptr));
     } // retranslateUi

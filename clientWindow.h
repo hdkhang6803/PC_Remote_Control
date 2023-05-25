@@ -13,12 +13,16 @@ using std::vector;
 #include <QGroupBox>
 #include <QTreeView>
 #include <QDesktopServices>
+#include <QToolButton>
 
 #include "client.h"
 #include "clientInfo.h"
 //#include "featureButton.h"
 #include "include/ui_clientWindow.h"
 #include "appswindow.h"
+#include "fileExplorer.h"
+#include "FileNavButton.h"
+
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;
@@ -60,10 +64,12 @@ private slots:
     void updateImage(const QPixmap &image);
     void updateFileStruct(QStandardItemModel* &model);
     void updateAllApps(QStandardItemModel* &model);
+    void updateRunningApps(QStandardItemModel* &model);
     void updateProcesses(QStandardItemModel* &model);
 
     void onTreeViewDoubleClicked(const QModelIndex &index);
-
+    void onItemClicked(const QModelIndex& index);
+    void updateFilesWindow(QStringList files);
 private:
 
     Client *client = nullptr;
@@ -86,6 +92,7 @@ private:
     QPushButton *exitButton = nullptr;
 
     appsWindow* appsWin = nullptr;
+    fileExplorer* fileExp = nullptr;
 
 private slots:
     void on_pushButton_clicked_1();

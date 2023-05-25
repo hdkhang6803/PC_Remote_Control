@@ -46,7 +46,7 @@ font: 600 11pt &quot;UTM Avo&quot;;</string>
      <string>Tree View</string>
     </property>
    </widget>
-   <widget class="QTreeWidget" name="treeWidget">
+   <widget class="QTreeView" name="treeView">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -62,127 +62,6 @@ border-radius: 5px;
 padding-left: 10px;
 font: 500 10pt &quot;UTM Avo&quot;;</string>
     </property>
-    <column>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="font">
-      <font>
-       <family>UTM Avo</family>
-       <pointsize>14</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="background">
-      <color>
-       <red>194</red>
-       <green>231</green>
-       <blue>255</blue>
-      </color>
-     </property>
-     <property name="foreground">
-      <brush brushstyle="NoBrush">
-       <color alpha="255">
-        <red>0</red>
-        <green>132</green>
-        <blue>255</blue>
-       </color>
-      </brush>
-     </property>
-    </column>
-    <item>
-     <property name="text">
-      <string>Folder1</string>
-     </property>
-     <property name="font">
-      <font>
-       <family>UTM Avo</family>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="icon">
-      <iconset theme="folder">
-       <normaloff>.</normaloff>.</iconset>
-     </property>
-     <item>
-      <property name="text">
-       <string>File1.1</string>
-      </property>
-      <property name="icon">
-       <iconset theme="document-open">
-        <normaloff>.</normaloff>.</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>File1.2</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Folder1.1</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>UTM Avo</family>
-        <pointsize>10</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <item>
-       <property name="text">
-        <string>File1.3</string>
-       </property>
-      </item>
-     </item>
-    </item>
-    <item>
-     <property name="text">
-      <string>Folder2</string>
-     </property>
-     <property name="font">
-      <font>
-       <family>UTM Avo</family>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <item>
-      <property name="text">
-       <string>Folder2.1</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>UTM Avo</family>
-        <pointsize>10</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>File2.1</string>
-      </property>
-     </item>
-    </item>
-    <item>
-     <property name="text">
-      <string>Folder3</string>
-     </property>
-     <property name="font">
-      <font>
-       <family>UTM Avo</family>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>File1</string>
-     </property>
-    </item>
    </widget>
    <widget class="QLabel" name="Path">
     <property name="geometry">
@@ -1051,7 +930,7 @@ border-radius: 5px;
      <string>Exit</string>
     </property>
    </widget>
-   <zorder>treeWidget</zorder>
+   <zorder>treeView</zorder>
    <zorder>TreeView</zorder>
    <zorder>scrollArea</zorder>
    <zorder>Path</zorder>

@@ -18,7 +18,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -29,7 +29,7 @@ class Ui_fileExplorer
 public:
     QWidget *MainWidget;
     QLabel *TreeView;
-    QTreeWidget *treeWidget;
+    QTreeView *treeView;
     QLabel *Path;
     QScrollArea *scrollArea;
     QWidget *Contents;
@@ -104,57 +104,10 @@ public:
 "border-radius: 5px;\n"
 "padding-left: 10px;\n"
 "font: 600 11pt \"UTM Avo\";"));
-        treeWidget = new QTreeWidget(MainWidget);
-        QBrush brush(QColor(0, 132, 255, 255));
-        brush.setStyle(Qt::NoBrush);
-        QFont font;
-        font.setFamilies({QString::fromUtf8("UTM Avo")});
-        font.setPointSize(14);
-        font.setBold(true);
-        treeWidget->headerItem()->setText(0, QString());
-        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
-        __qtreewidgetitem->setFont(0, font);
-        __qtreewidgetitem->setBackground(0, QColor(194, 231, 255));
-        __qtreewidgetitem->setForeground(0, brush);
-        treeWidget->setHeaderItem(__qtreewidgetitem);
-        QIcon icon;
-        QString iconThemeName = QString::fromUtf8("folder");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
-        QFont font1;
-        font1.setFamilies({QString::fromUtf8("UTM Avo")});
-        font1.setPointSize(10);
-        font1.setBold(true);
-        QIcon icon1;
-        iconThemeName = QString::fromUtf8("document-open");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon1 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon1.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
-        QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem(treeWidget);
-        __qtreewidgetitem1->setFont(0, font1);
-        __qtreewidgetitem1->setIcon(0, icon);
-        QTreeWidgetItem *__qtreewidgetitem2 = new QTreeWidgetItem(__qtreewidgetitem1);
-        __qtreewidgetitem2->setIcon(0, icon1);
-        new QTreeWidgetItem(__qtreewidgetitem1);
-        QTreeWidgetItem *__qtreewidgetitem3 = new QTreeWidgetItem(__qtreewidgetitem1);
-        __qtreewidgetitem3->setFont(0, font1);
-        new QTreeWidgetItem(__qtreewidgetitem3);
-        QTreeWidgetItem *__qtreewidgetitem4 = new QTreeWidgetItem(treeWidget);
-        __qtreewidgetitem4->setFont(0, font1);
-        QTreeWidgetItem *__qtreewidgetitem5 = new QTreeWidgetItem(__qtreewidgetitem4);
-        __qtreewidgetitem5->setFont(0, font1);
-        new QTreeWidgetItem(__qtreewidgetitem4);
-        QTreeWidgetItem *__qtreewidgetitem6 = new QTreeWidgetItem(treeWidget);
-        __qtreewidgetitem6->setFont(0, font1);
-        new QTreeWidgetItem(treeWidget);
-        treeWidget->setObjectName("treeWidget");
-        treeWidget->setGeometry(QRect(10, 50, 221, 461));
-        treeWidget->setStyleSheet(QString::fromUtf8("background-color: #ffffff;\n"
+        treeView = new QTreeView(MainWidget);
+        treeView->setObjectName("treeView");
+        treeView->setGeometry(QRect(10, 50, 221, 461));
+        treeView->setStyleSheet(QString::fromUtf8("background-color: #ffffff;\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
 "padding-left: 10px;\n"
@@ -578,7 +531,7 @@ public:
 "background-color: #ffffff;\n"
 "border-radius: 5px;\n"
 ""));
-        treeWidget->raise();
+        treeView->raise();
         TreeView->raise();
         scrollArea->raise();
         Path->raise();
@@ -593,31 +546,6 @@ public:
     {
         fileExplorer->setWindowTitle(QCoreApplication::translate("fileExplorer", "Form", nullptr));
         TreeView->setText(QCoreApplication::translate("fileExplorer", "Tree View", nullptr));
-
-        const bool __sortingEnabled = treeWidget->isSortingEnabled();
-        treeWidget->setSortingEnabled(false);
-        QTreeWidgetItem *___qtreewidgetitem = treeWidget->topLevelItem(0);
-        ___qtreewidgetitem->setText(0, QCoreApplication::translate("fileExplorer", "Folder1", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem1 = ___qtreewidgetitem->child(0);
-        ___qtreewidgetitem1->setText(0, QCoreApplication::translate("fileExplorer", "File1.1", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem2 = ___qtreewidgetitem->child(1);
-        ___qtreewidgetitem2->setText(0, QCoreApplication::translate("fileExplorer", "File1.2", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem3 = ___qtreewidgetitem->child(2);
-        ___qtreewidgetitem3->setText(0, QCoreApplication::translate("fileExplorer", "Folder1.1", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem4 = ___qtreewidgetitem3->child(0);
-        ___qtreewidgetitem4->setText(0, QCoreApplication::translate("fileExplorer", "File1.3", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem5 = treeWidget->topLevelItem(1);
-        ___qtreewidgetitem5->setText(0, QCoreApplication::translate("fileExplorer", "Folder2", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem6 = ___qtreewidgetitem5->child(0);
-        ___qtreewidgetitem6->setText(0, QCoreApplication::translate("fileExplorer", "Folder2.1", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem7 = ___qtreewidgetitem5->child(1);
-        ___qtreewidgetitem7->setText(0, QCoreApplication::translate("fileExplorer", "File2.1", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem8 = treeWidget->topLevelItem(2);
-        ___qtreewidgetitem8->setText(0, QCoreApplication::translate("fileExplorer", "Folder3", nullptr));
-        QTreeWidgetItem *___qtreewidgetitem9 = treeWidget->topLevelItem(3);
-        ___qtreewidgetitem9->setText(0, QCoreApplication::translate("fileExplorer", "File1", nullptr));
-        treeWidget->setSortingEnabled(__sortingEnabled);
-
         Path->setText(QCoreApplication::translate("fileExplorer", "D:\\Folder2", nullptr));
         IconFile1_20->setText(QString());
         Label_20->setText(QCoreApplication::translate("fileExplorer", "File1", nullptr));
