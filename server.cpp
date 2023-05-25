@@ -197,7 +197,6 @@ void Server::sendMessage(QTcpSocket* sender, const QString &msg, QString type)
 }
 
 void Server::sendScreenshot(QTcpSocket* sender, const QPixmap &screenshot, QString type) {
-//    QPixmap resizedScreenshot = screenshot.scaled(800, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
