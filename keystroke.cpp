@@ -14,6 +14,8 @@ keystroke::keystroke(QWidget *parent) :
     ui->textEdit_2->clear();
     ui->textEdit->setEnabled(true);
     ui->textEdit_2->setEnabled(true);
+    ui->textEdit->setReadOnly(true);
+    ui->textEdit_2->setReadOnly(true);
     this->show();
 }
 
