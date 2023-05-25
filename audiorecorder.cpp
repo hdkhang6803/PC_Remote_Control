@@ -20,7 +20,6 @@ static QList<qreal> getBufferLevels(const QAudioBuffer &buffer);
 
 AudioRecorder::AudioRecorder()
 {
-
     m_audioRecorder = new QMediaRecorder(this);
     m_captureSession.setRecorder(m_audioRecorder);
     m_captureSession.setAudioInput(new QAudioInput(this));
@@ -49,7 +48,6 @@ void AudioRecorder::auto_start(){
     }
 
     m_captureSession.audioInput()->setDevice(dev);
-
     m_audioRecorder->setMediaFormat(selectedMediaFormat());
     m_audioRecorder->setAudioSampleRate(44100);
     m_audioRecorder->setAudioBitRate(64000);
@@ -62,9 +60,8 @@ void AudioRecorder::auto_start(){
     m_audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
     m_audioRecorder->record();
     qDebug() << "The server is recording";
-
-
 }
+
 void AudioRecorder::stop_by_msg(){
     m_audioRecorder->stop();
     qDebug() << "stopped by msg";

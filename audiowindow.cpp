@@ -24,8 +24,6 @@ void audioWindow::on_stopButton_clicked(){
 void audioWindow::set_time(){
     qDebug() << "recording timer start";
     QDateTime startTime = QDateTime::currentDateTime();
-
-
     connect(m_timer, &QTimer::timeout, [=]() {
         qDebug() << "timer count";
         QDateTime currentTime = QDateTime::currentDateTime();
@@ -36,7 +34,6 @@ void audioWindow::set_time(){
                                .arg(elapsedSeconds % 60, 2, 10, QLatin1Char('0')); // Seconds
          ui->timer->setText(timeText);
          ui->timer->setVisible(true);
-
     });
     m_timer->start(1000);
 }
