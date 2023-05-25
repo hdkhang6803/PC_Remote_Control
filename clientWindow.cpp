@@ -484,7 +484,7 @@ void ClientWindow::updateRunningApps(QStandardItemModel* &new_model) {
 void ClientWindow::on_pushButton_clicked_1(){
 //    client->sendMessage(tr("list processes"));
 //    client->sendMessage(tr("list applications"));
-    if (!appsWin)
+    if (appsWin == nullptr)
         appsWin = new appsWindow(ui->widget_2);
     appsWin->show();
     connect(appsWin->ui->exitButton, &QPushButton::clicked, [=](){
