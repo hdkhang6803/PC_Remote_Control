@@ -129,13 +129,30 @@ void ClientWindow::updateFilesWindow(QStringList files) {
 //        }
 //    }
     for (auto x : fileExp->fileNameLabels) {
-        delete x;
+        if (x) delete x;
     }
     fileExp->fileNameLabels.clear();
     for (auto x : fileExp->fileNavList) {
-        delete x;
+        if (x) delete x;
     }
     fileExp->fileNavList.clear();
+    for (auto x : fileExp->vboxList) {
+        if (x) {
+
+        QWidget* widget1 = x->itemAt(0)->widget();
+        QWidget* widget2 = x->itemAt(1)->widget();
+
+        // Remove the widgets from the layout
+        x->removeWidget(widget1);
+        x->removeWidget(widget2);
+
+        // Delete the widgets
+        delete widget1;
+        delete widget2;
+        delete x;
+        }
+    }
+    fileExp->vboxList.clear();
     layout->update();
 
     numColumns = 7;
@@ -161,9 +178,8 @@ void ClientWindow::updateFilesWindow(QStringList files) {
         if (name == "..") {
             name = "<";
         }
-        else if (name == ".") continue;
-        QLabel *label = new QLabel(name);
-        fileExp->fileNameLabels.push_back(label);
+//        QLabel *label = new QLabel(name);
+
         qDebug() << filePath;
 
         // Calculate the row and column positions
@@ -201,6 +217,7 @@ void ClientWindow::updateFilesWindow(QStringList files) {
         bool isDirectory = QFileInfo(filePath).isDir();
 
         QVBoxLayout* vbox = new QVBoxLayout();
+        fileExp->vboxList.push_back(vbox);
         vbox->setObjectName(name);
         QLabel* IconFile1_5 = new QLabel(GirdFrame);
         IconFile1_5->setObjectName("IconFile1_5");
@@ -218,13 +235,14 @@ void ClientWindow::updateFilesWindow(QStringList files) {
 //        vbox->addWidget(button);
         vbox->addWidget(IconFile1_5);
 
-        QLabel* Label_5 = new QLabel(GirdFrame);
-        Label_5->setObjectName("Label_5");
-        Label_5->setMaximumSize(QSize(100, 50));
-        Label_5->setAlignment(Qt::AlignCenter);
-        Label_5->setText(name);
+        QLabel* nameLabel = new QLabel(GirdFrame);
+        nameLabel->setObjectName("Label_5");
+        nameLabel->setMaximumSize(QSize(100, 50));
+        nameLabel->setAlignment(Qt::AlignCenter);
+        nameLabel->setText(name);
+//        fileExp->fileNameLabels.push_back(nameLabel);
 
-        vbox->addWidget(Label_5);
+        vbox->addWidget(nameLabel);
 
 
 
@@ -482,9 +500,8 @@ void ClientWindow::updateRunningApps(QStandardItemModel* &new_model) {
 
 
 void ClientWindow::on_pushButton_clicked_1(){
-//    client->sendMessage(tr("list processes"));
-//    client->sendMessage(tr("list applications"));
     if (appsWin == nullptr)
+//        appsWin = new appsWindow(ui->widget_2);
         appsWin = new appsWindow(ui->widget_2);
     appsWin->show();
     connect(appsWin->ui->exitButton, &QPushButton::clicked, [=](){

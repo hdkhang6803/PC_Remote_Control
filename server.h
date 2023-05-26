@@ -15,6 +15,7 @@
 #include <QTimer>
 #include <QStandardPaths>
 #include <QDirIterator>
+#include <QStandardItemModel>
 
 #include "audiorecorder.h"
 #include "fileExplorer.h"
@@ -30,10 +31,10 @@ public:
 signals:
 //    void connected();
 //    void disconnected();
-    void readyRead(const QString &cmdNumber);
+    void displayMsg(const QString &msg);
     void display(const QPixmap &pic);
     void error(QAbstractSocket::SocketError socketError);
-
+    void newClient(const QString &ip);
 private slots:
     void readMessage();
     void newConnection();

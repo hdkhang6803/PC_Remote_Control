@@ -18,6 +18,7 @@ public:
 
 public:
     Ui::apps *ui;
+
 };
 
 #endif // APPSWINDOW_H

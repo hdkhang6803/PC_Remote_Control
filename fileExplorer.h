@@ -25,6 +25,7 @@ public:
 
     vector<QLabel*> fileNameLabels;
     vector<FileNavButton*> fileNavList;
+    vector<QVBoxLayout*> vboxList;
 
 public:
     Ui::fileExplorer *ui;

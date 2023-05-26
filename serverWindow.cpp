@@ -9,7 +9,7 @@ serverInfo::serverInfo(QWidget *parent) :
 
     server = new Server;
 
-    connect(server, &Server::readyRead, this, &serverInfo::updateServerMsg);
+    connect(server, &Server::displayMsg, this, &serverInfo::updateServerMsg);
     connect(server, &Server::display, this, &serverInfo::updatePic);
 
 //    // ------------SETTING UP GUI ----------------------
@@ -23,16 +23,25 @@ serverInfo::serverInfo(QWidget *parent) :
 
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
-    statusBox->setText(tr("The server is running now."));
+    statusBox->clear();
+    updateServerMsg(tr("The server is running now."));
+
     _ipBox->clear();
 
     for (int i = 0; i < server->adapterNamesList.size(); i++) {
         QString adapter = server->adapterNamesList.at(i);
+        if (adapter.contains("Wireless")) {
+            _ipBox->append("Wifi: ");
+        }
+        else if (adapter.contains("Ethernet")) {
+            _ipBox->append("Ethernet: ");
+        }
         QString ipAddress = server->ipAddressList.at(i);
         if (ipAddress != "0.0.0.0") {
 //        _ipBox->append(ipAddress);
         _ipBox->moveCursor(QTextCursor::End); // Move the cursor to the end of the text
-        _ipBox->insertPlainText(ipAddress);
+        _ipBox->insertPlainText(ipAddress + "\n");
+
         }
 //        _ipBox->setText(ipAddress);
     }
@@ -41,7 +50,9 @@ serverInfo::serverInfo(QWidget *parent) :
 }
 
 void serverInfo::updateServerMsg(const QString &msg) {
-    statusBox->setText(msg);
+//    statusBox->setText(msg);
+    statusBox->moveCursor(QTextCursor::End);
+    statusBox->insertPlainText(">>" + msg + "\n");
 }
 
 void serverInfo::updatePic(const QPixmap &screenshot) {
