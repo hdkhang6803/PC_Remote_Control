@@ -120,7 +120,6 @@ void Client::readMessage() {
              ) {
         in >> num;
         in >> strList[num];
-        qDebug() << "Hello hoho\n";
     }
     else if (code == tr("stroke")){
 
@@ -156,11 +155,13 @@ void Client::readMessage() {
     }
     else if (code == tr("file")) {
         qDebug() << "file struct incoming";
+//        qDebug() << directoryList;
         QStandardItemModel *model = unflattenTree(directoryList);
 
         emit (directoryStructReceived(model));
         emit (fileStructReceived(fileStructList));
     }
+
     else if (code == tr("audio")){
         qDebug() << "Audio incoming";
 

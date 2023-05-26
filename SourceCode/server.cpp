@@ -372,42 +372,31 @@ void Server::killTaskPID(QString pidToKill) {
     });
 }
 
-void populateModelRecursively(QStandardItem * parentItem, const QString &basePath, int levels, const QStringList &directoryList)
+void populateModelRecursively(const QString& basePath, int levels, const QStringList& directories)
 {
-    QStack<QPair<QStandardItem*, QString>> stack;
-    stack.push(QPair<QStandardItem*, QString>(parentItem, basePath));
+    QDir dir(basePath);
+    QStack<QPair<QString, int>> stack;
+    stack.push(QPair<QString, int>(basePath, 0));
 
     while (!stack.isEmpty()) {
-        QPair<QStandardItem*, QString> current = stack.pop();
-        QStandardItem *currentItem = current.first;
-        QString currentPath = current.second;
+        QPair<QString, int> current = stack.pop();
+        QString currentPath = current.first;
+        int currentLevel = current.second;
 
-        if (levels <= 0) {
+        if (currentLevel > levels) {
             continue;
         }
 
-        QStringList entries = QDir(currentPath).entryList();
+        for (const QString& directory : directories) {
+            QString fullPath = QDir(currentPath).filePath(directory);
+            if (QDir(fullPath).exists()) {
+                qDebug() << fullPath;  // Print the folder path (or perform desired operation)
 
-        for (const QString& entry : entries) {
-            QString fullPath = QDir(currentPath).absoluteFilePath(entry);
-            if (QFileInfo(fullPath).isDir()) {
-                QFileInfo info(fullPath);
-                QString name = info.fileName();
-                if (name == "." || name == "..")
-                    continue;
-
-                QStandardItem *item = new QStandardItem(name);
-                item->setData(fullPath, Qt::UserRole);
-                currentItem->appendRow(item);
-
-                stack.push(QPair<QStandardItem*, QString>(item, fullPath));
+                stack.push(QPair<QString, int>(fullPath, currentLevel + 1));
             }
         }
-
-        levels--;
     }
 }
-
 QStringList flattenTree(QStandardItem* parentItem)
 {
     QStringList flattenedList;
@@ -584,30 +573,33 @@ void Server::readMessage() {
         QString response = entries.join("\n");
 
         QStringList fullPathsEntries;
-
         for (const QString& entry : entries) {
-//            if (entry == ".") continue;
+            if (entry == QString(".")) continue;
             QString fullPath = dir.absoluteFilePath(entry);
-            fullPathsEntries.append(fullPath);
+            int isDir = QFileInfo(fullPath).isDir();
+            fullPathsEntries.append(QString::number(isDir) + fullPath);
         }
 
         QStringList directories;
 
         for (const QString& entry : entries) {
-//            if (entry == ".") continue;
+            if (entry == ".") continue;
             QString fullPath = dir.absoluteFilePath(entry);
             if (QFileInfo(fullPath).isDir()) {
-                directories.append(fullPath);
+                directories.append("1" + fullPath);
             }
         }
 
-        QStandardItemModel *model = new QStandardItemModel;
-        QStandardItem *rootItem = model->invisibleRootItem();
-        int levels = 3;
-        populateModelRecursively(rootItem, target, levels, directories);
-        QStringList flattenDir = flattenTree(rootItem);
+//        QStandardItemModel *model = new QStandardItemModel;
+//        QStandardItem *rootItem = model->invisibleRootItem();
+        int levels = 4;
+        populateModelRecursively(target, levels, directories);
+        //QStringList flattenDir = flattenTree(rootItem);
 
-        sendFileStructure(clientConnection, fullPathsEntries, flattenDir);
+//        qDebug() << "CUR DIR: " << dirPath;
+//        qDebug() << "Folders: " << directories;
+
+        sendFileStructure(clientConnection, fullPathsEntries, directories);
     }
     else if (message == tr("kill task pid")) {
         msgDisplayed += "Killing process with pid " + target;

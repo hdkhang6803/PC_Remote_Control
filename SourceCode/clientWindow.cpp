@@ -21,8 +21,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
 //    connect(client_info, &clientInfo::exit, this, &ClientWindow::close);
     connect(client, &Client::stringMessageReceived, this, &ClientWindow::updateServerMsg);
 //    connect(client, &Client::imageMessageReceived, this, &ClientWindow::updateImage);
-    connect(client, &Client::directoryStructReceived, this, &ClientWindow::updateFileStruct);
-    connect(client, &Client::fileStructReceived, this, &ClientWindow::updateFilesWindow);
+
     connect(client, &Client::allAppsReceived, this, &ClientWindow::updateAllApps);
     connect(client, &Client::processesReceived, this, &ClientWindow::updateProcesses);
     connect(client, &Client::runningAppsReceived, this, &ClientWindow::updateRunningApps);
@@ -100,185 +99,16 @@ void ClientWindow::updateImage(const QPixmap &image) {
 }
 
 
-void ClientWindow::updateFilesWindow(QStringList files) {
-    if (fileExp == nullptr) {
-        qDebug() << "Error: not found file explorer window";
-        return;
-    }
-
-    QGridLayout *layout = fileExp->ui->DirectoryGrid;
-    QFrame *GirdFrame = fileExp->ui->GirdFrame;
-
-    int numColumns = 7;
-    int rowIndex = 0;
-    int colIndex = 0;
-
-//    for (int i = 0; i < 100; ++i) {
-
-//        // Calculate the row and column positions
-//        rowIndex = i / numColumns;
-//        colIndex = i % numColumns;
-//        qDebug() << rowIndex << colIndex;
-
-//        // Check if a widget already exists in the target cell
-//        QLayoutItem *existingItem = layout->itemAtPosition(rowIndex, colIndex);
-//        if (existingItem) {
-//            QWidget *existingWidget = existingItem->widget();
-//            layout->removeWidget(existingWidget);
-//            delete existingWidget;
-//        }
-//    }
-    for (auto x : fileExp->fileNameLabels) {
-        if (x) delete x;
-    }
-    fileExp->fileNameLabels.clear();
-    for (auto x : fileExp->fileNavList) {
-        if (x) delete x;
-    }
-    fileExp->fileNavList.clear();
-    for (auto x : fileExp->vboxList) {
-        if (x) {
-
-        QWidget* widget1 = x->itemAt(0)->widget();
-        QWidget* widget2 = x->itemAt(1)->widget();
-
-        // Remove the widgets from the layout
-        x->removeWidget(widget1);
-        x->removeWidget(widget2);
-
-        // Delete the widgets
-        delete widget1;
-        delete widget2;
-        delete x;
-        }
-    }
-    fileExp->vboxList.clear();
-    layout->update();
-
-    numColumns = 7;
-    rowIndex = 0;
-    colIndex = 0;
-
-    QStringList sortedFiles = files;
-    std::sort(sortedFiles.begin(), sortedFiles.end(), [](const QString &a, const QString &b) {
-        QFileInfo fileInfoA(a);
-        QFileInfo fileInfoB(b);
-        if (fileInfoA.isDir() == fileInfoB.isDir())
-            return a < b;
-        return fileInfoA.isDir();
-    });
-
-    QString curDir = sortedFiles[0];
-    fileExp->ui->Path->setText(curDir);
-
-    for (int i = 0; i < sortedFiles.size(); ++i) {
-        QString filePath = sortedFiles[i];
-        QFileInfo fileInfo(filePath);
-        QString name = fileInfo.fileName();
-        if (name == "..") {
-            name = "<";
-        }
-//        QLabel *label = new QLabel(name);
-
-        qDebug() << filePath;
-
-        // Calculate the row and column positions
-        rowIndex = i / numColumns;
-        colIndex = i % numColumns;
-        qDebug() << rowIndex << colIndex;
-
-//        QIcon iconDir("folder.png");
-//        QIcon iconFile("document.png");
-
-        FileNavButton *button = new FileNavButton();
-
-        fileExp->fileNavList.push_back(button);
-        button->setStyleSheet("background-color: transparent;");
-
-        // Determine if it's a directory or file
-
-//        bool isDirectory = QFileInfo(filePath).isDir();
-        connect(button, FileNavButton::doubleClicked, [filePath, this]() {
-//            MyPushButton *button = static_cast<MyPushButton*>(sender());
-            bool isDirectory = QFileInfo(filePath).isDir();
-            if (isDirectory) {
-                qDebug() << "Directory double-clicked!";
-                this->client->sendFolderRequest(filePath);
-            } else {
-                qDebug() << "File double-clicked!";
-            }
-//            button->deleteLater();
-        });
-
-        // Add the QLabel to the layout
-        /*layout->addWidget(label, rowIndex, colIndex);
-        layout->addWidget(button, rowIndex, colIndex);*/
-
-        bool isDirectory = QFileInfo(filePath).isDir();
-
-        QVBoxLayout* vbox = new QVBoxLayout();
-        fileExp->vboxList.push_back(vbox);
-        vbox->setObjectName(name);
-        QLabel* IconFile1_5 = new QLabel(GirdFrame);
-        IconFile1_5->setObjectName("IconFile1_5");
-        IconFile1_5->setMaximumSize(QSize(100, 100));
-        IconFile1_5->setTextFormat(Qt::RichText);
-        IconFile1_5->setStyleSheet(QString::fromUtf8("padding-top: 8px;\n"
-                                          "padding-bottom: 2px;\n"
-                                          "margin: 0px;"));
-        IconFile1_5->setPixmap(QPixmap(QString::fromUtf8("document.png")));
-        if (isDirectory)
-            IconFile1_5->setPixmap(QPixmap(QString::fromUtf8("folder.png")));
-        IconFile1_5->setScaledContents(true);
-        IconFile1_5->setMargin(17);
-
-//        vbox->addWidget(button);
-        vbox->addWidget(IconFile1_5);
-
-        QLabel* nameLabel = new QLabel(GirdFrame);
-        nameLabel->setObjectName("Label_5");
-        nameLabel->setMaximumSize(QSize(100, 50));
-        nameLabel->setAlignment(Qt::AlignCenter);
-        nameLabel->setText(name);
-//        fileExp->fileNameLabels.push_back(nameLabel);
-
-        vbox->addWidget(nameLabel);
-
-
-
-        layout->addLayout(vbox, rowIndex, colIndex, 1, 1);
-        layout->addWidget(button, rowIndex, colIndex);
-    }
-}
-
-void ClientWindow::updateFileStruct(QStandardItemModel* &model) {
-    qDebug() << "display file struct";
-    if (fileExp != nullptr) {
-        QTreeView *treeView = fileExp->ui->treeView;
-        treeView->setModel(model);
-        treeView->setHeaderHidden(true);
-        treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-        treeView->setAnimated(true);
-        treeView->setIndentation(20);
-        treeView->setSortingEnabled(true);
-        treeView->setContextMenuPolicy(Qt::CustomContextMenu);
-        treeView->setExpandsOnDoubleClick(true);
-        treeView->setStyleSheet("QTreeView::item { height: 26px; }");
-        connect(treeView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
-
-        treeView->show();
-    }
-
-}
 
 // Define the slot that will be triggered
 void ClientWindow::onItemClicked(const QModelIndex& index)
 {
     // Retrieve the selected item's data
     QVariant itemData = index.data(Qt::UserRole);
-    QString itemPath = itemData.toString();
-    qDebug() << "ON CLICKN E: " << itemData << itemPath;
-    this->client->sendFolderRequest(itemPath);
+    QString filePathSpe = itemData.toString();
+    QString filePath = filePathSpe.remove(0, 1);
+    qDebug() << "ON CLICK: " << itemData << filePath;
+    this->client->sendFolderRequest(filePath);
 
 }
 
@@ -612,10 +442,12 @@ void ClientWindow::on_pushButton_clicked_5(){
     client->sendFolderRequest(tr("."));
     fileExp = new fileExplorer(ui->widget_2);
     fileExp->show();
-    connect(fileExp->ui->exitButton, &QPushButton::clicked, [=](){
-        delete fileExp;
-        fileExp = nullptr;
+    connect(client, &Client::directoryStructReceived, fileExp, &fileExplorer::updateFolderStruct);
+    connect(client, &Client::fileStructReceived, fileExp, &fileExplorer::updateFilesWindow);
+    connect(fileExp, &fileExplorer::sendFolderRequest, [=](const QString &path) {
+        client->sendFolderRequest(path);
     });
+
 //    connect(fileExp->ui->backButton, &QPushButton::clicked, [=](){
 //        QString prevWorkingDir = QDir::currentPath() + "//..";
 //        client->sendFolderRequest(prevWorkingDir);

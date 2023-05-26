@@ -8,6 +8,7 @@
 #include "include\ui_fileExplorer.h"
 #include "FileNavButton.h"
 #include <vector>
+#include <QStandardItemModel>
 using std::vector;
 
 namespace Ui {
@@ -27,8 +28,18 @@ public:
     vector<FileNavButton*> fileNavList;
     vector<QVBoxLayout*> vboxList;
 
+
+signals:
+    void sendFolderRequest(const QString &path);
+
+public slots:
+    void updateFolderStruct(QStandardItemModel* &model);
+    void updateFilesWindow(QStringList files);
+    void onItemClicked(const QModelIndex& index);
+
 public:
     Ui::fileExplorer *ui;
+    QString getName(const QString& path);
 
 //public slots:
 //    void handleReadyRead();

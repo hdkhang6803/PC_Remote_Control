@@ -13,12 +13,10 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -28,8 +26,6 @@ class Ui_fileExplorer
 {
 public:
     QWidget *MainWidget;
-    QLabel *TreeView;
-    QTreeView *treeView;
     QLabel *Path;
     QScrollArea *scrollArea;
     QWidget *Contents;
@@ -83,25 +79,9 @@ public:
         MainWidget->setGeometry(QRect(0, 0, 901, 571));
         MainWidget->setStyleSheet(QString::fromUtf8("border-radius: 5px;\n"
 "background-color: #F2F6FC;"));
-        TreeView = new QLabel(MainWidget);
-        TreeView->setObjectName("TreeView");
-        TreeView->setGeometry(QRect(10, 10, 221, 31));
-        TreeView->setStyleSheet(QString::fromUtf8("background-color: rgb(194, 231, 255);\n"
-"border: 1px #000000;\n"
-"border-radius: 5px;\n"
-"padding-left: 10px;\n"
-"font: 600 11pt \"UTM Avo\";"));
-        treeView = new QTreeView(MainWidget);
-        treeView->setObjectName("treeView");
-        treeView->setGeometry(QRect(10, 50, 221, 461));
-        treeView->setStyleSheet(QString::fromUtf8("background-color: #ffffff;\n"
-"border: 1px #000000;\n"
-"border-radius: 5px;\n"
-"padding-left: 10px;\n"
-"font: 500 10pt \"UTM Avo\";"));
         Path = new QLabel(MainWidget);
         Path->setObjectName("Path");
-        Path->setGeometry(QRect(280, 10, 591, 31));
+        Path->setGeometry(QRect(200, 10, 591, 31));
         Path->setStyleSheet(QString::fromUtf8("background-color: rgb(194, 231, 255);\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
@@ -109,7 +89,7 @@ public:
 "font: 600 11pt \"UTM Avo\";"));
         scrollArea = new QScrollArea(MainWidget);
         scrollArea->setObjectName("scrollArea");
-        scrollArea->setGeometry(QRect(240, 50, 631, 500));
+        scrollArea->setGeometry(QRect(160, 50, 631, 441));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -407,7 +387,7 @@ public:
         scrollArea->setWidget(Contents);
         exitButton = new QPushButton(MainWidget);
         exitButton->setObjectName("exitButton");
-        exitButton->setGeometry(QRect(10, 520, 221, 31));
+        exitButton->setGeometry(QRect(370, 520, 221, 31));
         exitButton->setStyleSheet(QString::fromUtf8("font: 600 10pt \"UTM Avo\";\n"
 "border: 1px solid rgb(194, 231, 255);\n"
 "background-color: #ffffff;\n"
@@ -415,7 +395,7 @@ public:
 ""));
         backButton = new QPushButton(MainWidget);
         backButton->setObjectName("backButton");
-        backButton->setGeometry(QRect(240, 10, 41, 31));
+        backButton->setGeometry(QRect(160, 10, 41, 31));
         backButton->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 132, 255);\n"
 "border: 1px #000000;\n"
 "border-radius: 5px;\n"
@@ -428,8 +408,6 @@ public:
 "border: 1px #000000;\n"
 "font: 600 11pt \"UTM Avo\";\n"
 "border-radius: 0;"));
-        treeView->raise();
-        TreeView->raise();
         scrollArea->raise();
         exitButton->raise();
         backButton->raise();
@@ -444,7 +422,6 @@ public:
     void retranslateUi(QWidget *fileExplorer)
     {
         fileExplorer->setWindowTitle(QCoreApplication::translate("fileExplorer", "Form", nullptr));
-        TreeView->setText(QCoreApplication::translate("fileExplorer", "Tree View", nullptr));
         Path->setText(QCoreApplication::translate("fileExplorer", "D:\\Folder2", nullptr));
         IconFile1_20->setText(QString());
         IconFile1_4->setText(QString());
