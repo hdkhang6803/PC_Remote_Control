@@ -34,8 +34,8 @@ ClientWindow::ClientWindow(QWidget *parent) :
 
     _ipLabel = ui->ipLabel;
     _portLabel = ui->portLabel;
-    _ipBox = ui->ipBox;
-    _portBox = ui->portBox;
+    _ipBox = ui->portBox;
+    _portBox = ui->ipBox;
 
 
 
